@@ -31,7 +31,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com/github/set08103_group_17/set08103_coursework/App.java</mainClass>
+                            <mainClass>com/github/set08103_group_17/set08103_coursework/App</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
