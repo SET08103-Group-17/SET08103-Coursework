@@ -1,4 +1,4 @@
-package com.napier.sem;
+package com.github.set08103_group_17.set08103_coursework;
 
 public class App {
     public static void main(String[] args) {
