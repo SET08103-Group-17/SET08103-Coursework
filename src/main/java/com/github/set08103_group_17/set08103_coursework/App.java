@@ -4,8 +4,15 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * TODO: Add Comment here
+ */
 public class App
 {
+    /**
+     * TODO: Add Comment here
+     * @param args
+     */
     public static void main(String[] args)
     {
         // Create new Application
@@ -18,8 +25,14 @@ public class App
         a.disconnect();
     }
 
+    /**
+     * Connection to MySQL database.
+     */
     private Connection con = null;
 
+    /**
+     * Connect to the MySQL database.
+     */
     public void connect()
     {
         try
@@ -58,6 +71,9 @@ public class App
         }
     }
 
+    /**
+     * Disconnect from the MySQL database
+     */
     public void disconnect()
     {
         if (con != null)
