@@ -21,6 +21,7 @@ public class App
         a.connect();
 
         ArrayList<Country> countries = a.getCountries();
+        a.printCountries(countries);
 
         // Disconnect from database
         a.disconnect();
@@ -102,7 +103,7 @@ public class App
             String select =
                     "SELECT * "
                     + "FROM country "
-                    + "ORDER BY population";
+                    + "ORDER BY population DESC";
             ResultSet rs = stmt.executeQuery(select);
             ArrayList<Country> countries = new ArrayList<>();
             while (rs.next())
@@ -123,6 +124,7 @@ public class App
                 int capital = rs.getInt("Capital");
                 String code2 = rs.getString("Code2");
                 Country country = new Country(code, name, continent, region, surfaceArea, independenceYear, population, lifeExpectancy, GNP, GNPOld, localName, governmentForm, headOfState, capital, code2);
+                countries.add(country);
             }
             return countries;
         }
@@ -131,6 +133,20 @@ public class App
             System.out.println(e.getMessage());
             System.out.println("Failed to get country details");
             return null;
+        }
+    }
+
+    /**
+     * @param countries
+     */
+    public void printCountries(ArrayList<Country> countries)
+    {
+        System.out.printf("%-4s %-52s %-15s %-26s %-15s %-10s%n", "Code", "Name", "Continent", "Region", "Population", "Capital");
+        for (Country country : countries)
+        {
+            String countryData = String.format("%-4s %-52s %-15s %-26s %-15s %-10s",
+                    country.getCode(), country.getName(), country.getContinent(), country.getRegion(), country.getPopulation(), country.getCapital());
+            System.out.println(countryData);
         }
     }
 }
