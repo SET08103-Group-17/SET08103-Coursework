@@ -99,18 +99,24 @@ public class App
     {
         try
         {
+            // Create an SQL statement
             Statement stmt = con.createStatement();
+            // Create string for SQL statement
             String select =
                     "SELECT * "
                     + "FROM country "
                     + "ORDER BY population DESC";
+            // Execute SQL statement
             ResultSet rs = stmt.executeQuery(select);
+            // Extract employee information
             ArrayList<Country> countries = new ArrayList<>();
             while (rs.next())
             {
                 String code = rs.getString("Code");
                 String name = rs.getString("Name");
-                Country.Continent continent = Country.Continent.valueOf(rs.getString("Continent").replaceAll(" ", "_").toUpperCase());
+                Country.Continent continent = Country.Continent.valueOf(rs.getString("Continent")
+                        .replaceAll(" ", "_")
+                        .toUpperCase());
                 String region = rs.getString("Region");
                 double surfaceArea = rs.getDouble("SurfaceArea");
                 int independenceYear = rs.getInt("IndepYear");
@@ -123,7 +129,8 @@ public class App
                 String headOfState = rs.getString("HeadOfState");
                 int capital = rs.getInt("Capital");
                 String code2 = rs.getString("Code2");
-                Country country = new Country(code, name, continent, region, surfaceArea, independenceYear, population, lifeExpectancy, GNP, GNPOld, localName, governmentForm, headOfState, capital, code2);
+                Country country = new Country(code, name, continent, region, surfaceArea, independenceYear, population,
+                        lifeExpectancy, GNP, GNPOld, localName, governmentForm, headOfState, capital, code2);
                 countries.add(country);
             }
             return countries;
@@ -141,11 +148,15 @@ public class App
      */
     public void printCountries(ArrayList<Country> countries)
     {
-        System.out.printf("%-4s %-52s %-15s %-26s %-15s %-10s%n", "Code", "Name", "Continent", "Region", "Population", "Capital");
+        // Print header
+        System.out.printf("%-4s %-52s %-15s %-26s %-15s %-10s%n", "Code", "Name", "Continent", "Region", "Population",
+                "Capital");
+        // Loop over all employees in the list
         for (Country country : countries)
         {
             String countryData = String.format("%-4s %-52s %-15s %-26s %-15s %-10s",
-                    country.getCode(), country.getName(), country.getContinent(), country.getRegion(), country.getPopulation(), country.getCapital());
+                    country.getCode(), country.getName(), country.getContinent(), country.getRegion(),
+                    country.getPopulation(), country.getCapital());
             System.out.println(countryData);
         }
     }
