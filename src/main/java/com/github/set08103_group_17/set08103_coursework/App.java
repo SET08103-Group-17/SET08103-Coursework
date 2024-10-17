@@ -109,7 +109,7 @@ public class App
             {
                 String code = rs.getString("Code");
                 String name = rs.getString("Name");
-                Country.Continent continent = Country.Continent.valueOf(rs.getString("Continent").toUpperCase());
+                Country.Continent continent = Country.Continent.valueOf(rs.getString("Continent").replaceAll(" ", "_").toUpperCase());
                 String region = rs.getString("Region");
                 double surfaceArea = rs.getDouble("SurfaceArea");
                 int independenceYear = rs.getInt("IndepYear");
