@@ -3,10 +3,12 @@ package com.github.set08103_group_17.set08103_coursework;
 /**
  *
  */
-public class Country {
+public class Country
+{
     private String code;
     private String name;
-    public enum Continent {
+    public enum Continent
+    {
         ASIA,
         EUROPE,
         NORTH_AMERICA,
@@ -46,7 +48,8 @@ public class Country {
      * @param capital
      * @param code2
      */
-    public Country(String code, String name, Continent continent, String region, double surfaceArea, int independenceYear, int population, double lifeExpectancy, double GNP, double GNPOld, String localName, String governmentForm, String headOfState, int capital, String code2) {
+    public Country(String code, String name, Continent continent, String region, double surfaceArea, int independenceYear, int population, double lifeExpectancy, double GNP, double GNPOld, String localName, String governmentForm, String headOfState, int capital, String code2)
+    {
         this.code = code;
         this.name = name;
         this.continent = continent;
@@ -67,105 +70,120 @@ public class Country {
     /**
      * @return
      */
-    public String getCode() {
+    public String getCode()
+    {
         return code;
     }
 
     /**
      * @return
      */
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
     /**
      * @return
      */
-    public Continent getContinent() {
+    public Continent getContinent()
+    {
         return continent;
     }
 
     /**
      * @return
      */
-    public String getRegion() {
+    public String getRegion()
+    {
         return region;
     }
 
     /**
      * @return
      */
-    public double getSurfaceArea() {
+    public double getSurfaceArea()
+    {
         return surfaceArea;
     }
 
     /**
      * @return
      */
-    public int getIndependenceYear() {
+    public int getIndependenceYear()
+    {
         return independenceYear;
     }
 
     /**
      * @return
      */
-    public int getPopulation() {
+    public int getPopulation()
+    {
         return population;
     }
 
     /**
      * @return
      */
-    public double getLifeExpectancy() {
+    public double getLifeExpectancy()
+    {
         return lifeExpectancy;
     }
 
     /**
      * @return
      */
-    public double getGNP() {
+    public double getGNP()
+    {
         return GNP;
     }
 
     /**
      * @return
      */
-    public double getGNPOld() {
+    public double getGNPOld()
+    {
         return GNPOld;
     }
 
     /**
      * @return
      */
-    public String getLocalName() {
+    public String getLocalName()
+    {
         return localName;
     }
 
     /**
      * @return
      */
-    public String getGovernmentForm() {
+    public String getGovernmentForm()
+    {
         return governmentForm;
     }
 
     /**
      * @return
      */
-    public String getHeadOfState() {
+    public String getHeadOfState()
+    {
         return headOfState;
     }
 
     /**
      * @return
      */
-    public int getCapital() {
+    public int getCapital()
+    {
         return capital;
     }
 
     /**
      * @return
      */
-    public String getCode2() {
+    public String getCode2()
+    {
         return code2;
     }
 }
