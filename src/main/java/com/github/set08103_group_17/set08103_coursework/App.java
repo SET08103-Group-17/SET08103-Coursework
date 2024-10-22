@@ -20,8 +20,8 @@ public class App
         // Connect to database
         a.connect();
 
-        ArrayList<Country> countries = a.getCountries("British Islands");
-        a.printCountries(countries);
+        ArrayList<City> cities = a.getCity();
+        a.printCity(cities);
 
         // Disconnect from database
         a.disconnect();
@@ -144,6 +144,7 @@ public class App
         }
     }
 
+
     /**
      * TODO: Add Comment here
      * @param continentInput
@@ -255,7 +256,47 @@ public class App
     /**
      * TODO: Add Comment here
      * @param countries
+     * @return ArrayList of City objects
      */
+    public ArrayList<City> getCity() {
+        ArrayList<City> cities = new ArrayList<>();  // Initialize the list here
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String select = "SELECT * FROM city ORDER BY population DESC";
+            // Execute SQL statement
+            ResultSet rs = stmt.executeQuery(select);
+
+            // Extract city information
+            while (rs.next()) {
+                // Retrieve city data from the ResultSet
+                int ID = rs.getInt("ID");
+                String Name = rs.getString("Name");
+                String Code = rs.getString("CountryCode");
+                String District = rs.getString("District");
+                int Population = rs.getInt("Population");
+
+                // Create a new City object
+                City city = new City(ID, Name, Code, District, Population);
+
+                // Add the City object to the list
+                cities.add(city);
+            }
+            return cities;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
+
+
+    /**
+     * do not delete others print statement simply comment out
+
     public void printCountries(ArrayList<Country> countries)
     {
         // Print header
@@ -268,6 +309,23 @@ public class App
                     country.getCode(), country.getName(), country.getContinent(), country.getRegion(),
                     country.getPopulation(), country.getCapital());
             System.out.println(countryData);
+        }
+    }
+}
+*/
+
+
+    public void printCity(ArrayList<City> cities)
+    {
+        // Print header
+        System.out.printf("%-4s %-35s %-6s %-20s %-15s", "ID", "Name", "Code", "District", "Population \n");
+        // Loop over all employees in the list
+        for (City City : cities)
+        {
+            String CityData = String.format("%-4s %-35s %-6s %-20s %-15s",
+                    City.getID(), City.getName(), City.getCode(), City.getDistrict(),
+                    City.getPopulation());
+            System.out.println(CityData);
         }
     }
 }
