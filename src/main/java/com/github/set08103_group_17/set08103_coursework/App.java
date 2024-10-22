@@ -144,7 +144,6 @@ public class App
         }
     }
 
-
     /**
      * TODO: Add Comment here
      * @param continentInput
@@ -255,7 +254,6 @@ public class App
 
     /**
      * TODO: Add Comment here
-     * @param countries
      * @return ArrayList of City objects
      */
     public ArrayList<City> getCity() {
@@ -293,10 +291,6 @@ public class App
         }
     }
 
-
-    /**
-     * do not delete others print statement simply comment out
-
     public void printCountries(ArrayList<Country> countries)
     {
         // Print header
@@ -311,9 +305,6 @@ public class App
             System.out.println(countryData);
         }
     }
-}
-*/
-
 
     public void printCity(ArrayList<City> cities)
     {
