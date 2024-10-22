@@ -1,9 +1,8 @@
 package com.github.set08103_group_17.set08103_coursework;
 
-import javax.print.DocFlavor;
-import javax.swing.*;
-import javax.swing.event.PopupMenuListener;
-
+/**
+ * TODO: Add Comment here
+ */
 public class City {
     private int ID;
     private String Name;
@@ -12,6 +11,7 @@ public class City {
     private int Population;
 
     /**
+     * TODO: Add Comment here
      * @param ID
      * @param Name
      * @param Code
@@ -26,6 +26,7 @@ public class City {
     }
 
     /**
+     * TODO: Add Comment here
      * @return
      */
     public int getID()
@@ -34,6 +35,7 @@ public class City {
     }
 
     /**
+     * TODO: Add Comment here
      * @return
      */
     public String getName()
@@ -42,6 +44,7 @@ public class City {
     }
 
     /**
+     * TODO: Add Comment here
      * @return
      */
     public String getCode()
@@ -50,6 +53,7 @@ public class City {
     }
 
     /**
+     * TODO: Add Comment here
      * @return
      */
     public String getDistrict()
@@ -58,6 +62,7 @@ public class City {
     }
 
     /**
+     * TODO: Add Comment here
      * @return
      */
     public int getPopulation()
