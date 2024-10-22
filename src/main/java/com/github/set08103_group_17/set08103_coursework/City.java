@@ -1,8 +1,5 @@
 package com.github.set08103_group_17.set08103_coursework;
 
-import javax.print.DocFlavor;
-import javax.swing.*;
-import javax.swing.event.PopupMenuListener;
 
 public class City {
     private int ID;
@@ -16,6 +13,7 @@ public class City {
      * @param Name
      * @param Code
      * @param District
+     * @param Population
      */
     public City(int ID, String Name, String Code, String District, int Population) {
         this.ID = ID;
