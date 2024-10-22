@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 /**
- * generate instance of Class App
+ * Generate instance of Class App
  */
 public class App
 {
@@ -93,6 +93,7 @@ public class App
     }
 
     /**
+     * TODO: Add Comment here
      * @return
      */
     public ArrayList<Country> getCountries()
@@ -104,8 +105,8 @@ public class App
             // Create string for SQL statement
             String select =
                     "SELECT * "
-                    + "FROM country "
-                    + "ORDER BY population DESC";
+                            + "FROM country "
+                            + "ORDER BY population DESC";
             // Execute SQL statement
             ResultSet rs = stmt.executeQuery(select);
             // Extract employee information
@@ -143,8 +144,116 @@ public class App
         }
     }
 
+    /**
+     * TODO: Add Comment here
+     * @param continentInput
+     * @return
+     */
+    public ArrayList<Country> getCountries(Country.Continent continentInput)
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String select =
+                    "SELECT * "
+                            + "FROM country "
+                            + "WHERE continent = '" + continentInput + "' "
+                            + "ORDER BY population DESC";
+            // Execute SQL statement
+            ResultSet rs = stmt.executeQuery(select);
+            // Extract employee information
+            ArrayList<Country> countries = new ArrayList<>();
+            while (rs.next())
+            {
+                String code = rs.getString("Code");
+                String name = rs.getString("Name");
+                Country.Continent continent = Country.Continent.valueOf(rs.getString("Continent")
+                        .replaceAll(" ", "_")
+                        .toUpperCase());
+                String region = rs.getString("Region");
+                double surfaceArea = rs.getDouble("SurfaceArea");
+                int independenceYear = rs.getInt("IndepYear");
+                int population = rs.getInt("Population");
+                double lifeExpectancy = rs.getDouble("LifeExpectancy");
+                double GNP = rs.getDouble("GNP");
+                double GNPOld = rs.getDouble("GNPOld");
+                String localName = rs.getString("LocalName");
+                String governmentForm = rs.getString("GovernmentForm");
+                String headOfState = rs.getString("HeadOfState");
+                int capital = rs.getInt("Capital");
+                String code2 = rs.getString("Code2");
+                Country country = new Country(code, name, continent, region, surfaceArea, independenceYear, population,
+                        lifeExpectancy, GNP, GNPOld, localName, governmentForm, headOfState, capital, code2);
+                countries.add(country);
+            }
+            return countries;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
 
     /**
+     * TODO: Add Comment here
+     * @param regionInput
+     * @return
+     */
+    public ArrayList<Country> getCountries(String regionInput)
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String select =
+                    "SELECT * "
+                            + "FROM country "
+                            + "WHERE region = '" + regionInput + "' "
+                            + "ORDER BY population DESC";
+            // Execute SQL statement
+            ResultSet rs = stmt.executeQuery(select);
+            // Extract employee information
+            ArrayList<Country> countries = new ArrayList<>();
+            while (rs.next())
+            {
+                String code = rs.getString("Code");
+                String name = rs.getString("Name");
+                Country.Continent continent = Country.Continent.valueOf(rs.getString("Continent")
+                        .replaceAll(" ", "_")
+                        .toUpperCase());
+                String region = rs.getString("Region");
+                double surfaceArea = rs.getDouble("SurfaceArea");
+                int independenceYear = rs.getInt("IndepYear");
+                int population = rs.getInt("Population");
+                double lifeExpectancy = rs.getDouble("LifeExpectancy");
+                double GNP = rs.getDouble("GNP");
+                double GNPOld = rs.getDouble("GNPOld");
+                String localName = rs.getString("LocalName");
+                String governmentForm = rs.getString("GovernmentForm");
+                String headOfState = rs.getString("HeadOfState");
+                int capital = rs.getInt("Capital");
+                String code2 = rs.getString("Code2");
+                Country country = new Country(code, name, continent, region, surfaceArea, independenceYear, population,
+                        lifeExpectancy, GNP, GNPOld, localName, governmentForm, headOfState, capital, code2);
+                countries.add(country);
+            }
+            return countries;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
+
+    /**
+     * TODO: Add Comment here
      * @return ArrayList of City objects
      */
     public ArrayList<City> getCity() {
@@ -182,10 +291,6 @@ public class App
         }
     }
 
-
-    /**
-     * do not delete others print statement simply comment out
-
     public void printCountries(ArrayList<Country> countries)
     {
         // Print header
@@ -200,9 +305,6 @@ public class App
             System.out.println(countryData);
         }
     }
-}
-*/
-
 
     public void printCity(ArrayList<City> cities)
     {

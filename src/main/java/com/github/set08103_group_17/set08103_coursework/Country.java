@@ -1,7 +1,7 @@
 package com.github.set08103_group_17.set08103_coursework;
 
 /**
- *
+ * TODO: Add Comment here
  */
 public class Country
 {
@@ -32,6 +32,7 @@ public class Country
     private String code2;
 
     /**
+     * TODO: Add Comment here
      * @param code
      * @param name
      * @param continent
@@ -68,6 +69,7 @@ public class Country
     }
 
     /**
+     * TODO: Add Comment here
      * @return
      */
     public String getCode()
@@ -76,6 +78,7 @@ public class Country
     }
 
     /**
+     * TODO: Add Comment here
      * @return
      */
     public String getName()
@@ -84,6 +87,7 @@ public class Country
     }
 
     /**
+     * TODO: Add Comment here
      * @return
      */
     public Continent getContinent()
@@ -92,6 +96,7 @@ public class Country
     }
 
     /**
+     * TODO: Add Comment here
      * @return
      */
     public String getRegion()
@@ -100,6 +105,7 @@ public class Country
     }
 
     /**
+     * TODO: Add Comment here
      * @return
      */
     public double getSurfaceArea()
@@ -108,6 +114,7 @@ public class Country
     }
 
     /**
+     * TODO: Add Comment here
      * @return
      */
     public int getIndependenceYear()
@@ -116,6 +123,7 @@ public class Country
     }
 
     /**
+     * TODO: Add Comment here
      * @return
      */
     public int getPopulation()
@@ -124,6 +132,7 @@ public class Country
     }
 
     /**
+     * TODO: Add Comment here
      * @return
      */
     public double getLifeExpectancy()
@@ -132,6 +141,7 @@ public class Country
     }
 
     /**
+     * TODO: Add Comment here
      * @return
      */
     public double getGNP()
@@ -140,6 +150,7 @@ public class Country
     }
 
     /**
+     * TODO: Add Comment here
      * @return
      */
     public double getGNPOld()
@@ -148,6 +159,7 @@ public class Country
     }
 
     /**
+     * TODO: Add Comment here
      * @return
      */
     public String getLocalName()
@@ -156,6 +168,7 @@ public class Country
     }
 
     /**
+     * TODO: Add Comment here
      * @return
      */
     public String getGovernmentForm()
@@ -164,6 +177,7 @@ public class Country
     }
 
     /**
+     * TODO: Add Comment here
      * @return
      */
     public String getHeadOfState()
@@ -172,6 +186,7 @@ public class Country
     }
 
     /**
+     * TODO: Add Comment here
      * @return
      */
     public int getCapital()
@@ -180,6 +195,7 @@ public class Country
     }
 
     /**
+     * TODO: Add Comment here
      * @return
      */
     public String getCode2()
