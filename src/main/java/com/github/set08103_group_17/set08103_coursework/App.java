@@ -4,12 +4,12 @@ import java.sql.*;
 import java.util.ArrayList;
 
 /**
- * TODO: Add Comment here
+ * generate instance of Class App
  */
 public class App
 {
     /**
-     * TODO: Add Comment here
+     * List of parameters that should be added to when new args are made
      * @param args
      */
     public static void main(String[] args)
