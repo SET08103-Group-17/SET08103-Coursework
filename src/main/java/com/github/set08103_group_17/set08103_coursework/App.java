@@ -20,7 +20,7 @@ public class App
         // Connect to database
         a.connect();
 
-        ArrayList<Country> countries = a.getCountries();
+        ArrayList<Country> countries = a.getCountries(Country.Continent.EUROPE);
         a.printCountries(countries);
 
         // Disconnect from database
@@ -89,6 +89,60 @@ public class App
             {
                 System.out.println("Error closing connection to database");
             }
+        }
+    }
+
+    /**
+     *
+     * @param continentInput
+     * @return
+     */
+    public ArrayList<Country> getCountries(Country.Continent continentInput)
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String select =
+                    "SELECT * "
+                            + "FROM country "
+                            + "WHERE continent = '" + continentInput + "' "
+                            + "ORDER BY population DESC";
+            // Execute SQL statement
+            ResultSet rs = stmt.executeQuery(select);
+            // Extract employee information
+            ArrayList<Country> countries = new ArrayList<>();
+            while (rs.next())
+            {
+                String code = rs.getString("Code");
+                String name = rs.getString("Name");
+                Country.Continent continent = Country.Continent.valueOf(rs.getString("Continent")
+                        .replaceAll(" ", "_")
+                        .toUpperCase());
+                String region = rs.getString("Region");
+                double surfaceArea = rs.getDouble("SurfaceArea");
+                int independenceYear = rs.getInt("IndepYear");
+                int population = rs.getInt("Population");
+                double lifeExpectancy = rs.getDouble("LifeExpectancy");
+                double GNP = rs.getDouble("GNP");
+                double GNPOld = rs.getDouble("GNPOld");
+                String localName = rs.getString("LocalName");
+                String governmentForm = rs.getString("GovernmentForm");
+                String headOfState = rs.getString("HeadOfState");
+                int capital = rs.getInt("Capital");
+                String code2 = rs.getString("Code2");
+                Country country = new Country(code, name, continent, region, surfaceArea, independenceYear, population,
+                        lifeExpectancy, GNP, GNPOld, localName, governmentForm, headOfState, capital, code2);
+                countries.add(country);
+            }
+            return countries;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
         }
     }
 
