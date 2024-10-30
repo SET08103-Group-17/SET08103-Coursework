@@ -9,8 +9,9 @@ import java.util.ArrayList;
 public class App
 {
     /**
-     * List of parameters that should be added to when new args are made
-     * @param args
+     * Main Method 
+     * @param args List of parameters that should be added to when new args are
+     * made
      */
     public static void main(String[] args)
     {
@@ -57,13 +58,16 @@ public class App
                 // Wait a bit for db to start
                 Thread.sleep(30000);
                 // Connect to database
-                con = DriverManager.getConnection("jdbc:mysql://db:3306/world?useSSL=false", "root", "example");
+                con = DriverManager.getConnection(
+                        "jdbc:mysql://db:3306/world?useSSL=false", "root",
+                        "example"
+                );
                 System.out.println("Successfully connected");
                 break;
             }
             catch (SQLException sqle)
             {
-                System.out.println("Failed to connect to database attempt " + Integer.toString(i));
+                System.out.println("Failed to connect to database attempt " + i);
                 System.out.println(sqle.getMessage());
             }
             catch (InterruptedException ie)
@@ -93,8 +97,8 @@ public class App
     }
 
     /**
-     * TODO: Add Comment here
-     * @return
+     * Get all countries in the world
+     * @return list of countries
      */
     public ArrayList<Country> getCountries()
     {
@@ -115,9 +119,11 @@ public class App
             {
                 String code = rs.getString("Code");
                 String name = rs.getString("Name");
-                Country.Continent continent = Country.Continent.valueOf(rs.getString("Continent")
+                Country.Continent continent = Country.Continent.valueOf(
+                        rs.getString("Continent")
                         .replaceAll(" ", "_")
-                        .toUpperCase());
+                        .toUpperCase()
+                );
                 String region = rs.getString("Region");
                 double surfaceArea = rs.getDouble("SurfaceArea");
                 int independenceYear = rs.getInt("IndepYear");
@@ -130,8 +136,11 @@ public class App
                 String headOfState = rs.getString("HeadOfState");
                 int capital = rs.getInt("Capital");
                 String code2 = rs.getString("Code2");
-                Country country = new Country(code, name, continent, region, surfaceArea, independenceYear, population,
-                        lifeExpectancy, GNP, GNPOld, localName, governmentForm, headOfState, capital, code2);
+                Country country = new Country(code, name, continent, region,
+                        surfaceArea, independenceYear, population,
+                        lifeExpectancy, GNP, GNPOld, localName, governmentForm,
+                        headOfState, capital, code2
+                );
                 countries.add(country);
             }
             return countries;
@@ -145,9 +154,9 @@ public class App
     }
 
     /**
-     * TODO: Add Comment here
-     * @param continentInput
-     * @return
+     * Get all countries in the world in a continent
+     * @param continentInput continent in the world
+     * @return list of countries
      */
     public ArrayList<Country> getCountries(Country.Continent continentInput)
     {
@@ -169,9 +178,11 @@ public class App
             {
                 String code = rs.getString("Code");
                 String name = rs.getString("Name");
-                Country.Continent continent = Country.Continent.valueOf(rs.getString("Continent")
+                Country.Continent continent = Country.Continent.valueOf(
+                        rs.getString("Continent")
                         .replaceAll(" ", "_")
-                        .toUpperCase());
+                        .toUpperCase()
+                );
                 String region = rs.getString("Region");
                 double surfaceArea = rs.getDouble("SurfaceArea");
                 int independenceYear = rs.getInt("IndepYear");
@@ -184,8 +195,11 @@ public class App
                 String headOfState = rs.getString("HeadOfState");
                 int capital = rs.getInt("Capital");
                 String code2 = rs.getString("Code2");
-                Country country = new Country(code, name, continent, region, surfaceArea, independenceYear, population,
-                        lifeExpectancy, GNP, GNPOld, localName, governmentForm, headOfState, capital, code2);
+                Country country = new Country(code, name, continent, region,
+                        surfaceArea, independenceYear, population,
+                        lifeExpectancy, GNP, GNPOld, localName, governmentForm,
+                        headOfState, capital, code2
+                );
                 countries.add(country);
             }
             return countries;
@@ -199,9 +213,9 @@ public class App
     }
 
     /**
-     * TODO: Add Comment here
-     * @param regionInput
-     * @return
+     * Get all countries in the world in a region
+     * @param regionInput region in the world
+     * @return list of countries
      */
     public ArrayList<Country> getCountries(String regionInput)
     {
@@ -223,9 +237,11 @@ public class App
             {
                 String code = rs.getString("Code");
                 String name = rs.getString("Name");
-                Country.Continent continent = Country.Continent.valueOf(rs.getString("Continent")
+                Country.Continent continent = Country.Continent.valueOf(
+                        rs.getString("Continent")
                         .replaceAll(" ", "_")
-                        .toUpperCase());
+                        .toUpperCase()
+                );
                 String region = rs.getString("Region");
                 double surfaceArea = rs.getDouble("SurfaceArea");
                 int independenceYear = rs.getInt("IndepYear");
@@ -238,8 +254,11 @@ public class App
                 String headOfState = rs.getString("HeadOfState");
                 int capital = rs.getInt("Capital");
                 String code2 = rs.getString("Code2");
-                Country country = new Country(code, name, continent, region, surfaceArea, independenceYear, population,
-                        lifeExpectancy, GNP, GNPOld, localName, governmentForm, headOfState, capital, code2);
+                Country country = new Country(code, name, continent, region,
+                        surfaceArea, independenceYear, population,
+                        lifeExpectancy, GNP, GNPOld, localName, governmentForm,
+                        headOfState, capital, code2
+                );
                 countries.add(country);
             }
             return countries;
@@ -253,12 +272,14 @@ public class App
     }
 
     /**
-     * TODO: Add Comment here
+     * Get all cities in the world
      * @return ArrayList of City objects
      */
-    public ArrayList<City> getCity() {
-        ArrayList<City> cities = new ArrayList<>();  // Initialize the list here
-        try {
+    public ArrayList<City> getCity()
+    {
+        ArrayList<City> cities = new ArrayList<>();  // Initialize the list
+        try
+        {
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -291,31 +312,46 @@ public class App
         }
     }
 
+    /**
+     * Print a report on countries
+     * @param countries the countries to report on
+     */
     public void printCountries(ArrayList<Country> countries)
     {
         // Print header
-        System.out.printf("%-4s %-52s %-15s %-26s %-15s %-10s%n", "Code", "Name", "Continent", "Region", "Population",
-                "Capital");
+        System.out.printf("%-4s %-52s %-15s %-26s %-15s %-10s%n", "Code",
+                "Name", "Continent", "Region", "Population", "Capital"
+        );
         // Loop over all employees in the list
         for (Country country : countries)
         {
-            String countryData = String.format("%-4s %-52s %-15s %-26s %-15s %-10s",
-                    country.getCode(), country.getName(), country.getContinent(), country.getRegion(),
-                    country.getPopulation(), country.getCapital());
+            String countryData = String.format(
+                    "%-4s %-52s %-15s %-26s %-15s %-10s", country.getCode(),
+                    country.getName(), country.getContinent(),
+                    country.getRegion(), country.getPopulation(),
+                    country.getCapital()
+            );
             System.out.println(countryData);
         }
     }
 
+    /**
+     * Print a report on cities
+     * @param cities the cities to report on
+     */
     public void printCity(ArrayList<City> cities)
     {
         // Print header
-        System.out.printf("%-4s %-35s %-6s %-20s %-15s", "ID", "Name", "Code", "District", "Population \n");
+        System.out.printf("%-4s %-35s %-6s %-20s %-15s%n", "ID", "Name", "Code",
+                "District", "Population"
+        );
         // Loop over all employees in the list
         for (City City : cities)
         {
             String CityData = String.format("%-4s %-35s %-6s %-20s %-15s",
-                    City.getID(), City.getName(), City.getCode(), City.getDistrict(),
-                    City.getPopulation());
+                    City.getID(), City.getName(), City.getCode(),
+                    City.getDistrict(), City.getPopulation()
+            );
             System.out.println(CityData);
         }
     }
