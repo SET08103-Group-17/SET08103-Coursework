@@ -319,4 +319,50 @@ public class App
             System.out.println(CityData);
         }
     }
+
+    //Report.No.20 - The top N populated capital cities in the world where N is provided by the user.
+    public ArrayList<City> topPopulatedCapitals_Region (int limitInput)
+    {
+        try
+        {
+            //Create an SQL statement
+            Statement TopCapCities_Region = con.createStatement();
+
+            //Create string for SQL statement
+            String select =
+                    "SELECT city.Name AS capitalCity, city.Population "
+                            + "FROM city "
+                            + "JOIN country ON city.ID = country.Capital "
+                            + "ORDER BY city.Population DESC "
+                            + "LIMIT " + limitInput;
+
+            //Execute SQL statement
+            ResultSet rs = TopCapCities_Region.executeQuery(select);
+
+            //Extract information
+            ArrayList<City> capCities = new ArrayList<>();
+            while (rs.next())
+            {
+                int id = rs.getInt("ID");
+                String name = rs.getString("capitalCity");
+                String countryCode = rs.getString("CountryCode");
+                String district = rs.getString("District");
+                int population = rs.getInt("Population");
+
+                City city = new City(id, name, countryCode, district, population);
+                capCities.add(city);
+            }
+            rs.close();
+            TopCapCities_Region.close();
+
+            return capCities;
+        }
+        //Send exception if fail
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to retrieve Capital City details");
+            return null;
+        }
+    }
 }
