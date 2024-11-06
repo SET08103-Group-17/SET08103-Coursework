@@ -2,6 +2,7 @@ package com.github.set08103_group_17.set08103_coursework;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Generate instance of Class App
@@ -321,10 +322,17 @@ public class App
     }
 
     //Report.No.20 - The top N populated capital cities in the world where N is provided by the user.
-    public ArrayList<City> topPopulatedCapitals_Region (int limitInput)
+    public ArrayList<City> topPopulatedCapitals_Region ()
     {
         try
         {
+            //Create scanner object
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Enter the amount of records you would like: ");
+
+            //Read user input, expects int
+            int limitInput = scanner.nextInt();
+
             //Create an SQL statement
             Statement TopCapCities_Region = con.createStatement();
 
@@ -355,6 +363,7 @@ public class App
             rs.close();
             TopCapCities_Region.close();
 
+            scanner.close();
             return capCities;
         }
         //Send exception if fail
