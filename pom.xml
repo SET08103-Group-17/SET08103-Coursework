@@ -6,7 +6,7 @@
 
     <groupId>com.github.set08103_group_17.set08103_coursework</groupId>
     <artifactId>SET08103-Coursework</artifactId>
-    <version>0.1.0.1</version>
+    <version>0.1.0.2</version>
 
     <dependencies>
         <dependency>
