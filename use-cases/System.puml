@@ -1,0 +1,206 @@
+@startuml
+
+actor employee as "employee"
+
+rectangle Database
+
+rectangle "System" {
+    usecase UC1 as "Get all countries"
+
+    usecase UC2 as "Get all countries
+    by continent"
+
+    usecase UC3 as "Get all countries
+    by region"
+
+    usecase UC4 as "Get N most
+    populated countries"
+
+    usecase UC5 as "Get N most
+    populated countries
+    by continent"
+
+    usecase UC6 as "Get N most
+    populated countries
+    by region"
+
+    usecase UC7 as "Get all cities"
+
+    usecase UC8 as "Get all cities
+    by continent"
+
+    usecase UC9 as "Get all cities
+    by region"
+
+    usecase UC10 as "Get all cities
+    by country"
+
+    usecase UC11 as "Get all cities
+    by district"
+
+    usecase UC12 as "Get N most
+    populated cities"
+
+    usecase UC13 as "Get N most
+    populated cities
+    by continent"
+
+    usecase UC14 as "Get N most
+    populated cities
+    by region"
+
+    usecase UC15 as "Get N most
+    populated cities
+    by country"
+
+    usecase UC16 as "Get N most
+    populated cities
+    by district"
+
+    usecase UC17 as "Get all capital cities"
+
+    usecase UC18 as "Get all capital cities
+    by continent"
+
+    usecase UC19 as "Get all capital cities
+    by region"
+
+    usecase UC20 as "Get N most populated
+    capital cities"
+
+    usecase UC21 as "Get N most populated
+    capital cities by continent"
+
+    usecase UC22 as "Get N most populated
+    capital cities by region"
+
+    usecase UC23 as "Get population information
+    in each continent"
+
+    usecase UC24 as "Get population information
+    in each region"
+
+    usecase UC25 as "Get population information
+    in each country"
+
+    usecase UC26 as "Get the population
+    of the world"
+
+    usecase UC27 as "Get the population
+    of a continent"
+
+    usecase UC28 as "Get the population
+    of a region"
+
+    usecase UC29 as "Get the population
+    of a country"
+
+    usecase UC30 as "Get the population
+    of a district"
+
+    usecase UC31 as "Get the population
+    of a city"
+
+    usecase UC32 as "Get speakers
+    of languages"
+
+    usecase UCa as "Print countries"
+
+    usecase UCb as "Print cities"
+
+    usecase UCc as "Print capital cities"
+
+    usecase UCd as "Print population information"
+
+    employee - UC1
+    employee - UC2
+    employee - UC3
+    employee - UC4
+    employee - UC5
+    employee - UC6
+    employee - UC7
+    employee - UC8
+    employee - UC9
+    employee - UC10
+    employee - UC11
+    employee - UC12
+    employee - UC13
+    employee - UC14
+    employee - UC15
+    employee - UC16
+    employee - UC17
+    employee - UC18
+    employee - UC19
+    employee - UC20
+    employee - UC21
+    employee - UC22
+    employee - UC23
+    employee - UC24
+    employee - UC25
+    employee - UC26
+    employee - UC27
+    employee - UC28
+    employee - UC29
+    employee - UC30
+    employee - UC31
+    employee - UC32
+    UC1 ..> UCa : include
+    UC2 ..> UCa : include
+    UC3 ..> UCa : include
+    UC4 ..> UCa : include
+    UC5 ..> UCa : include
+    UC6 ..> UCa : include
+    UC7 ..> UCb : include
+    UC8 ..> UCb : include
+    UC9 ..> UCb : include
+    UC10 ..> UCb : include
+    UC11 ..> UCb : include
+    UC12 ..> UCb : include
+    UC13 ..> UCb : include
+    UC14 ..> UCb : include
+    UC15 ..> UCb : include
+    UC16 ..> UCb : include
+    UC17 ..> UCc : include
+    UC18 ..> UCc : include
+    UC19 ..> UCc : include
+    UC20 ..> UCc : include
+    UC21 ..> UCc : include
+    UC22 ..> UCc : include
+    UC23 ..> UCd : include
+    UC24 ..> UCd : include
+    UC25 ..> UCd : include
+    UC1 - Database
+    UC2 - Database
+    UC3 - Database
+    UC4 - Database
+    UC5 - Database
+    UC6 - Database
+    UC7 - Database
+    UC8 - Database
+    UC9 - Database
+    UC10 - Database
+    UC11 - Database
+    UC12 - Database
+    UC13 - Database
+    UC14 - Database
+    UC15 - Database
+    UC16 - Database
+    UC17 - Database
+    UC18 - Database
+    UC19 - Database
+    UC20 - Database
+    UC21 - Database
+    UC22 - Database
+    UC23 - Database
+    UC24 - Database
+    UC25 - Database
+    UC26 - Database
+    UC27 - Database
+    UC28 - Database
+    UC29 - Database
+    UC30 - Database
+    UC31 - Database
+    UC32 - Database
+}
+
+@enduml
