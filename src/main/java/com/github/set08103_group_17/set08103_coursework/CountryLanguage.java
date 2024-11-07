@@ -1,31 +1,34 @@
 package com.github.set08103_group_17.set08103_coursework;
 
 /**
- * TODO: Add Comment here
+ * Class representing a language in a country
  */
-public class CountryLanguage {
+public class CountryLanguage
+{
     private String CountryCode;
     private String Language;
     private Boolean IsOfficial;
-    private Double Decimal;
+    private Double percentage;
 
     /**
-     * TODO: Add Comment here
-     * @param CountryCode
-     * @param Language
-     * @param IsOfficial
-     * @param Decimal
+     * Contructer for a country language
+     * @param CountryCode the country code of a country language
+     * @param Language the name of the language
+     * @param IsOfficial if the language is offical
+     * @param percentage the percentage of a country language
      */
-    public CountryLanguage(String CountryCode, String Language, Boolean IsOfficial, Double Decimal) {
+    public CountryLanguage(String CountryCode, String Language,
+            Boolean IsOfficial, Double percentage)
+    {
         this.CountryCode = CountryCode;
         this.Language = Language;
         this.IsOfficial = IsOfficial;
-        this.Decimal = Decimal;
+        this.percentage = percentage;
     }
 
     /**
-     * TODO: Add Comment here
-     * @return
+     * Get the country code of a country language
+     * @return the country code of a country language
      */
     public String getCountryCode()
     {
@@ -33,8 +36,8 @@ public class CountryLanguage {
     }
 
     /**
-     * TODO: Add Comment here
-     * @return
+     * Get the name if the language
+     * @return the name of a language
      */
     public String getLanguage()
     {
@@ -42,8 +45,8 @@ public class CountryLanguage {
     }
 
     /**
-     * TODO: Add Comment here
-     * @return
+     * Get if a language of a country language is official
+     * @return if a language of a country language is official
      */
     public Boolean getIsOfficial()
     {
@@ -51,11 +54,11 @@ public class CountryLanguage {
     }
 
     /**
-     * TODO: Add Comment here
-     * @return
+     * Get the percentage of a country language
+     * @return the percentage of a country language
      */
-    public Double getDecimal()
+    public Double getPercentage()
     {
-        return Decimal;
+        return percentage;
     }
 }
