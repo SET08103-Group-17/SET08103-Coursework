@@ -9,6 +9,24 @@ import java.util.ArrayList;
 public class App
 {
     /**
+     * Connection to MySQL database, can be injected for testing
+     */
+    private Connection con;
+
+    /**
+     * Default constructor for App, initializes without a connection
+     */
+    public App() {}
+
+    /**
+     * Constructor for App allowing for a pre-existing connection
+     * @param connection Mocked or external connection
+     */
+    public App(Connection connection) {
+        this.con = connection;
+    }
+
+    /**
      * List of parameters that should be added to when new args are made
      * @param args
      */
@@ -28,15 +46,15 @@ public class App
     }
 
     /**
-     * Connection to MySQL database.
-     */
-    private Connection con = null;
-
-    /**
      * Connect to the MySQL database.
      */
     public void connect()
     {
+        // Skip connecting if a connection has been injected (for testing)
+        if (con != null) {
+            return;
+        }
+
         try
         {
             // Load Database driver
