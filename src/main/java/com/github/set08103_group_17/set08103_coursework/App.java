@@ -27,8 +27,9 @@ public class App
     }
 
     /**
-     * List of parameters that should be added to when new args are made
-     * @param args
+     * Main Method 
+     * @param args List of parameters that should be added to when new args are
+     * made
      */
     public static void main(String[] args)
     {
@@ -111,8 +112,8 @@ public class App
     }
 
     /**
-     * TODO: Add Comment here
-     * @return
+     * Get all countries in the world
+     * @return list of countries
      */
     public ArrayList<Country> getCountries()
     {
@@ -163,9 +164,9 @@ public class App
     }
 
     /**
-     * TODO: Add Comment here
-     * @param continentInput
-     * @return
+     * Get all countries in the world in a continent
+     * @param continentInput continent in the world
+     * @return list of countries
      */
     public ArrayList<Country> getCountries(Country.Continent continentInput)
     {
@@ -217,9 +218,9 @@ public class App
     }
 
     /**
-     * TODO: Add Comment here
-     * @param regionInput
-     * @return
+     * Get all countries in the world in a region
+     * @param regionInput region in the world
+     * @return list of countries
      */
     public ArrayList<Country> getCountries(String regionInput)
     {
@@ -271,11 +272,11 @@ public class App
     }
 
     /**
-     * TODO: Add Comment here
+     * Get all cities in the world
      * @return ArrayList of City objects
      */
     public ArrayList<City> getCity() {
-        ArrayList<City> cities = new ArrayList<>();  // Initialize the list here
+        ArrayList<City> cities = new ArrayList<>();  // Initialize the list
         try {
             // Create an SQL statement
             Statement stmt = con.createStatement();
@@ -309,6 +310,10 @@ public class App
         }
     }
 
+    /**
+     * Print a report on countries
+     * @param countries the countries to report on
+     */
     public void printCountries(ArrayList<Country> countries)
     {
         // Print header
@@ -324,6 +329,10 @@ public class App
         }
     }
 
+    /**
+     * Print a report on cities
+     * @param cities the cities to report on
+     */
     public void printCity(ArrayList<City> cities)
     {
         // Print header
