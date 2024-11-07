@@ -4,9 +4,15 @@ import org.junit.jupiter.api.*;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Test class for the Country class, testing its constructor and getter methods
+ */
 class CountryTest {
     private Country country;
 
+    /**
+     * Initializes a Country instance with test data
+     */
     @BeforeEach
     void setUp() {
         country = new Country(
@@ -16,6 +22,9 @@ class CountryTest {
         );
     }
 
+    /**
+     * Tests the constructor and getter methods of the Country class to ensure values are initialized correctly
+     */
     @Test
     @DisplayName("Test Country constructor and getters")
     void testCountryConstructorAndGetters() {

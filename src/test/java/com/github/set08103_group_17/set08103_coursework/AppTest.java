@@ -8,12 +8,21 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+/**
+ * Test class for the App class, testing its functionality with mocked database connections.
+ * Uses Mockito to mock database interactions
+ */
 public class AppTest {
     private App app;
     private Connection mockConnection;
     private Statement mockStatement;
     private ResultSet mockResultSet;
 
+    /**
+     * Sets up the necessary mocks and initializes App with a mocked Connection
+     *
+     * @throws SQLException if an SQL error occurs during setup
+     */
     @BeforeEach
     void setUp() throws SQLException {
         // Create mocks for Connection, Statement, and ResultSet
@@ -28,6 +37,11 @@ public class AppTest {
         when(mockConnection.createStatement()).thenReturn(mockStatement);
     }
 
+    /**
+     * Tests the getCity() method of App using a mocked database connection to retrieve city data
+     *
+     * @throws SQLException if an SQL error occurs during the test
+     */
     @Test
     @DisplayName("Test getting all cities with mocked connection")
     void testGetCity() throws SQLException {
@@ -53,6 +67,11 @@ public class AppTest {
         assertEquals(100000, cities.get(0).getPopulation());
     }
 
+    /**
+     * Tests the getCountriesByContinent() method of App to retrieve countries by continent using a mocked database connection
+     *
+     * @throws SQLException if an SQL error occurs during the test
+     */
     @Test
     @DisplayName("Test getting all countries with mocked connection")
     void testGetCountries() throws SQLException {
@@ -110,6 +129,11 @@ public class AppTest {
         assertEquals(Country.Continent.EUROPE, europeanCountries.get(0).getContinent());
     }
 
+    /**
+     * Tests the getCountriesByRegion() method of App to retrieve countries by region using a mocked database connection
+     *
+     * @throws SQLException if an SQL error occurs during the test
+     */
     @Test
     @DisplayName("Test getting countries by region with mocked connection")
     void testGetCountriesByRegion() throws SQLException {
@@ -132,6 +156,9 @@ public class AppTest {
         assertEquals("Southern Europe", southernEuropeanCountries.get(0).getRegion());
     }
 
+    /**
+     * Cleans up after each test by disconnecting the app's database connection
+     */
     @AfterEach
     void tearDown() {
         app.disconnect();

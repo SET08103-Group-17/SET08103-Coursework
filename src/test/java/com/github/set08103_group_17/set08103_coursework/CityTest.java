@@ -4,14 +4,23 @@ import org.junit.jupiter.api.*;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Test class for the City class, testing its constructor and getter methods
+ */
 class CityTest {
     private City city;
 
+    /**
+     * Initializes a City instance with test data.
+     */
     @BeforeEach
     void setUp() {
         city = new City(1, "Test City", "TST", "Test District", 1000000);
     }
 
+    /**
+     * Tests the constructor and getter methods of the City class to ensure values are initialized correctly
+     */
     @Test
     @DisplayName("Test City constructor and getters")
     void testCityConstructorAndGetters() {
