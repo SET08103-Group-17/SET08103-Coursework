@@ -1,7 +1,7 @@
 package com.github.set08103_group_17.set08103_coursework;
 
 /**
- * Class reprensenting a country
+ * Class representing a country
  */
 public class Country
 {
@@ -50,10 +50,10 @@ public class Country
      * @param code2
      */
     public Country(String code, String name, Continent continent,
-            String region, double surfaceArea, int independenceYear,
-            int population, double lifeExpectancy, double GNP, double GNPOld,
-            String localName, String governmentForm, String headOfState,
-            int capital, String code2)
+                   String region, double surfaceArea, int independenceYear,
+                   int population, double lifeExpectancy, double GNP, double GNPOld,
+                   String localName, String governmentForm, String headOfState,
+                   int capital, String code2)
     {
         this.code = code;
         this.name = name;

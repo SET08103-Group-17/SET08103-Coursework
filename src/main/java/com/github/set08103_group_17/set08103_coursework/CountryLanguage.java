@@ -18,7 +18,7 @@ public class CountryLanguage
      * @param percentage the percentage of a country language
      */
     public CountryLanguage(String CountryCode, String Language,
-            Boolean IsOfficial, Double percentage)
+                           Boolean IsOfficial, Double percentage)
     {
         this.CountryCode = CountryCode;
         this.Language = Language;

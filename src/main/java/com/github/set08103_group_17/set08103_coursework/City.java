@@ -20,7 +20,7 @@ public class City
      * @param Population the population of a city
      */
     public City(int ID, String Name, String Code, String District,
-            int Population)
+                int Population)
     {
         this.ID = ID;
         this.Name = Name;
