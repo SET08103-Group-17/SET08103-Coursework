@@ -27,6 +27,6 @@ class CountryLanguageTest {
         assertEquals("TST", language.getCountryCode(), "Country code should match constructor value");
         assertEquals("Test Language", language.getLanguage(), "Language should match constructor value");
         assertTrue(language.getIsOfficial(), "IsOfficial should match constructor value");
-        assertEquals(95.5, language.getDecimal(), "Decimal should match constructor value");
+        assertEquals(95.5, language.getPercentage(), "Percentage should match constructor value");
     }
 }
