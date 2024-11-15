@@ -82,7 +82,7 @@ public class App
             }
             catch (SQLException sqle)
             {
-                System.out.println("Failed to connect to database attempt " + Integer.toString(i));
+                System.out.println("Failed to connect to database attempt " + i);
                 System.out.println(sqle.getMessage());
             }
             catch (InterruptedException ie)
@@ -111,23 +111,14 @@ public class App
         }
     }
 
-    /**
-     * Get all countries in the world
-     * @return list of countries
-     */
-    public ArrayList<Country> getCountries()
+    private ArrayList<Country> executeGetCountriesStatement(String statement)
     {
-        try
-        {
+        try {
             // Create an SQL statement
             Statement stmt = con.createStatement();
-            // Create string for SQL statement
-            String select =
-                    "SELECT * "
-                            + "FROM country "
-                            + "ORDER BY population DESC";
+
             // Execute SQL statement
-            ResultSet rs = stmt.executeQuery(select);
+            ResultSet rs = stmt.executeQuery(statement);
             // Extract employee information
             ArrayList<Country> countries = new ArrayList<>();
             while (rs.next())
@@ -161,6 +152,20 @@ public class App
             System.out.println("Failed to get country details");
             return null;
         }
+    }
+
+    /**
+     * Get all countries in the world
+     * @return list of countries
+     */
+    public ArrayList<Country> getCountries()
+    {
+        // Create string for SQL statement
+        String select =
+                "SELECT * "
+                        + "FROM country "
+                        + "ORDER BY population DESC";
+        return executeGetCountriesStatement(select);
     }
 
     /**
@@ -170,51 +175,13 @@ public class App
      */
     public ArrayList<Country> getCountries(Country.Continent continentInput)
     {
-        try
-        {
-            // Create an SQL statement
-            Statement stmt = con.createStatement();
-            // Create string for SQL statement
-            String select =
-                    "SELECT * "
-                            + "FROM country "
-                            + "WHERE continent = '" + continentInput + "' "
-                            + "ORDER BY population DESC";
-            // Execute SQL statement
-            ResultSet rs = stmt.executeQuery(select);
-            // Extract employee information
-            ArrayList<Country> countries = new ArrayList<>();
-            while (rs.next())
-            {
-                String code = rs.getString("Code");
-                String name = rs.getString("Name");
-                Country.Continent continent = Country.Continent.valueOf(rs.getString("Continent")
-                        .replaceAll(" ", "_")
-                        .toUpperCase());
-                String region = rs.getString("Region");
-                double surfaceArea = rs.getDouble("SurfaceArea");
-                int independenceYear = rs.getInt("IndepYear");
-                int population = rs.getInt("Population");
-                double lifeExpectancy = rs.getDouble("LifeExpectancy");
-                double GNP = rs.getDouble("GNP");
-                double GNPOld = rs.getDouble("GNPOld");
-                String localName = rs.getString("LocalName");
-                String governmentForm = rs.getString("GovernmentForm");
-                String headOfState = rs.getString("HeadOfState");
-                int capital = rs.getInt("Capital");
-                String code2 = rs.getString("Code2");
-                Country country = new Country(code, name, continent, region, surfaceArea, independenceYear, population,
-                        lifeExpectancy, GNP, GNPOld, localName, governmentForm, headOfState, capital, code2);
-                countries.add(country);
-            }
-            return countries;
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-            System.out.println("Failed to get country details");
-            return null;
-        }
+        // Create string for SQL statement
+        String select =
+                "SELECT * "
+                        + "FROM country "
+                        + "WHERE continent = '" + continentInput + "' "
+                        + "ORDER BY population DESC";
+        return executeGetCountriesStatement(select);
     }
 
     /**
@@ -224,51 +191,13 @@ public class App
      */
     public ArrayList<Country> getCountries(String regionInput)
     {
-        try
-        {
-            // Create an SQL statement
-            Statement stmt = con.createStatement();
-            // Create string for SQL statement
-            String select =
-                    "SELECT * "
-                            + "FROM country "
-                            + "WHERE region = '" + regionInput + "' "
-                            + "ORDER BY population DESC";
-            // Execute SQL statement
-            ResultSet rs = stmt.executeQuery(select);
-            // Extract employee information
-            ArrayList<Country> countries = new ArrayList<>();
-            while (rs.next())
-            {
-                String code = rs.getString("Code");
-                String name = rs.getString("Name");
-                Country.Continent continent = Country.Continent.valueOf(rs.getString("Continent")
-                        .replaceAll(" ", "_")
-                        .toUpperCase());
-                String region = rs.getString("Region");
-                double surfaceArea = rs.getDouble("SurfaceArea");
-                int independenceYear = rs.getInt("IndepYear");
-                int population = rs.getInt("Population");
-                double lifeExpectancy = rs.getDouble("LifeExpectancy");
-                double GNP = rs.getDouble("GNP");
-                double GNPOld = rs.getDouble("GNPOld");
-                String localName = rs.getString("LocalName");
-                String governmentForm = rs.getString("GovernmentForm");
-                String headOfState = rs.getString("HeadOfState");
-                int capital = rs.getInt("Capital");
-                String code2 = rs.getString("Code2");
-                Country country = new Country(code, name, continent, region, surfaceArea, independenceYear, population,
-                        lifeExpectancy, GNP, GNPOld, localName, governmentForm, headOfState, capital, code2);
-                countries.add(country);
-            }
-            return countries;
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-            System.out.println("Failed to get country details");
-            return null;
-        }
+        // Create string for SQL statement
+        String select =
+                "SELECT * "
+                        + "FROM country "
+                        + "WHERE region = '" + regionInput + "' "
+                        + "ORDER BY population DESC";
+        return executeGetCountriesStatement(select);
     }
 
     /**
