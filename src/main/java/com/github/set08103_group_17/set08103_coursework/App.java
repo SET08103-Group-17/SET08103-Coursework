@@ -39,7 +39,7 @@ public class App
         // Connect to database
         a.connect();
 
-        ArrayList<City> cities = a.getCity();
+        ArrayList<City> cities = a.getCities();
         a.printCity(cities);
 
         // Disconnect from database
@@ -111,6 +111,11 @@ public class App
         }
     }
 
+    /**
+     * Executes SQL statement that selects countries and returns results
+     * @param statement SQL statement to run
+     * @return List of countries
+     */
     private ArrayList<Country> executeGetCountriesStatement(String statement)
     {
         try {
@@ -201,18 +206,18 @@ public class App
     }
 
     /**
-     * Get all cities in the world
-     * @return ArrayList of City objects
+     * Executes SQL statement that selects cities and returns results
+     * @param statement SQL statement to run
+     * @return List of cities
      */
-    public ArrayList<City> getCity() {
+    private ArrayList<City> executeGetCitiesStatement(String statement)
+    {
         ArrayList<City> cities = new ArrayList<>();  // Initialize the list
         try {
             // Create an SQL statement
             Statement stmt = con.createStatement();
-            // Create string for SQL statement
-            String select = "SELECT * FROM city ORDER BY population DESC";
             // Execute SQL statement
-            ResultSet rs = stmt.executeQuery(select);
+            ResultSet rs = stmt.executeQuery(statement);
 
             // Extract city information
             while (rs.next()) {
@@ -237,6 +242,16 @@ public class App
             System.out.println("Failed to get country details");
             return null;
         }
+    }
+
+    /**
+     * Get all cities in the world
+     * @return ArrayList of City objects
+     */
+    public ArrayList<City> getCities() {
+        // Create string for SQL statement
+        String select = "SELECT * FROM city ORDER BY population DESC";
+        return executeGetCitiesStatement(select);
     }
 
     /**
