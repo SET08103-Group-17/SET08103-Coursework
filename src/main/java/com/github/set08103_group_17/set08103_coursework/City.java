@@ -1,7 +1,7 @@
 package com.github.set08103_group_17.set08103_coursework;
 
 /**
- * Class reprensenting a city
+ * Class representing a city
  */
 public class City
 {

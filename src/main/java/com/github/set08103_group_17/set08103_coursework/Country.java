@@ -32,22 +32,22 @@ public class Country
     private String code2;
 
     /**
-     * Constructer of a country
-     * @param code
-     * @param name
-     * @param continent
-     * @param region
-     * @param surfaceArea
-     * @param independenceYear
-     * @param population
-     * @param lifeExpectancy
-     * @param GNP
-     * @param GNPOld
-     * @param localName
-     * @param governmentForm
-     * @param headOfState
-     * @param capital
-     * @param code2
+     * Constructor of a country
+     * @param code the code of a country
+     * @param name the name of a country
+     * @param continent the continent of a country
+     * @param region the region of a country
+     * @param surfaceArea the surface area of a country
+     * @param independenceYear the independence year of a country
+     * @param population the population of a country
+     * @param lifeExpectancy the life expectancy of a country
+     * @param GNP the GNP of a country
+     * @param GNPOld the GNPls of a country
+     * @param localName the local name of a country
+     * @param governmentForm the form of government of a country
+     * @param headOfState the head of state of a country
+     * @param capital the capital of a country
+     * @param code2 the second code of a country
      */
     public Country(String code, String name, Continent continent,
                    String region, double surfaceArea, int independenceYear,
@@ -172,8 +172,8 @@ public class Country
     }
 
     /**
-     * Get the goverment form of a country
-     * @return the goverment form of a country
+     * Get the government form of a country
+     * @return the government form of a country
      */
     public String getGovernmentForm()
     {

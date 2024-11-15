@@ -11,10 +11,10 @@ public class CountryLanguage
     private Double percentage;
 
     /**
-     * Contructer for a country language
+     * Constructor for a country language
      * @param CountryCode the country code of a country language
      * @param Language the name of the language
-     * @param IsOfficial if the language is offical
+     * @param IsOfficial if the language is official
      * @param percentage the percentage of a country language
      */
     public CountryLanguage(String CountryCode, String Language,
