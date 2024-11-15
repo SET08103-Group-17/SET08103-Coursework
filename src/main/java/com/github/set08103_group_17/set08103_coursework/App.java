@@ -40,7 +40,7 @@ public class App
         a.connect();
 
         ArrayList<City> cities = a.getCities();
-        a.printCity(cities);
+        a.printCities(cities);
 
         // Disconnect from database
         a.disconnect();
@@ -277,10 +277,10 @@ public class App
      * Print a report on cities
      * @param cities the cities to report on
      */
-    public void printCity(ArrayList<City> cities)
+    public void printCities(ArrayList<City> cities)
     {
         // Print header
-        System.out.printf("%-4s %-35s %-6s %-20s %-15s", "ID", "Name", "Code", "District", "Population \n");
+        System.out.printf("%-4s %-35s %-6s %-20s %-15s%n", "ID", "Name", "Code", "District", "Population");
         // Loop over all employees in the list
         for (City City : cities)
         {

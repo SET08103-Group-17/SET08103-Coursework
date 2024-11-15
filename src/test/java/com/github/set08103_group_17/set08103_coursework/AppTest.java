@@ -56,7 +56,7 @@ public class AppTest {
         when(mockResultSet.getString("District")).thenReturn("TestDistrict");
         when(mockResultSet.getInt("Population")).thenReturn(100000);
 
-        ArrayList<City> cities = app.getCity();
+        ArrayList<City> cities = app.getCities();
 
         // Assertions to validate the mock data is handled correctly
         assertNotNull(cities);
