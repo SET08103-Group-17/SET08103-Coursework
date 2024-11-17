@@ -39,8 +39,11 @@ public class App
         // Connect to database
         a.connect();
 
+        System.out.println("World: " + a.getPopulation());
+        ArrayList<Country> countries = a.getCountries();
+        System.out.println(countries.get(0).getName() + ": " + a.getPopulation(countries.get(0)));
         ArrayList<City> cities = a.getCities();
-        a.printCities(cities);
+        System.out.println(cities.get(0).getName() + ": " + a.getPopulation(cities.get(0)));
 
         // Disconnect from database
         a.disconnect();
@@ -252,6 +255,77 @@ public class App
         // Create string for SQL statement
         String select = "SELECT * FROM city ORDER BY population DESC";
         return executeGetCitiesStatement(select);
+    }
+
+    /**
+     * Executes SQL statement that gets population details and returns results
+     * @param statement SQL statement to run
+     * @return Population
+     */
+    private long executeGetPopulationStatement(String statement)
+    {
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+
+            // Execute SQL statement
+            ResultSet rs = stmt.executeQuery(statement);
+            if (rs.next())
+            {
+                return rs.getLong("Population");
+            }
+            return -1;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get population details");
+            return -1;
+        }
+    }
+
+    /**
+     * Get the population of the world
+     * @return the population
+     */
+    public long getPopulation()
+    {
+        // Create string for SQL statement
+        String select =
+                "SELECT SUM(Population) AS Population "
+                        + "FROM country "
+                        + "ORDER BY Population DESC";
+        return executeGetPopulationStatement(select);
+    }
+
+    /**
+     * Get the population of a country
+     * @return the population
+     */
+    public long getPopulation(Country country)
+    {
+        // Create string for SQL statement
+        String select =
+                "SELECT Population "
+                        + "FROM country "
+                        + "WHERE Code = '" + country.getCode() + "' "
+                        + "ORDER BY Population DESC";
+        return executeGetPopulationStatement(select);
+    }
+
+    /**
+     * Get the population of a city
+     * @return the population
+     */
+    public long getPopulation(City city)
+    {
+        // Create string for SQL statement
+        String select =
+                "SELECT Population "
+                        + "FROM city "
+                        + "WHERE ID = '" + city.getID()  + "' "
+                        + "ORDER BY Population DESC";
+        return executeGetPopulationStatement(select);
     }
 
     /**
