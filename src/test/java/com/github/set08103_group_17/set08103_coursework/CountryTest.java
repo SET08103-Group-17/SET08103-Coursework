@@ -1,7 +1,6 @@
 package com.github.set08103_group_17.set08103_coursework;
 
 import org.junit.jupiter.api.*;
-import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**

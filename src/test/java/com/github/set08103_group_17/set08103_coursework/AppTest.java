@@ -1,7 +1,6 @@
 package com.github.set08103_group_17.set08103_coursework;
 
 import org.junit.jupiter.api.*;
-import org.mockito.Mockito;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -14,7 +13,6 @@ import static org.mockito.Mockito.*;
  */
 public class AppTest {
     private App app;
-    private Connection mockConnection;
     private Statement mockStatement;
     private ResultSet mockResultSet;
 
@@ -26,7 +24,7 @@ public class AppTest {
     @BeforeEach
     void setUp() throws SQLException {
         // Create mocks for Connection, Statement, and ResultSet
-        mockConnection = mock(Connection.class);
+        Connection mockConnection = mock(Connection.class);
         mockStatement = mock(Statement.class);
         mockResultSet = mock(ResultSet.class);
 
@@ -56,7 +54,7 @@ public class AppTest {
         when(mockResultSet.getString("District")).thenReturn("TestDistrict");
         when(mockResultSet.getInt("Population")).thenReturn(100000);
 
-        ArrayList<City> cities = app.getCity();
+        ArrayList<City> cities = app.getCities();
 
         // Assertions to validate the mock data is handled correctly
         assertNotNull(cities);
