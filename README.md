@@ -9,7 +9,9 @@ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions: ...
 
-* **Master** Status ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/SET08103-Group-17/SET08103-Coursework/main.yml?branch=master&labelColor=blue) **Master** Testing Coverage ![Static Badge](https://img.shields.io/badge/-Coming_soon-maroon?style=flat)
+* **Master** Status ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/SET08103-Group-17/SET08103-Coursework/main.yml?branch=master&labelColor=blue) 
+**Master** Testing Coverage [![Codecov](https://codecov.io/gh/SET08103-Group-17/SET08103-Coursework/branch/master/graph/badge.svg?)]()
+
 * **Develop** Status ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/SET08103-Group-17/SET08103-Coursework/main.yml?branch=develop&labelColor=blue)
 
 
