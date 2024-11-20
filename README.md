@@ -7,4 +7,11 @@ of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
 to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+furnished to do so, subject to the following conditions: ...
+
+* **Master** Status ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/SET08103-Group-17/SET08103-Coursework/main.yml?branch=master&labelColor=blue) **Master** Testing Coverage ![Static Badge](https://img.shields.io/badge/-Coming_soon-maroon?style=flat)
+* **Develop** Status ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/SET08103-Group-17/SET08103-Coursework/main.yml?branch=develop&labelColor=blue)
+
+
+* **Release** [![Releases](https://img.shields.io/github/release/SET08103-Group-17/SET08103-Coursework/all.svg?labelColor=orange&label)](https://github.com/SET08103-Group-17/SET08103-Coursework/releases)
+* License [![LICENSE](https://img.shields.io/github/license/SET08103-Group-17/SET08103-Coursework.svg?style=flat)](https://github.com/SET08103-Group-17/SET08103-Coursework/master/blob/LICENSE)
