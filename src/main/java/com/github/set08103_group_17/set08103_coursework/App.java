@@ -6,14 +6,13 @@ import java.util.ArrayList;
 /**
  * Generate instance of Class App
  */
-public class App
-{
+public class App {
     /**
      * List of parameters that should be added to when new args are made
+     *
      * @param args
      */
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         // Create new Application
         App a = new App();
 
@@ -35,39 +34,29 @@ public class App
     /**
      * Connect to the MySQL database.
      */
-    public void connect()
-    {
-        try
-        {
+    public void connect() {
+        try {
             // Load Database driver
             Class.forName("com.mysql.cj.jdbc.Driver");
-        }
-        catch (ClassNotFoundException e)
-        {
+        } catch (ClassNotFoundException e) {
             System.out.println("Could not load SQL driver");
             System.exit(-1);
         }
 
         int retries = 10;
-        for (int i=0; i < retries; i++)
-        {
+        for (int i = 0; i < retries; i++) {
             System.out.println("Connecting to database...");
-            try
-            {
+            try {
                 // Wait a bit for db to start
                 Thread.sleep(30000);
                 // Connect to database
                 con = DriverManager.getConnection("jdbc:mysql://db:3306/world?useSSL=false", "root", "example");
                 System.out.println("Successfully connected");
                 break;
-            }
-            catch (SQLException sqle)
-            {
+            } catch (SQLException sqle) {
                 System.out.println("Failed to connect to database attempt " + Integer.toString(i));
                 System.out.println(sqle.getMessage());
-            }
-            catch (InterruptedException ie)
-            {
+            } catch (InterruptedException ie) {
                 System.out.println("Thread interrupted? Should not happen.");
             }
         }
@@ -76,17 +65,12 @@ public class App
     /**
      * Disconnect from the MySQL database
      */
-    public void disconnect()
-    {
-        if (con != null)
-        {
-            try
-            {
+    public void disconnect() {
+        if (con != null) {
+            try {
                 // Close connection
                 con.close();
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 System.out.println("Error closing connection to database");
             }
         }
@@ -94,12 +78,11 @@ public class App
 
     /**
      * TODO: Add Comment here
+     *
      * @return
      */
-    public ArrayList<Country> getCountries()
-    {
-        try
-        {
+    public ArrayList<Country> getCountries() {
+        try {
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -111,8 +94,7 @@ public class App
             ResultSet rs = stmt.executeQuery(select);
             // Extract employee information
             ArrayList<Country> countries = new ArrayList<>();
-            while (rs.next())
-            {
+            while (rs.next()) {
                 String code = rs.getString("Code");
                 String name = rs.getString("Name");
                 Country.Continent continent = Country.Continent.valueOf(rs.getString("Continent")
@@ -135,9 +117,7 @@ public class App
                 countries.add(country);
             }
             return countries;
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             System.out.println("Failed to get country details");
             return null;
@@ -146,13 +126,12 @@ public class App
 
     /**
      * TODO: Add Comment here
+     *
      * @param continentInput
      * @return
      */
-    public ArrayList<Country> getCountries(Country.Continent continentInput)
-    {
-        try
-        {
+    public ArrayList<Country> getCountries(Country.Continent continentInput) {
+        try {
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -165,8 +144,7 @@ public class App
             ResultSet rs = stmt.executeQuery(select);
             // Extract employee information
             ArrayList<Country> countries = new ArrayList<>();
-            while (rs.next())
-            {
+            while (rs.next()) {
                 String code = rs.getString("Code");
                 String name = rs.getString("Name");
                 Country.Continent continent = Country.Continent.valueOf(rs.getString("Continent")
@@ -189,9 +167,7 @@ public class App
                 countries.add(country);
             }
             return countries;
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             System.out.println("Failed to get country details");
             return null;
@@ -200,13 +176,12 @@ public class App
 
     /**
      * TODO: Add Comment here
+     *
      * @param regionInput
      * @return
      */
-    public ArrayList<Country> getCountries(String regionInput)
-    {
-        try
-        {
+    public ArrayList<Country> getCountries(String regionInput) {
+        try {
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -219,8 +194,7 @@ public class App
             ResultSet rs = stmt.executeQuery(select);
             // Extract employee information
             ArrayList<Country> countries = new ArrayList<>();
-            while (rs.next())
-            {
+            while (rs.next()) {
                 String code = rs.getString("Code");
                 String name = rs.getString("Name");
                 Country.Continent continent = Country.Continent.valueOf(rs.getString("Continent")
@@ -243,9 +217,7 @@ public class App
                 countries.add(country);
             }
             return countries;
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             System.out.println("Failed to get country details");
             return null;
@@ -254,6 +226,7 @@ public class App
 
     /**
      * TODO: Add Comment here
+     *
      * @return ArrayList of City objects
      */
     public ArrayList<City> getCity() {
@@ -282,23 +255,19 @@ public class App
                 cities.add(city);
             }
             return cities;
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             System.out.println("Failed to get country details");
             return null;
         }
     }
 
-    public void printCountries(ArrayList<Country> countries)
-    {
+    public void printCountries(ArrayList<Country> countries) {
         // Print header
         System.out.printf("%-4s %-52s %-15s %-26s %-15s %-10s%n", "Code", "Name", "Continent", "Region", "Population",
                 "Capital");
         // Loop over all employees in the list
-        for (Country country : countries)
-        {
+        for (Country country : countries) {
             String countryData = String.format("%-4s %-52s %-15s %-26s %-15s %-10s",
                     country.getCode(), country.getName(), country.getContinent(), country.getRegion(),
                     country.getPopulation(), country.getCapital());
@@ -306,13 +275,11 @@ public class App
         }
     }
 
-    public void printCity(ArrayList<City> cities)
-    {
+    public void printCity(ArrayList<City> cities) {
         // Print header
         System.out.printf("%-4s %-35s %-6s %-20s %-15s", "ID", "Name", "Code", "District", "Population \n");
         // Loop over all employees in the list
-        for (City City : cities)
-        {
+        for (City City : cities) {
             String CityData = String.format("%-4s %-35s %-6s %-20s %-15s",
                     City.getID(), City.getName(), City.getCode(), City.getDistrict(),
                     City.getPopulation());
@@ -320,3 +287,124 @@ public class App
         }
     }
 }
+/**
+ * Retrieve and sort all capital cities in the world by population, largest to smallest.
+ * @return ArrayList of capital cities
+
+public ArrayList<City> getCapitalCitiesByPopulation() {
+ArrayList<City> capitalCities = new ArrayList<>();
+try {
+// Create an SQL statement
+Statement stmt = con.createStatement();
+// Create string for SQL statement
+String select =
+"SELECT city.ID, city.Name, city.CountryCode, city.District, city.Population " +
+"FROM city " +
+"JOIN country ON city.ID = country.Capital " +
+"ORDER BY city.Population DESC";
+// Execute SQL statement
+ResultSet rs = stmt.executeQuery(select);
+
+// Extract capital city information
+while (rs.next()) {
+int ID = rs.getInt("ID");
+String Name = rs.getString("Name");
+String Code = rs.getString("CountryCode");
+String District = rs.getString("District");
+int Population = rs.getInt("Population");
+
+// Create a new City object
+City city = new City(ID, Name, Code, District, Population);
+
+// Add the City object to the list
+capitalCities.add(city);
+}
+} catch (Exception e) {
+System.out.println(e.getMessage());
+System.out.println("Failed to get capital cities");
+}
+return capitalCities;
+}
+}
+ */
+
+/**
+ * Retrieve and sort all cities in a specific country by population, largest to smallest.
+ * @param countryCode The code of the country
+ * @return ArrayList of cities in the country
+ */
+
+/**
+public ArrayList<City> getCitiesInCountryByPopulation(String countryCode) {
+    ArrayList<City> cities = new ArrayList<>();
+    try {
+        // Create an SQL statement
+        Statement stmt = con.createStatement();
+        // Create string for SQL statement
+        String select =
+                "SELECT * FROM city " +
+                        "WHERE CountryCode = '" + countryCode + "' " +
+                        "ORDER BY Population DESC";
+        // Execute SQL statement
+        ResultSet rs = stmt.executeQuery(select);
+
+        // Extract city information
+        while (rs.next()) {
+            int ID = rs.getInt("ID");
+            String Name = rs.getString("Name");
+            String Code = rs.getString("CountryCode");
+            String District = rs.getString("District");
+            int Population = rs.getInt("Population");
+
+            // Create a new City object
+            City city = new City(ID, Name, Code, District, Population);
+
+            // Add the City object to the list
+            cities.add(city);
+        }
+    } catch (Exception e) {
+        System.out.println(e.getMessage());
+        System.out.println("Failed to get cities in country");
+    }
+    return cities;
+}
+*/
+
+/**
+ * Retrieve and sort all cities in a specific district by population, largest to smallest.
+ * @param districtName The name of the district
+ * @return ArrayList of cities in the district
+public ArrayList<City> getCitiesInDistrictByPopulation(String districtName) {
+    ArrayList<City> cities = new ArrayList<>();
+    try {
+        // Create an SQL statement
+        Statement stmt = con.createStatement();
+        // Create string for SQL statement
+        String select =
+                "SELECT * FROM city " +
+                        "WHERE District = '" + districtName + "' " +
+                        "ORDER BY Population DESC";
+        // Execute SQL statement
+        ResultSet rs = stmt.executeQuery(select);
+
+        // Extract city information
+        while (rs.next()) {
+            int ID = rs.getInt("ID");
+            String Name = rs.getString("Name");
+            String Code = rs.getString("CountryCode");
+            String District = rs.getString("District");
+            int Population = rs.getInt("Population");
+
+            // Create a new City object
+            City city = new City(ID, Name, Code, District, Population);
+
+            // Add the City object to the list
+            cities.add(city);
+        }
+    } catch (Exception e) {
+        System.out.println(e.getMessage());
+        System.out.println("Failed to get cities in district");
+    }
+    return cities;
+}
+ */
