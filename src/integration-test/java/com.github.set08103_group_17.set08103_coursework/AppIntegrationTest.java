@@ -17,6 +17,56 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
+ *
+ * 1. Test Environment:
+ *    - Configures a MySQL test container using TestContainers library
+ *    - Sets up database credentials (test/test) and parameters
+ *    - Registers MySQL JDBC driver for database connectivity
+ *
+ * 2. Database:
+ *    - Creates three main tables: country, city, and countrylanguage
+ *    - Sets up foreign key relationships between tables
+ *    - Populates tables with test data:
+ *      * Two countries: USA and Japan
+ *      * Two cities: New York and Tokyo
+ *      * Three languages: English, Spanish (USA), and Japanese
+ *
+ * 3. Test Lifecycle:
+ *    - @BeforeAll: Starts container and sets up initial database connection
+ *    - @BeforeEach: Ensures fresh connection and captures system output
+ *    - @AfterEach: Cleans up resources after each test
+ *    - @AfterAll: Shuts down container and closes connections
+ *
+ * 4. Test Cases:
+ *    a. Basic Functionality Test:
+ *       - Verifies constructor initialization
+ *       - Checks data retrieval for countries and cities
+ *       - Validates specific entity data accuracy
+ *
+ *    b. Country Getters Test:
+ *       - Tests all getter methods for Country class
+ *       - Verifies accuracy of country-specific data
+ *       - Compares data between different countries
+ *
+ *    c. Error Handling Test:
+ *       - Checks NULL value handling
+ *       - Tests system behavior with missing tables
+ *
+ *    d. Population Calculations Test:
+ *       - Verifies world population calculation
+ *       - Tests country-specific population
+ *       - Validates city population data
+ *
+ *    e. Output Formatting Test:
+ *       - Checks proper formatting of country data
+ *       - Verifies city data output
+ *
+ *    f. Main Method Test:
+ *       - Validates application's main execution path
+ *
+ */
+
+/**
  * Integration tests for the App class using TestContainers for MySQL database testing.
  * These tests verify the application's interaction with a real database instance.
  */
