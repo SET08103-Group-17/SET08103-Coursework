@@ -12,9 +12,9 @@ furnished to do so, subject to the following conditions: ...
 * **Master** Status ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/SET08103-Group-17/SET08103-Coursework/main.yml?branch=master&labelColor=blue) 
 
 
-
 * **Develop** Status ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/SET08103-Group-17/SET08103-Coursework/main.yml?branch=develop&labelColor=blue)
 
 
 * **Release** [![Releases](https://img.shields.io/github/release/SET08103-Group-17/SET08103-Coursework/all.svg?labelColor=orange&label)](https://github.com/SET08103-Group-17/SET08103-Coursework/releases)
-* License [![LICENSE](https://img.shields.io/github/license/SET08103-Group-17/SET08103-Coursework.svg?style=flat)](https://github.com/SET08103-Group-17/SET08103-Coursework/master/blob/LICENSE)
+
+* **License** ![GitHub License](https://img.shields.io/github/license/SET08103-Group-17/SET08103-Coursework)
