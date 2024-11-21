@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 /**
- * Test class for the App class, focusing on comprehensive testing of database interactions
+ * Test class for the App class
  * Uses Mockito to simulate database connections and ResultSet behavior
  */
 public class AppTest {
