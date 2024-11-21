@@ -6,7 +6,7 @@
 
     <groupId>com.github.set08103_group_17.set08103_coursework</groupId>
     <artifactId>SET08103-Coursework</artifactId>
-    <version>0.1.0.1</version>
+    <version>0.1.0.2</version>
 
     <dependencies>
         <dependency>
@@ -14,6 +14,28 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.28</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.8.2</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.8.2</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>2.22.0</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <properties>
@@ -47,6 +69,11 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M5</version>
             </plugin>
         </plugins>
     </build>

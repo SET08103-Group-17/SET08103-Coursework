@@ -1,7 +1,7 @@
 package com.github.set08103_group_17.set08103_coursework;
 
 /**
- * TODO: Add Comment here
+ * Class representing a country
  */
 public class Country
 {
@@ -32,24 +32,28 @@ public class Country
     private String code2;
 
     /**
-     * TODO: Add Comment here
-     * @param code
-     * @param name
-     * @param continent
-     * @param region
-     * @param surfaceArea
-     * @param independenceYear
-     * @param population
-     * @param lifeExpectancy
-     * @param GNP
-     * @param GNPOld
-     * @param localName
-     * @param governmentForm
-     * @param headOfState
-     * @param capital
-     * @param code2
+     * Constructor of a country
+     * @param code the code of a country
+     * @param name the name of a country
+     * @param continent the continent of a country
+     * @param region the region of a country
+     * @param surfaceArea the surface area of a country
+     * @param independenceYear the independence year of a country
+     * @param population the population of a country
+     * @param lifeExpectancy the life expectancy of a country
+     * @param GNP the GNP of a country
+     * @param GNPOld the GNPls of a country
+     * @param localName the local name of a country
+     * @param governmentForm the form of government of a country
+     * @param headOfState the head of state of a country
+     * @param capital the capital of a country
+     * @param code2 the second code of a country
      */
-    public Country(String code, String name, Continent continent, String region, double surfaceArea, int independenceYear, int population, double lifeExpectancy, double GNP, double GNPOld, String localName, String governmentForm, String headOfState, int capital, String code2)
+    public Country(String code, String name, Continent continent,
+                   String region, double surfaceArea, int independenceYear,
+                   int population, double lifeExpectancy, double GNP, double GNPOld,
+                   String localName, String governmentForm, String headOfState,
+                   int capital, String code2)
     {
         this.code = code;
         this.name = name;
@@ -69,8 +73,8 @@ public class Country
     }
 
     /**
-     * TODO: Add Comment here
-     * @return
+     * Get the code of a country
+     * @return the code of a country
      */
     public String getCode()
     {
@@ -78,8 +82,8 @@ public class Country
     }
 
     /**
-     * TODO: Add Comment here
-     * @return
+     * Get the name of a country
+     * @return the name of a country
      */
     public String getName()
     {
@@ -87,8 +91,8 @@ public class Country
     }
 
     /**
-     * TODO: Add Comment here
-     * @return
+     * Get the continent of a country
+     * @return the continent of a country
      */
     public Continent getContinent()
     {
@@ -96,8 +100,8 @@ public class Country
     }
 
     /**
-     * TODO: Add Comment here
-     * @return
+     * Get the region of a country
+     * @return the region of a country
      */
     public String getRegion()
     {
@@ -105,8 +109,8 @@ public class Country
     }
 
     /**
-     * TODO: Add Comment here
-     * @return
+     * Get the surface area of a country
+     * @return the surface area of a country
      */
     public double getSurfaceArea()
     {
@@ -114,8 +118,8 @@ public class Country
     }
 
     /**
-     * TODO: Add Comment here
-     * @return
+     * Get the independence year of a country
+     * @return the independence of a country
      */
     public int getIndependenceYear()
     {
@@ -123,8 +127,8 @@ public class Country
     }
 
     /**
-     * TODO: Add Comment here
-     * @return
+     * Get the population of a country
+     * @return the population of a country
      */
     public int getPopulation()
     {
@@ -132,8 +136,8 @@ public class Country
     }
 
     /**
-     * TODO: Add Comment here
-     * @return
+     * Get the life expectancy of a country
+     * @return the life expectancy of a country
      */
     public double getLifeExpectancy()
     {
@@ -141,8 +145,8 @@ public class Country
     }
 
     /**
-     * TODO: Add Comment here
-     * @return
+     * Get the GNP of a country
+     * @return the GNP of a country
      */
     public double getGNP()
     {
@@ -150,8 +154,8 @@ public class Country
     }
 
     /**
-     * TODO: Add Comment here
-     * @return
+     * Get the GNPOld of a country
+     * @return the GNPOld of a country
      */
     public double getGNPOld()
     {
@@ -159,8 +163,8 @@ public class Country
     }
 
     /**
-     * TODO: Add Comment here
-     * @return
+     * Get the local name of a country
+     * @return the local name of a country
      */
     public String getLocalName()
     {
@@ -168,8 +172,8 @@ public class Country
     }
 
     /**
-     * TODO: Add Comment here
-     * @return
+     * Get the government form of a country
+     * @return the government form of a country
      */
     public String getGovernmentForm()
     {
@@ -177,8 +181,8 @@ public class Country
     }
 
     /**
-     * TODO: Add Comment here
-     * @return
+     * Get the head of state of a country
+     * @return the head of state of a country
      */
     public String getHeadOfState()
     {
@@ -186,8 +190,8 @@ public class Country
     }
 
     /**
-     * TODO: Add Comment here
-     * @return
+     * Get the capital of a country
+     * @return the capital of a country
      */
     public int getCapital()
     {
@@ -195,8 +199,8 @@ public class Country
     }
 
     /**
-     * TODO: Add Comment here
-     * @return
+     * Get the second code of a country
+     * @return the second code of a country
      */
     public String getCode2()
     {
