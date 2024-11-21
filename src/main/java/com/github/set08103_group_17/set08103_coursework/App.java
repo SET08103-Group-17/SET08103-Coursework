@@ -383,3 +383,163 @@ public class App
         }
     }
 }
+
+/**
+ /**
+ * Get cities in a specific continent, sorted by population in descending order.
+ * @param continentInput The continent to filter by.
+ * @return A list of cities in the specified continent, sorted by population.
+public ArrayList<City> getCitiesByContinent(Country.Continent continentInput) {
+    ArrayList<City> cities = new ArrayList<>();
+    try {
+        // Create an SQL statement
+        Statement stmt = con.createStatement();
+        // Create string for SQL statement
+        String select = "SELECT city.ID, city.Name, city.CountryCode, city.District, city.Population " +
+                "FROM city " +
+                "JOIN country ON city.CountryCode = country.Code " +
+                "WHERE country.Continent = '" + continentInput.toString().replace("_", " ") + "' " +
+                "ORDER BY city.Population DESC";
+        // Execute SQL statement
+        ResultSet rs = stmt.executeQuery(select);
+
+        // Extract city information
+        while (rs.next()) {
+            int ID = rs.getInt("ID");
+            String Name = rs.getString("Name");
+            String Code = rs.getString("CountryCode");
+            String District = rs.getString("District");
+            int Population = rs.getInt("Population");
+
+            // Create a new City object
+            City city = new City(ID, Name, Code, District, Population);
+
+            // Add the City object to the list
+            cities.add(city);
+        }
+    } catch (Exception e) {
+        System.out.println(e.getMessage());
+        System.out.println("Failed to get cities by continent.");
+    }
+    return cities;
+}
+
+ * Get cities in a specific region, sorted by population in descending order.
+ * @param regionInput The region to filter by.
+ * @return A list of cities in the specified region, sorted by population.
+
+public ArrayList<City> getCitiesByRegion(String regionInput) {
+    ArrayList<City> cities = new ArrayList<>();
+    try {
+        // Create an SQL statement
+        Statement stmt = con.createStatement();
+        // Create string for SQL statement
+        String select = "SELECT city.ID, city.Name, city.CountryCode, city.District, city.Population " +
+                "FROM city " +
+                "JOIN country ON city.CountryCode = country.Code " +
+                "WHERE country.Region = '" + regionInput + "' " +
+                "ORDER BY city.Population DESC";
+        // Execute SQL statement
+        ResultSet rs = stmt.executeQuery(select);
+
+        // Extract city information
+        while (rs.next()) {
+            int ID = rs.getInt("ID");
+            String Name = rs.getString("Name");
+            String Code = rs.getString("CountryCode");
+            String District = rs.getString("District");
+            int Population = rs.getInt("Population");
+
+            // Create a new City object
+            City city = new City(ID, Name, Code, District, Population);
+
+            // Add the City object to the list
+            cities.add(city);
+        }
+    } catch (Exception e) {
+        System.out.println(e.getMessage());
+        System.out.println("Failed to get cities by region.");
+    }
+    return cities;
+}
+
+/**
+ * Get all capital cities in a specific continent, sorted by population in descending order.
+ * @param continentInput The continent to filter by.
+ * @return A list of capital cities in the specified continent, sorted by population.
+
+public ArrayList<City> getCapitalCitiesByContinent(Country.Continent continentInput) {
+    ArrayList<City> cities = new ArrayList<>();
+    try {
+        // Create an SQL statement
+        Statement stmt = con.createStatement();
+        // Create string for SQL statement
+        String select = "SELECT city.ID, city.Name, city.CountryCode, city.District, city.Population " +
+                "FROM city " +
+                "JOIN country ON city.ID = country.Capital " +
+                "WHERE country.Continent = '" + continentInput.toString().replace("_", " ") + "' " +
+                "ORDER BY city.Population DESC";
+        // Execute SQL statement
+        ResultSet rs = stmt.executeQuery(select);
+
+        // Extract city information
+        while (rs.next()) {
+            int ID = rs.getInt("ID");
+            String Name = rs.getString("Name");
+            String Code = rs.getString("CountryCode");
+            String District = rs.getString("District");
+            int Population = rs.getInt("Population");
+
+            // Create a new City object
+            City city = new City(ID, Name, Code, District, Population);
+
+            // Add the City object to the list
+            cities.add(city);
+        }
+    } catch (Exception e) {
+        System.out.println(e.getMessage());
+        System.out.println("Failed to get capital cities by continent.");
+    }
+    return cities;
+}
+
+/**
+ * Get all capital cities in a specific region, sorted by population in descending order.
+ * @param regionInput The region to filter by.
+ * @return A list of capital cities in the specified region, sorted by population.
+
+public ArrayList<City> getCapitalCitiesByRegion(String regionInput) {
+    ArrayList<City> cities = new ArrayList<>();
+    try {
+        // Create an SQL statement
+        Statement stmt = con.createStatement();
+        // Create string for SQL statement
+        String select = "SELECT city.ID, city.Name, city.CountryCode, city.District, city.Population " +
+                "FROM city " +
+                "JOIN country ON city.ID = country.Capital " +
+                "WHERE country.Region = '" + regionInput + "' " +
+                "ORDER BY city.Population DESC";
+        // Execute SQL statement
+        ResultSet rs = stmt.executeQuery(select);
+
+        // Extract city information
+        while (rs.next()) {
+            int ID = rs.getInt("ID");
+            String Name = rs.getString("Name");
+            String Code = rs.getString("CountryCode");
+            String District = rs.getString("District");
+            int Population = rs.getInt("Population");
+
+            // Create a new City object
+            City city = new City(ID, Name, Code, District, Population);
+
+            // Add the City object to the list
+            cities.add(city);
+        }
+    } catch (Exception e) {
+        System.out.println(e.getMessage());
+        System.out.println("Failed to get capital cities by region.");
+    }
+    return cities;
+}
+ */
