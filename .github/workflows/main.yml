@@ -3,7 +3,7 @@ on: push
 
 jobs:
   test:
-    name: Unit Tests
+    name: Unit and Integration Tests
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout
@@ -13,8 +13,8 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-      - name: Run unit tests
-        run: mvn test
+      - name: Run all tests
+        run: mvn verify
 
   build:
     name: Group Project action
