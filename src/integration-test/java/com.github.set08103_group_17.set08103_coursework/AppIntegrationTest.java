@@ -24,12 +24,23 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("Integration Tests")
 public class AppIntegrationTest {
 
+    static {
+        // Register MySQL JDBC driver
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("Failed to load MySQL JDBC driver", e);
+        }
+    }
+
     // Test container configuration for MySQL
     @Container
-    private static final MySQLContainer<?> mysqlContainer = new MySQLContainer<>("mysql:latest")
+    private static final MySQLContainer<?> mysqlContainer = new MySQLContainer<>("mysql:8.0")  // Specify exact MySQL version
             .withDatabaseName("world")
             .withUsername("test")
-            .withPassword("test");
+            .withPassword("test")
+            .withUrlParam("useSSL", "false")
+            .withUrlParam("allowPublicKeyRetrieval", "true");
 
     // Shared test resources
     private static Connection connection;
