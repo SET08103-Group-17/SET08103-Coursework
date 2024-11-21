@@ -27,26 +27,44 @@ public class App
     }
 
     /**
-     * Main Method
-     * @param args List of parameters that should be added to when new args are
-     * made
+     * Main Method with configurable connection
+     * @param args List of parameters
+     * @param testConnection Optional test connection for integration testing
      */
-    public static void main(String[] args)
-    {
+    public static void runMain(String[] args, Connection testConnection) {
         // Create new Application
-        App a = new App();
+        App a = testConnection != null ? new App(testConnection) : new App();
 
-        // Connect to database
-        a.connect();
+        // Connect to database if no test connection provided
+        if (testConnection == null) {
+            a.connect();
+        }
 
-        System.out.println("World: " + a.getPopulation());
-        ArrayList<Country> countries = a.getCountries();
-        System.out.println(countries.get(0).getName() + ": " + a.getPopulation(countries.get(0)));
-        ArrayList<City> cities = a.getCities();
-        System.out.println(cities.get(0).getName() + ": " + a.getPopulation(cities.get(0)));
+        // Run main logic
+        try {
+            System.out.println("World: " + a.getPopulation());
+            ArrayList<Country> countries = a.getCountries();
+            if (!countries.isEmpty()) {
+                System.out.println(countries.get(0).getName() + ": " + a.getPopulation(countries.get(0)));
+            }
+            ArrayList<City> cities = a.getCities();
+            if (!cities.isEmpty()) {
+                System.out.println(cities.get(0).getName() + ": " + a.getPopulation(cities.get(0)));
+            }
+        } finally {
+            // Disconnect from database if we created the connection
+            if (testConnection == null) {
+                a.disconnect();
+            }
+        }
+    }
 
-        // Disconnect from database
-        a.disconnect();
+    /**
+     * Main Method
+     * @param args List of parameters that should be added to when new args are made
+     */
+    public static void main(String[] args) {
+        runMain(args, null);
     }
 
     /**
