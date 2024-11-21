@@ -2,6 +2,7 @@ package com.github.set08103_group_17.set08103_coursework;
 
 import org.junit.jupiter.api.*;
 import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
@@ -35,12 +36,13 @@ public class AppIntegrationTest {
 
     // Test container configuration for MySQL
     @Container
-    private static final MySQLContainer<?> mysqlContainer = new MySQLContainer<>("mysql:8.0")  // Specify exact MySQL version
+    private static final MySQLContainer<?> mysqlContainer = new MySQLContainer<>("mysql:8.0")
             .withDatabaseName("world")
             .withUsername("test")
             .withPassword("test")
             .withUrlParam("useSSL", "false")
-            .withUrlParam("allowPublicKeyRetrieval", "true");
+            .withUrlParam("allowPublicKeyRetrieval", "true")
+            .waitingFor(Wait.forListeningPort());
 
     // Shared test resources
     private static Connection connection;
