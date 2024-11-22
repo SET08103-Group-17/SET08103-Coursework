@@ -5,4 +5,4 @@ COPY ./target/SET08103-Coursework.jar /tmp
 # Set working directory to /tmp
 WORKDIR /tmp
 # Define entry point to run the JAR file using java
-ENTRYPOINT ["java", "-jar", "SET08103-Coursework.jar"]
+ENTRYPOINT ["java", "-jar", "SET08103-Coursework.jar", "db:3306", "10000"]
