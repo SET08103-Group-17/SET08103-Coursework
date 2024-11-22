@@ -42,15 +42,11 @@ public class App
 
         // Run main logic
         try {
-            System.out.println("World: " + a.getPopulation());
-            ArrayList<Country> countries = a.getCountries();
-            if (!countries.isEmpty()) {
-                System.out.println(countries.get(0).getName() + ": " + a.getPopulation(countries.get(0)));
-            }
-            ArrayList<City> cities = a.getCities();
-            if (!cities.isEmpty()) {
-                System.out.println(cities.get(0).getName() + ": " + a.getPopulation(cities.get(0)));
-            }
+            System.out.println("Population Information:");
+            System.out.println("\tWorld - " + a.getPopulation());
+            System.out.println("\tEurope - " + a.getPopulation(Country.Continent.EUROPE));
+            System.out.println("\tBritish Islands - " + a.getPopulationByRegion("British Islands"));
+            System.out.println("\tScotland - " + a.getPopulationByDistrict("Scotland"));
         } finally {
             // Disconnect from database if we created the connection
             if (testConnection == null) {
@@ -342,6 +338,51 @@ public class App
                 "SELECT Population "
                         + "FROM city "
                         + "WHERE ID = '" + city.getID()  + "' "
+                        + "ORDER BY Population DESC";
+        return executeGetPopulationStatement(select);
+    }
+
+    /**
+     * Get the population in a continent
+     * @return the population
+     */
+    public long getPopulation(Country.Continent continent)
+    {
+        // Create string for SQL statement
+        String select =
+                "SELECT SUM(Population) AS Population "
+                        + "FROM country "
+                        + "WHERE Continent = '" + continent + "' "
+                        + "ORDER BY Population DESC";
+        return executeGetPopulationStatement(select);
+    }
+
+    /**
+     * Get the population in a region
+     * @return the population
+     */
+    public long getPopulationByRegion(String region)
+    {
+        // Create string for SQL statement
+        String select =
+                "SELECT SUM(Population) AS Population "
+                        + "FROM country "
+                        + "WHERE Region = '" + region + "' "
+                        + "ORDER BY Population DESC";
+        return executeGetPopulationStatement(select);
+    }
+
+    /**
+     * Get the population in a district
+     * @return the population
+     */
+    public long getPopulationByDistrict(String district)
+    {
+        // Create string for SQL statement
+        String select =
+                "SELECT SUM(Population) AS Population "
+                        + "FROM city "
+                        + "WHERE District = '" + district + "' "
                         + "ORDER BY Population DESC";
         return executeGetPopulationStatement(select);
     }
