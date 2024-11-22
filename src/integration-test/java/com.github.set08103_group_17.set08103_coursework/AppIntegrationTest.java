@@ -364,7 +364,8 @@ public class AppIntegrationTest {
     void testMain() {
         App.runMain(new String[]{}, connection);
         String output = outputCaptor.toString().trim();
-        assertTrue(output.contains("World: 456838672"));
+        assertTrue(output.contains("World - 456838672"));
+        //TODO: Test the rest of the output?
     }
 
     /**
