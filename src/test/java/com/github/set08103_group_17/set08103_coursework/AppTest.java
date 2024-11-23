@@ -144,8 +144,10 @@ public class AppTest {
                 String output = outContent.toString();
 
                 // Basic verification that output contains expected data
-                assertTrue(output.contains("World:"), "Output should contain world population");
-                assertTrue(output.contains("Test Country"), "Output should contain test country");
+                assertTrue(output.contains("World"), "Output should contain world population");
+                assertTrue(output.contains("Europe"), "Output should contain Europe's population");
+                assertTrue(output.contains("British Islands"), "Output should contain British Islands population");
+                assertTrue(output.contains("Scotland"), "Output should contain Scotland's population");
 
             } finally {
                 System.setOut(originalOut);
