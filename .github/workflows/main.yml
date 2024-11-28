@@ -18,7 +18,7 @@ jobs:
       - name: CodeCov
         uses: codecov/codecov-action@v4.0.1
         with:
-          token: ${{ sectrets.CODECOV_TOKEN }}
+          token: ${{ sectrets.CODECOV_TOKEN }} #token needed, cant access on codecov 
           directory: ./target/site/jacoco
           flags: Integration Tests
           verbose: true
