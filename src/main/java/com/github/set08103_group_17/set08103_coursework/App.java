@@ -322,16 +322,12 @@ public class App
     }
 
     //Report.No.20 - The top N populated capital cities in the world where N is provided by the user.
-    public ArrayList<City> topPopulatedCapitals_Region ()
+    //N has been set to 3; can be changed.
+    public ArrayList<City> TopPopulatedCapitals_Region ()
     {
         try
         {
-            //Create scanner object
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("Enter the amount of records you would like: ");
-
-            //Read user input, expects int
-            int limitInput = scanner.nextInt();
+            int limitInput = 3;
 
             //Create an SQL statement
             Statement TopCapCities_Region = con.createStatement();
@@ -363,7 +359,6 @@ public class App
             rs.close();
             TopCapCities_Region.close();
 
-            scanner.close();
             return capCities;
         }
         //Send exception if fail
