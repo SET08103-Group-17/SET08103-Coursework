@@ -15,7 +15,15 @@ jobs:
           distribution: 'adopt'
       - name: Run all tests
         run: mvn verify
-
+      - name: CodeCov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ sectrets.CODECOV_TOKEN }}
+          directory: ./target/site/jacoco
+          flags: Integration Tests
+          verbose: true
+          slug: SET08103-Group-17/SET08103-Coursework
+          
   build:
     name: Group Project action
     needs: test
