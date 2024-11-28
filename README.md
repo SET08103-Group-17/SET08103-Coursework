@@ -14,7 +14,7 @@
 | 4  | The top N populated countries in the world where N is provided by the user.                           | No  |                                           |
 | 5  | The top N populated countries in a continent where N is provided by the user.                         | No  |                                           |
 | 6  | The top N populated countries in a region where N is provided by the user.                            | No  |                                           |
-| 7  | All the cities in the world organised by largest population to smallest.                              | No  |                                           |
+| 7  | All the cities in the world organised by largest population to smallest.                              | Yes | ![](src\main\resources\requirement7.png)  |
 | 8  | All the cities in a continent organised by largest population to smallest.                            | No  |                                           |
 | 9  | All the cities in a region organised by largest population to smallest.                               | No  |                                           |
 | 10 | All the cities in a country organised by largest population to smallest.                              | No  |                                           |
