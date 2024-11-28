@@ -46,9 +46,11 @@ public class App
 
         // Run main logic
         try {
-            //System.out.println("Europe: " + a.getPopulation(Country.Continent.EUROPE));
-            //System.out.println("British Islands: " + a.getPopulationByRegion("British Islands"));
-            System.out.println("Scotland: " + a.getPopulationByDistrict("Scotland"));
+            System.out.println("Population Information:");
+            System.out.println("\tWorld - " + a.getPopulation());
+            System.out.println("\tEurope - " + a.getPopulation(Country.Continent.EUROPE));
+            System.out.println("\tBritish Islands - " + a.getPopulationByRegion("British Islands"));
+            System.out.println("\tScotland - " + a.getPopulationByDistrict("Scotland"));
         } finally {
             // Disconnect from database if we created the connection
             if (testConnection == null) {
