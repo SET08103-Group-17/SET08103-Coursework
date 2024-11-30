@@ -95,6 +95,7 @@
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>${assembly.plugin.version}</version>
                 <configuration>
+                    <finalName>SET08103-Coursework</finalName>
                     <archive>
                         <manifest>
                             <mainClass>com.github.set08103_group_17.set08103_coursework.App</mainClass>
@@ -103,6 +104,7 @@
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
+                    <appendAssemblyId>false</appendAssemblyId>
                 </configuration>
                 <executions>
                     <execution>
