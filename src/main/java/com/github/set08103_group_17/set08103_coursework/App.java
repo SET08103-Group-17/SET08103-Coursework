@@ -372,7 +372,7 @@ public class App
 
     //Report.No.21 - The top N populated capital cities in a continent where N and continent is provided by the user.
     //N has been set to 3; can be changed.
-    //Continent has been set to Europe
+    //Continent has been set to Europe; can be changed.
     public ArrayList<City> topPopulatedCapitals_Continent ()
     {
         try
@@ -422,15 +422,15 @@ public class App
         }
     }
 
-    //Report.No.21 - The top N populated capital cities in a continent where N and continent is provided by the user.
+    //Report.No.22 - The top N populated capital cities in a region where N and region is provided by the user.
     //N has been set to 3; can be changed.
-    //Continent has been set to Europe
+    //Region has been set to Southern Europe; can be changed.
     public ArrayList<City> topPopulatedCapitals_Region ()
     {
         try
         {
             int limitInput = 3;
-            String regionInput = "Europe";
+            String regionInput = "Southern Europe";
 
             //Create an SQL statement
             Statement TopCapCities_Region = con.createStatement();
