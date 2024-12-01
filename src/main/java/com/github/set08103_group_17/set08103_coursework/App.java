@@ -778,4 +778,50 @@ public class App {
         }
     }
 
+    //Report.No.16 - The top N populated cities in a district where N is provided by the user.
+    //N has been set to 3; can be changed.
+    //District has been set to Scotland; can be changed.
+    public ArrayList<City> topPopulatedCities_District () {
+        try {
+            int limitInput = 3;
+            String districtInput = "Scotland";
+
+            //Create an SQL statement
+            Statement TopCities_District = con.createStatement();
+
+            //Create string for SQL statement
+            String select =
+                    "SELECT city.Name, city.Population "
+                            + "FROM city "
+                            + "Where city.district = " + districtInput
+                            + "ORDER BY city.Population DESC "
+                            + "LIMIT " + limitInput;
+
+            //Execute SQL statement
+            ResultSet rs = TopCities_District.executeQuery(select);
+
+            //Extract information
+            ArrayList<City> cities = new ArrayList<>();
+            while (rs.next()) {
+                int id = rs.getInt("ID");
+                String name = rs.getString("capitalCity");
+                String countryCode = rs.getString("CountryCode");
+                String district = rs.getString("District");
+                int population = rs.getInt("Population");
+
+                City city = new City(id, name, countryCode, district, population);
+                cities.add(city);
+            }
+            rs.close();
+            TopCities_District.close();
+
+            return cities;
+        }
+        //Send exception if fail
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to retrieve City details");
+            return null;
+        }
+    }
 }
