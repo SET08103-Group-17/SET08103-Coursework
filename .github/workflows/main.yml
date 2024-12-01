@@ -21,7 +21,7 @@ jobs:
       - name: Upload coverage to CodeCov
         uses: codecov/codecov-action@v4
         env:
-          token: ${{ sectrets.CODECOV_TOKEN }}
+          token: ${{ secrets.CODECOV_TOKEN }}
           
   build:
     name: Group Project action
