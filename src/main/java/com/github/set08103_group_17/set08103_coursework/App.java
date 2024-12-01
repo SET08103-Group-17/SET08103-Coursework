@@ -746,7 +746,6 @@ public class App {
             String select =
                     "SELECT country.Name, country.Population "
                             + "FROM country "
-                            + "Where country.region = regionInput"
                             + "ORDER BY country.Population DESC "
                             + "LIMIT " + limitInput;
 
@@ -767,6 +766,53 @@ public class App {
             }
             rs.close();
             TopCountries_World.close();
+
+            return capCities;
+        }
+        //Send exception if fail
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to retrieve Capital City details");
+            return null;
+        }
+    }
+
+    //Report.No.5 - The top N populated countries in a continent where N is provided by the user.
+    //N has been set to 3; can be changed.
+    //Continent has been set to Europe; can be changed.
+    public ArrayList<City> topPopulatedCountries_Continent () {
+        try {
+            int limitInput = 3;
+            String continentInput = "Europe";
+
+            //Create an SQL statement
+            Statement TopCountries_Continent = con.createStatement();
+
+            //Create string for SQL statement
+            String select =
+                    "SELECT country.Name, country.Population "
+                            + "FROM country "
+                            + "Where country.continent = continentInput "
+                            + "ORDER BY country.Population DESC "
+                            + "LIMIT " + limitInput;
+
+            //Execute SQL statement
+            ResultSet rs = TopCountries_Continent.executeQuery(select);
+
+            //Extract information
+            ArrayList<City> capCities = new ArrayList<>();
+            while (rs.next()) {
+                int id = rs.getInt("ID");
+                String name = rs.getString("capitalCity");
+                String countryCode = rs.getString("CountryCode");
+                String district = rs.getString("District");
+                int population = rs.getInt("Population");
+
+                City city = new City(id, name, countryCode, district, population);
+                capCities.add(city);
+            }
+            rs.close();
+            TopCountries_Continent.close();
 
             return capCities;
         }
