@@ -12,8 +12,8 @@
 | 1  | All the countries in the world organised by largest population to smallest.                           | Yes | ![](src\main\resources\requirement1.png)  |
 | 2  | All the countries in a continent organised by largest population to smallest.                         | Yes | ![](src\main\resources\requirement2.png)  |
 | 3  | All the countries in a region organised by largest population to smallest.                            | Yes | ![](src\main\resources\requirement3.png)  |
-| 4  | The top N populated countries in the world where N is provided by the user.                           | No  |                                           |
-| 5  | The top N populated countries in a continent where N is provided by the user.                         | No  |                                           |
+| 4  | The top N populated countries in the world where N is provided by the user.                           | Yes |                                           |
+| 5  | The top N populated countries in a continent where N is provided by the user.                         | Yes |                                           |
 | 6  | The top N populated countries in a region where N is provided by the user.                            | No  |                                           |
 | 7  | All the cities in the world organised by largest population to smallest.                              | Yes | ![](src\main\resources\requirement7.png)  |
 | 8  | All the cities in a continent organised by largest population to smallest.                            | No  |                                           |
@@ -28,9 +28,9 @@
 | 17 | All the capital cities in the world organised by largest population to smallest.                      | No  |                                           |
 | 18 | All the capital cities in a continent organised by largest population to smallest.                    | No  |                                           |
 | 19 | All the capital cities in a region organised by largest to smallest.                                  | No  |                                           |
-| 20 | The top N populated capital cities in the world where N is provided by the user.                      | No  |                                           |
-| 21 | The top N populated capital cities in a continent where N is provided by the user.                    | No  |                                           |
-| 22 | The top N populated capital cities in a region where N is provided by the user.                       | No  |                                           |
+| 20 | The top N populated capital cities in the world where N is provided by the user.                      | Yes |                                           |
+| 21 | The top N populated capital cities in a continent where N is provided by the user.                    | Yes |                                           |
+| 22 | The top N populated capital cities in a region where N is provided by the user.                       | Yes |                                           |
 | 23 | The population of people, people living in cities, and people not living in cities in each continent. | No  |                                           |
 | 24 | The population of people, people living in cities, and people not living in cities in each region.    | No  |                                           |
 | 25 | The population of people, people living in cities, and people not living in cities in each country.   | No  |                                           |
