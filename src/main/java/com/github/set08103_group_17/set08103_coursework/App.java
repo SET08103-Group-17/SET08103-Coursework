@@ -599,6 +599,7 @@ public class App {
                     "SELECT city.Name AS capitalCity, city.Population "
                             + "FROM city "
                             + "JOIN country ON city.ID = country.Capital "
+                            + "WHERE city.Name = country.capital"
                             + "ORDER BY city.Population DESC "
                             + "LIMIT " + limitInput;
 
@@ -650,7 +651,7 @@ public class App {
                     "SELECT city.Name AS capitalCity, city.Population "
                             + "FROM city "
                             + "JOIN country ON city.ID = country.Capital "
-                            + "Where country.continent = continentInput"
+                            + "Where country.continent = continentInput AND city.Name = country.capital"
                             + "ORDER BY city.Population DESC "
                             + "LIMIT " + limitInput;
 
@@ -687,10 +688,8 @@ public class App {
     //Report.No.22 - The top N populated capital cities in a region where N and region is provided by the user.
     //N has been set to 3; can be changed.
     //Region has been set to Southern Europe; can be changed.
-    public ArrayList<City> topPopulatedCapitals_Region ()
-    {
-        try
-        {
+    public ArrayList<City> topPopulatedCapitals_Region () {
+        try {
             int limitInput = 3;
             String regionInput = "Southern Europe";
 
@@ -702,7 +701,7 @@ public class App {
                     "SELECT city.Name AS capitalCity, city.Population "
                             + "FROM city "
                             + "JOIN country ON city.ID = country.Capital "
-                            + "Where country.region = regionInput"
+                            + "Where country.region = regionInput AND city.Name = country.capital"
                             + "ORDER BY city.Population DESC "
                             + "LIMIT " + limitInput;
 
@@ -711,8 +710,7 @@ public class App {
 
             //Extract information
             ArrayList<City> capCities = new ArrayList<>();
-            while (rs.next())
-            {
+            while (rs.next()) {
                 int id = rs.getInt("ID");
                 String name = rs.getString("capitalCity");
                 String countryCode = rs.getString("CountryCode");
@@ -728,10 +726,55 @@ public class App {
             return capCities;
         }
         //Send exception if fail
-        catch (Exception e)
-        {
+        catch (Exception e) {
             System.out.println(e.getMessage());
             System.out.println("Failed to retrieve Capital City details");
             return null;
         }
+    }
+
+    //Report.No.4 - The top N populated countries in the world where N is provided by the user.
+    //N has been set to 3; can be changed.
+    public ArrayList<City> topPopulatedCountries_World () {
+        try {
+            int limitInput = 3;
+
+            //Create an SQL statement
+            Statement TopCountries_World = con.createStatement();
+
+            //Create string for SQL statement
+            String select =
+                    "SELECT country.Name, country.Population "
+                            + "FROM country "
+                            + "Where country.region = regionInput"
+                            + "ORDER BY country.Population DESC "
+                            + "LIMIT " + limitInput;
+
+            //Execute SQL statement
+            ResultSet rs = TopCountries_World.executeQuery(select);
+
+            //Extract information
+            ArrayList<City> capCities = new ArrayList<>();
+            while (rs.next()) {
+                int id = rs.getInt("ID");
+                String name = rs.getString("capitalCity");
+                String countryCode = rs.getString("CountryCode");
+                String district = rs.getString("District");
+                int population = rs.getInt("Population");
+
+                City city = new City(id, name, countryCode, district, population);
+                capCities.add(city);
+            }
+            rs.close();
+            TopCountries_World.close();
+
+            return capCities;
+        }
+        //Send exception if fail
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to retrieve Capital City details");
+            return null;
+        }
+    }
 }
