@@ -598,7 +598,7 @@ public class App {
                     "SELECT city.Name AS capitalCity, city.Population "
                             + "FROM city "
                             + "JOIN country ON city.ID = country.Capital "
-                            + "WHERE city.Name = country.capital"
+                            + "WHERE city.ID = country.capital"
                             + "ORDER BY city.Population DESC "
                             + "LIMIT " + limitInput;
 

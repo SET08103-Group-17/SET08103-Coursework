@@ -247,7 +247,7 @@ public class AppTest {
     /**
      * Test retrieving countries filtered by continent
      * Verifies:
-     * - Ability to filter countries by specific continent
+     * - Ability to filter countries by psecific continent
      * - Correct continent mapping
      * - Filtering functionality works as expected
      */
@@ -509,5 +509,40 @@ public class AppTest {
         appWithConnection.disconnect();
 
         verify(mockConnection).close();
+    }
+
+    /**
+     * Test TopCapCities_World method
+     * Verifies:
+     * - Successful retrieval of CapitalCities
+     * - Correct mapping of all City attributes
+     * - Correct order and number of records
+     */
+    @Test
+    @DisplayName("Test Top Capital Cities (World) method")
+    void testTopCapCities_World() throws SQLException{
+        when(mockStatement.executeQuery(anyString())).thenReturn(mockResultSet);
+
+        //Simulate detailed country result set (5 records)
+        when(mockResultSet.next()).thenReturn(true).thenReturn(true).thenReturn(true).thenReturn(true).thenReturn(true).thenReturn(false);
+        when(mockResultSet.getInt("ID")).thenReturn(1, 2, 3, 4, 5);
+        when(mockResultSet.getString("Name")).thenReturn("TestCity1", "TestCity2", "TestCity3", "TestCity4", "TestCity5");
+        when(mockResultSet.getInt("Population")).thenReturn(500, 100, 200, 300, 400);
+        //join city to country??
+        when(mockResultSet.getInt("Capital")).thenReturn(2,2, 3, 4, 5);
+
+        //retrieve cities and perform assertations
+        ArrayList<City> capCities = app.topPopulatedCapitals_World();
+
+        //validate result
+        assertNotNull(capCities);
+        assertEquals(3, capCities.size());
+        //check result is ordered by population
+        assertTrue(capCities.get(0).getPopulation() > capCities.get(1).getPopulation());
+        assertTrue(capCities.get(1).getPopulation() > capCities.get(2).getPopulation());
+        //check results are all capital cities
+        assertTrue(capCities.get(0).getID() == capCities.get(0).getCapital());
+        assertTrue(capCities.get(1).getID() == capCities.get(1).getCapital());
+        assertTrue(capCities.get(2).getID() == capCities.get(2).getCapital());
     }
 }
