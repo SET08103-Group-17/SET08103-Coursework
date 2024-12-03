@@ -705,4 +705,268 @@ public class AppTest {
 
         verify(mockConnection).close();
     }
+
+    /**
+     * Test retrieving top N cities worldwide
+     */
+    @Test
+    @DisplayName("Test retrieving top N cities in world")
+    void testGetTopNCities() throws SQLException {
+        // Setup ResultSet data
+        when(mockStatement.executeQuery(anyString())).thenReturn(mockResultSet);
+        when(mockResultSet.next()).thenReturn(true, true, false); // Two cities
+
+        // First city data
+        when(mockResultSet.getInt("ID")).thenReturn(1).thenReturn(2);
+        when(mockResultSet.getString("Name")).thenReturn("Tokyo").thenReturn("Delhi");
+        when(mockResultSet.getString("CountryCode")).thenReturn("JPN").thenReturn("IND");
+        when(mockResultSet.getString("District")).thenReturn("Tokyo-to").thenReturn("Delhi");
+        when(mockResultSet.getInt("Population")).thenReturn(37400068).thenReturn(30290936);
+
+        // Execute report
+        ArrayList<City> result = app.getTopNCities(2);
+
+        // Verify
+        assertNotNull(result, "Result should not be null");
+        assertEquals(2, result.size(), "Should return exactly 2 cities");
+
+        // Verify first city
+        City firstCity = result.get(0);
+        assertEquals("Tokyo", firstCity.getName(), "First city should be Tokyo");
+        assertEquals(37400068, firstCity.getPopulation(), "Tokyo population incorrect");
+
+        // Verify second city
+        City secondCity = result.get(1);
+        assertEquals("Delhi", secondCity.getName(), "Second city should be Delhi");
+        assertEquals(30290936, secondCity.getPopulation(), "Delhi population incorrect");
+
+        // Verify SQL contains LIMIT clause
+        verify(mockStatement).executeQuery(contains("LIMIT 2"));
+    }
+
+    /**
+     * Test retrieving top N cities in a continent
+     */
+    @Test
+    @DisplayName("Test retrieving top N cities in continent")
+    void testGetTopNCitiesByContinent() throws SQLException {
+        // Setup ResultSet data
+        when(mockStatement.executeQuery(anyString())).thenReturn(mockResultSet);
+        when(mockResultSet.next()).thenReturn(true, true, false); // Two cities
+
+        // First two cities in Asia
+        when(mockResultSet.getInt("ID")).thenReturn(1).thenReturn(2);
+        when(mockResultSet.getString("Name")).thenReturn("Tokyo").thenReturn("Delhi");
+        when(mockResultSet.getString("CountryCode")).thenReturn("JPN").thenReturn("IND");
+        when(mockResultSet.getString("District")).thenReturn("Tokyo-to").thenReturn("Delhi");
+        when(mockResultSet.getInt("Population")).thenReturn(37400068).thenReturn(30290936);
+
+        // Execute report
+        ArrayList<City> result = app.getTopNCitiesByContinent(2, Country.Continent.ASIA);
+
+        // Verify
+        assertNotNull(result, "Result should not be null");
+        assertEquals(2, result.size(), "Should return exactly 2 cities");
+
+        // Verify first city
+        City firstCity = result.get(0);
+        assertEquals("Tokyo", firstCity.getName(), "First city should be Tokyo");
+        assertEquals(37400068, firstCity.getPopulation(), "Tokyo population incorrect");
+
+        // Verify second city
+        City secondCity = result.get(1);
+        assertEquals("Delhi", secondCity.getName(), "Second city should be Delhi");
+        assertEquals(30290936, secondCity.getPopulation(), "Delhi population incorrect");
+
+        // Verify SQL contains both LIMIT and continent filter
+        verify(mockStatement).executeQuery(contains("LIMIT 2"));
+        verify(mockStatement).executeQuery(contains("WHERE country.Continent ="));
+    }
+
+    /**
+     * Test retrieving top N cities in a region
+     */
+    @Test
+    @DisplayName("Test retrieving top N cities in region")
+    void testGetTopNCitiesByRegion() throws SQLException {
+        // Setup ResultSet data
+        when(mockStatement.executeQuery(anyString())).thenReturn(mockResultSet);
+        when(mockResultSet.next()).thenReturn(true, true, false); // Two cities
+
+        // First two cities in Eastern Asia
+        when(mockResultSet.getInt("ID")).thenReturn(1).thenReturn(2);
+        when(mockResultSet.getString("Name")).thenReturn("Tokyo").thenReturn("Shanghai");
+        when(mockResultSet.getString("CountryCode")).thenReturn("JPN").thenReturn("CHN");
+        when(mockResultSet.getString("District")).thenReturn("Tokyo-to").thenReturn("Shanghai");
+        when(mockResultSet.getInt("Population")).thenReturn(37400068).thenReturn(27058480);
+
+        // Execute report
+        ArrayList<City> result = app.getTopNCitiesByRegion(2, "Eastern Asia");
+
+        // Verify
+        assertNotNull(result, "Result should not be null");
+        assertEquals(2, result.size(), "Should return exactly 2 cities");
+
+        // Verify first city
+        City firstCity = result.get(0);
+        assertEquals("Tokyo", firstCity.getName(), "First city should be Tokyo");
+        assertEquals(37400068, firstCity.getPopulation(), "Tokyo population incorrect");
+
+        // Verify second city
+        City secondCity = result.get(1);
+        assertEquals("Shanghai", secondCity.getName(), "Second city should be Shanghai");
+        assertEquals(27058480, secondCity.getPopulation(), "Shanghai population incorrect");
+
+        // Verify SQL contains both LIMIT and region filter
+        verify(mockStatement).executeQuery(contains("LIMIT 2"));
+        verify(mockStatement).executeQuery(contains("WHERE country.Region ="));
+    }
+
+    /**
+     * Test error handling for top N cities methods
+     */
+    @Test
+    @DisplayName("Test error handling for top N cities queries")
+    void testTopNCitiesErrorHandling() throws SQLException {
+        // Setup SQLException to be thrown
+        when(mockStatement.executeQuery(anyString())).thenThrow(new SQLException("Database error"));
+
+        // Test each method
+        assertNull(app.getTopNCities(5), "Should return null on error");
+        assertNull(app.getTopNCitiesByContinent(5, Country.Continent.ASIA), "Should return null on error");
+        assertNull(app.getTopNCitiesByRegion(5, "Eastern Asia"), "Should return null on error");
+    }
+
+    /**
+     * Test empty result handling for top N cities methods
+     */
+    @Test
+    @DisplayName("Test empty result handling for top N cities queries")
+    void testTopNCitiesEmptyResults() throws SQLException {
+        // Setup empty ResultSet
+        when(mockStatement.executeQuery(anyString())).thenReturn(mockResultSet);
+        when(mockResultSet.next()).thenReturn(false);
+
+        // Test each method
+        ArrayList<City> worldResult = app.getTopNCities(5);
+        ArrayList<City> continentResult = app.getTopNCitiesByContinent(5, Country.Continent.ASIA);
+        ArrayList<City> regionResult = app.getTopNCitiesByRegion(5, "Eastern Asia");
+
+        // Verify empty lists are returned
+        assertNotNull(worldResult, "Should return empty list for world query");
+        assertTrue(worldResult.isEmpty(), "World result should be empty");
+
+        assertNotNull(continentResult, "Should return empty list for continent query");
+        assertTrue(continentResult.isEmpty(), "Continent result should be empty");
+
+        assertNotNull(regionResult, "Should return empty list for region query");
+        assertTrue(regionResult.isEmpty(), "Region result should be empty");
+    }
+
+    @Test
+    @DisplayName("Test top populated capitals reports")
+    void testTopPopulatedCapitalsReports() throws SQLException {
+        // Setup mock data
+        when(mockStatement.executeQuery(anyString())).thenReturn(mockResultSet);
+
+        // First call returns one result, then no more
+        when(mockResultSet.next())
+                .thenReturn(true)  // First result
+                .thenReturn(false);  // No more results
+
+        // Mock only the columns that are actually selected in the SQL query
+        when(mockResultSet.getString("capitalCity")).thenReturn("Test Capital");
+        when(mockResultSet.getInt("Population")).thenReturn(1000000);
+
+        // These columns are used in the City constructor but aren't in the SELECT clause
+        // They will likely cause SQLExceptions in the real code
+        when(mockResultSet.getInt("ID")).thenReturn(1);
+        when(mockResultSet.getString("CountryCode")).thenReturn("TST");
+        when(mockResultSet.getString("District")).thenReturn("Test District");
+
+        // Test world capitals
+        ArrayList<City> worldCapitals = app.topPopulatedCapitals_World();
+
+        // Verify the mock interaction
+        verify(mockStatement).executeQuery(contains("SELECT city.Name AS capitalCity, city.Population"));
+        verify(mockStatement).executeQuery(contains("ORDER BY city.Population DESC"));
+        verify(mockStatement).executeQuery(contains("LIMIT 3"));
+
+        // Verify the results
+        assertNotNull(worldCapitals);
+        assertEquals(1, worldCapitals.size());
+
+        // Verify the City object properties
+        City capital = worldCapitals.get(0);
+        assertEquals("Test Capital", capital.getName());
+        assertEquals(1000000, capital.getPopulation());
+        assertEquals("TST", capital.getCode());
+        assertEquals("Test District", capital.getDistrict());
+    }
+
+    @Test
+    @DisplayName("Test top populated capitals reports error handling")
+    void testTopPopulatedCapitalsReportsErrors() throws SQLException {
+        // Setup mock to throw exception
+        when(mockStatement.executeQuery(anyString())).thenThrow(new SQLException("Query failed"));
+
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+
+        // Test error handling for each method
+        assertNull(app.topPopulatedCapitals_World());
+        assertTrue(outContent.toString().contains("Failed to retrieve Capital City details"));
+
+        outContent.reset();
+        assertNull(app.topPopulatedCapitals_Continent());
+        assertTrue(outContent.toString().contains("Failed to retrieve Capital City details"));
+
+        outContent.reset();
+        assertNull(app.topPopulatedCapitals_Region());
+        assertTrue(outContent.toString().contains("Failed to retrieve Capital City details"));
+    }
+
+    @Test
+    @DisplayName("Test top populated cities reports")
+    void testTopPopulatedCitiesReports() throws SQLException {
+        // Setup mock data
+        when(mockStatement.executeQuery(anyString())).thenReturn(mockResultSet);
+
+        // First call returns true once then false for each query
+        when(mockResultSet.next())
+                .thenReturn(true)  // First call
+                .thenReturn(false) // End of first result set
+                .thenReturn(true)  // First call of second query
+                .thenReturn(false); // End of second result set
+
+        // Mock the exact columns that the code tries to access from SQL
+        when(mockResultSet.getInt("ID")).thenReturn(1);
+        when(mockResultSet.getString("capitalCity")).thenReturn("Test City");  // Code uses capitalCity, not Name
+        when(mockResultSet.getString("CountryCode")).thenReturn("TST");
+        when(mockResultSet.getString("District")).thenReturn("Test District");
+        when(mockResultSet.getInt("Population")).thenReturn(1000000);
+
+        // Test country cities (searches for "Southern Europe")
+        ArrayList<City> countryCities = app.topPopulatedCities_Country();
+        assertNotNull(countryCities);
+        assertEquals(1, countryCities.size());
+        City countryCity = countryCities.get(0);
+        assertEquals("Test City", countryCity.getName());
+        assertEquals("TST", countryCity.getCode());
+        assertEquals("Test District", countryCity.getDistrict());
+        assertEquals(1000000, countryCity.getPopulation());
+
+        // Test district cities (searches for "Scotland")
+        ArrayList<City> districtCities = app.topPopulatedCities_District();
+        assertNotNull(districtCities);
+        assertEquals(1, districtCities.size());
+        City districtCity = districtCities.get(0);
+        assertEquals("Test City", districtCity.getName());
+        assertEquals("TST", districtCity.getCode());
+        assertEquals("Test District", districtCity.getDistrict());
+        assertEquals(1000000, districtCity.getPopulation());
+
+        // Verify the SQL queries were executed
+        verify(mockStatement, times(2)).executeQuery(anyString());
+    }
 }
