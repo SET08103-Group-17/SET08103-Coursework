@@ -1133,4 +1133,130 @@ public class App {
         }
         return reports;
     }
+
+    /**
+     * Get the top N populated cities in the world
+     * @param n The number of cities to return
+     * @return ArrayList of the top N cities by population
+     */
+    public ArrayList<City> getTopNCities(int n) {
+        try {
+            // Create SQL statement
+            Statement stmt = con.createStatement();
+
+            // Create string for SQL statement
+            String select =
+                    "SELECT * " +
+                            "FROM city " +
+                            "ORDER BY Population DESC " +
+                            "LIMIT " + n;
+
+            // Execute SQL statement
+            ResultSet rs = stmt.executeQuery(select);
+
+            // Extract city information
+            ArrayList<City> cities = new ArrayList<>();
+            while (rs.next()) {
+                City city = new City(
+                        rs.getInt("ID"),
+                        rs.getString("Name"),
+                        rs.getString("CountryCode"),
+                        rs.getString("District"),
+                        rs.getInt("Population")
+                );
+                cities.add(city);
+            }
+            return cities;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get top N cities");
+            return null;
+        }
+    }
+
+    /**
+     * Get the top N populated cities in a continent
+     * @param n The number of cities to return
+     * @param continent The continent to filter by
+     * @return ArrayList of the top N cities in the specified continent by population
+     */
+    public ArrayList<City> getTopNCitiesByContinent(int n, Country.Continent continent) {
+        try {
+            // Create SQL statement
+            Statement stmt = con.createStatement();
+
+            // Create string for SQL statement
+            String select =
+                    "SELECT city.* " +
+                            "FROM city " +
+                            "JOIN country ON city.CountryCode = country.Code " +
+                            "WHERE country.Continent = '" + continent.toString().replace("_", " ") + "' " +
+                            "ORDER BY city.Population DESC " +
+                            "LIMIT " + n;
+
+            // Execute SQL statement
+            ResultSet rs = stmt.executeQuery(select);
+
+            // Extract city information
+            ArrayList<City> cities = new ArrayList<>();
+            while (rs.next()) {
+                City city = new City(
+                        rs.getInt("ID"),
+                        rs.getString("Name"),
+                        rs.getString("CountryCode"),
+                        rs.getString("District"),
+                        rs.getInt("Population")
+                );
+                cities.add(city);
+            }
+            return cities;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get top N cities in continent");
+            return null;
+        }
+    }
+
+    /**
+     * Get the top N populated cities in a region
+     * @param n The number of cities to return
+     * @param region The region to filter by
+     * @return ArrayList of the top N cities in the specified region by population
+     */
+    public ArrayList<City> getTopNCitiesByRegion(int n, String region) {
+        try {
+            // Create SQL statement
+            Statement stmt = con.createStatement();
+
+            // Create string for SQL statement
+            String select =
+                    "SELECT city.* " +
+                            "FROM city " +
+                            "JOIN country ON city.CountryCode = country.Code " +
+                            "WHERE country.Region = '" + region + "' " +
+                            "ORDER BY city.Population DESC " +
+                            "LIMIT " + n;
+
+            // Execute SQL statement
+            ResultSet rs = stmt.executeQuery(select);
+
+            // Extract city information
+            ArrayList<City> cities = new ArrayList<>();
+            while (rs.next()) {
+                City city = new City(
+                        rs.getInt("ID"),
+                        rs.getString("Name"),
+                        rs.getString("CountryCode"),
+                        rs.getString("District"),
+                        rs.getInt("Population")
+                );
+                cities.add(city);
+            }
+            return cities;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get top N cities in region");
+            return null;
+        }
+    }
 }
