@@ -583,7 +583,7 @@ public class App {
     }
   
     //Report.No.20 - The top N populated capital cities in the world where N is provided by the user.
-    public ArrayList<City> topPopulatedCapitals_World (int limitInput)
+    public ArrayList<City> topPopulatedCapitalsInWorld (int limitInput)
     {
         try
         {
@@ -595,7 +595,7 @@ public class App {
             String select =
                     "SELECT city.Name AS capitalCity, city.Population "
                             + "FROM city "
-                            + "JOIN country ON city.ID = country.Capital "
+                            + "JOIN country ON city.ID = country.capital "
                             + "WHERE city.ID = country.capital"
                             + "ORDER BY city.Population DESC "
                             + "LIMIT " + limitInput;
@@ -631,14 +631,11 @@ public class App {
     }
 
     //Report.No.21 - The top N populated capital cities in a continent where N and continent is provided by the user.
-    //N has been set to 3; can be changed.
-    //Continent has been set to Europe; can be changed.
-    public ArrayList<City> topPopulatedCapitals_Continent ()
+    public ArrayList<City> topPopulatedCapitalsInContinent(int limitInput, String continentInput)
     {
         try
         {
-            int limitInput = 3;
-            String continentInput = "Europe";
+            String continent = continentInput;
 
             //Create an SQL statement
             Statement TopCapCities_Continent = con.createStatement();
@@ -647,8 +644,8 @@ public class App {
             String select =
                     "SELECT city.Name AS capitalCity, city.Population "
                             + "FROM city "
-                            + "JOIN country ON city.ID = country.Capital "
-                            + "Where country.continent = " + continentInput + " AND city.Name = country.capital"
+                            + "JOIN country ON city.ID = country.capital "
+                            + "Where country.continent = " + continent + " AND city.ID = country.capital"
                             + "ORDER BY city.Population DESC "
                             + "LIMIT " + limitInput;
 
@@ -683,12 +680,9 @@ public class App {
     }
 
     //Report.No.22 - The top N populated capital cities in a region where N and region is provided by the user.
-    //N has been set to 3; can be changed.
-    //Region has been set to Southern Europe; can be changed.
-    public ArrayList<City> topPopulatedCapitals_Region () {
+    public ArrayList<City> topPopulatedCapitalsInRegion (int limitInput, String regionInput) {
         try {
-            int limitInput = 3;
-            String regionInput = "Southern Europe";
+            String region = regionInput;
 
             //Create an SQL statement
             Statement TopCapCities_Region = con.createStatement();
@@ -697,8 +691,8 @@ public class App {
             String select =
                     "SELECT city.Name AS capitalCity, city.Population "
                             + "FROM city "
-                            + "JOIN country ON city.ID = country.Capital "
-                            + "Where country.region = " + regionInput + " AND city.Name = country.capital"
+                            + "JOIN country ON city.ID = country.capital "
+                            + "Where country.region = " + region + " AND city.ID = country.capital"
                             + "ORDER BY city.Population DESC "
                             + "LIMIT " + limitInput;
 
