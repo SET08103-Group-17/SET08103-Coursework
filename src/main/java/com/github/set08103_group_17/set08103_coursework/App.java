@@ -583,12 +583,10 @@ public class App {
     }
   
     //Report.No.20 - The top N populated capital cities in the world where N is provided by the user.
-    //N has been set to 3; can be changed.
-    public ArrayList<City> topPopulatedCapitals_World ()
+    public ArrayList<City> topPopulatedCapitals_World (int limitInput)
     {
         try
         {
-            int limitInput = 3;
 
             //Create an SQL statement
             Statement TopCapCities_World = con.createStatement();

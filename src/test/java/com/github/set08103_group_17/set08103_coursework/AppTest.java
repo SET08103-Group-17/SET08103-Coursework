@@ -524,25 +524,25 @@ public class AppTest {
         when(mockStatement.executeQuery(anyString())).thenReturn(mockResultSet);
 
         //Simulate detailed country result set (5 records)
-        when(mockResultSet.next()).thenReturn(true).thenReturn(true).thenReturn(true).thenReturn(true).thenReturn(true).thenReturn(false);
-        when(mockResultSet.getInt("ID")).thenReturn(1, 2, 3, 4, 5);
-        when(mockResultSet.getString("Name")).thenReturn("TestCity1", "TestCity2", "TestCity3", "TestCity4", "TestCity5");
-        when(mockResultSet.getInt("Population")).thenReturn(500, 100, 200, 300, 400);
-        //join city to country??
-        when(mockResultSet.getInt("Capital")).thenReturn(2,2, 3, 4, 5);
+        when(mockResultSet.next()).thenReturn(true, true, true, false);
+        when(mockResultSet.getInt("ID")).thenReturn(1, 2, 3);
+        when(mockResultSet.getString("Name")).thenReturn("TestCity1", "TestCity2", "TestCity3");
+        when(mockResultSet.getInt("Population")).thenReturn(500, 250, 100);
+
+        when(mockResultSet.getInt("Capital")).thenReturn(1,2, 3);
 
         //retrieve cities and perform assertations
-        ArrayList<City> capCities = app.topPopulatedCapitals_World();
+        ArrayList<City> capitalCities = app.topPopulatedCapitals_World(3);
 
         //validate result
-        assertNotNull(capCities);
-        assertEquals(3, capCities.size());
+        assertNotNull(capitalCities);
+        assertEquals(3, capitalCities.size());
         //check result is ordered by population
-        assertTrue(capCities.get(0).getPopulation() > capCities.get(1).getPopulation());
-        assertTrue(capCities.get(1).getPopulation() > capCities.get(2).getPopulation());
-        //check results are all capital cities
-        assertTrue(capCities.get(0).getID() == capCities.get(0).getCapital());
-        assertTrue(capCities.get(1).getID() == capCities.get(1).getCapital());
-        assertTrue(capCities.get(2).getID() == capCities.get(2).getCapital());
+        assertTrue(capitalCities.get(0).getPopulation() > capitalCities.get(1).getPopulation());
+        assertTrue(capitalCities.get(1).getPopulation() > capitalCities.get(2).getPopulation());
+        //check results are all capital cities by checking SQL WHERE statement.
+        //check that statement properly reads in limit
+        verify(mockStatement).executeQuery(contains("LIMIT 3"));
+        verify(mockStatement).executeQuery(contains("WHERE city.ID = country.capital"));
     }
 }
