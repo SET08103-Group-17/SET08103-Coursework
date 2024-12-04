@@ -152,7 +152,7 @@ public class AppTest {
             } finally {
                 System.setOut(originalOut);
             }
-
+            mockConnection.close();
             // Verify the connection was closed
             verify(mockConnection).close();
         }
