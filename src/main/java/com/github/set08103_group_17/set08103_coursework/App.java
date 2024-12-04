@@ -784,10 +784,9 @@ public class App {
     //Report.No.5 - The top N populated countries in a continent where N is provided by the user.
     //N has been set to 3; can be changed.
     //Continent has been set to Europe; can be changed.
-    public ArrayList<Country> topPopulatedCountries_Continent () {
+    public ArrayList<Country> topPopulatedCountriesInContinent (int limitInput, String continentInput) {
         try {
-            int limitInput = 3;
-            String continentInput = "Europe";
+            String continentuser = continentInput;
 
             //Create an SQL statement
             Statement TopCountries_Continent = con.createStatement();
@@ -796,7 +795,7 @@ public class App {
             String select =
                     "SELECT country.Name, country.Population "
                             + "FROM country "
-                            + "Where country.continent = continentInput "
+                            + "Where country.continent = " + continentuser
                             + "ORDER BY country.Population DESC "
                             + "LIMIT " + limitInput;
 
