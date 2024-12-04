@@ -786,16 +786,16 @@ public class App {
     //Continent has been set to Europe; can be changed.
     public ArrayList<Country> topPopulatedCountriesInContinent (int limitInput, String continentInput) {
         try {
-            String continentuser = continentInput;
+            String userContinent = continentInput;
 
             //Create an SQL statement
             Statement TopCountries_Continent = con.createStatement();
 
             //Create string for SQL statement
             String select =
-                    "SELECT country.Name, country.Population "
+                    "SELECT country.name, country.population "
                             + "FROM country "
-                            + "Where country.continent = " + continentuser
+                            + "Where country.continent = " + userContinent
                             + "ORDER BY country.Population DESC "
                             + "LIMIT " + limitInput;
 
@@ -842,10 +842,9 @@ public class App {
     //Report.No.15 - The top N populated cities in a country where N is provided by the user.
     //N has been set to 3; can be changed.
     //Country has been set to Canada; can be changed.
-    public ArrayList<City> topPopulatedCities_Country () {
+    public ArrayList<City> topPopulatedCitiesInCountry(int limitInput, String countryInput) {
         try {
-            int limitInput = 3;
-            String countryInput = "Southern Europe";
+            String userCountry = countryInput;
 
             //Create an SQL statement
             Statement TopCities_Country = con.createStatement();
@@ -854,7 +853,7 @@ public class App {
             String select =
                     "SELECT city.Name, city.Population "
                             + "FROM city "
-                            + "Where country.name = " + countryInput
+                            + "Where country.name = " + userCountry
                             + "ORDER BY city.Population DESC "
                             + "LIMIT " + limitInput;
 

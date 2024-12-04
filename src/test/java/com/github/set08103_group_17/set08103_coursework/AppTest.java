@@ -704,4 +704,41 @@ public class AppTest {
         verify(mockStatement).executeQuery(contains("LIMIT 3"));
         verify(mockStatement).executeQuery(contains("Where country.continent = Asia"));
     }
+
+    /**
+     * Test topPopulatedCitiesInCountry method
+     * Verifies:
+     * - Successful retrieval of CapitalCities
+     * - Correct mapping of all City attributes
+     * - Correct order and number of records
+     */
+    @Test
+    @DisplayName("Test Top Capital Cities (Region) method")
+    void testTopPopulatedCitiesInCountry() throws SQLException{
+        when(mockStatement.executeQuery(anyString())).thenReturn(mockResultSet);
+
+        //Simulate detailed country result set (5 records)
+        when(mockResultSet.next()).thenReturn(true, true, true, false);
+        when(mockResultSet.getInt("ID")).thenReturn(1, 2, 3);
+        when(mockResultSet.getString("Name")).thenReturn("TestCity1", "TestCity2", "TestCity3");
+        when(mockResultSet.getInt("Population")).thenReturn(500, 250, 100);
+
+        when(mockResultSet.getString("Country")).thenReturn("Scotland","Scotland", "Scotland");
+
+        //retrieve cities and perform assertations
+        ArrayList<City> capitalCities = app.topPopulatedCitiesInCountry(3, "Scotland");
+
+        //validate result
+        assertNotNull(capitalCities);
+        assertEquals(3, capitalCities.size());
+        //check result is ordered by population
+        assertTrue(capitalCities.get(0).getPopulation() > capitalCities.get(1).getPopulation());
+        assertTrue(capitalCities.get(1).getPopulation() > capitalCities.get(2).getPopulation());
+        //check results are all cities are in scotland by checking SQL WHERE statement.
+        //check that statement properly reads in limit
+        verify(mockStatement).executeQuery(contains("LIMIT 3"));
+        verify(mockStatement).executeQuery(contains("Where country.name = Scotland"));
+    }
+
+
 }
