@@ -926,4 +926,318 @@ public class App {
             return null;
         }
     }
+
+    /**
+     * Reports the total population, city population, and rural population for each continent,
+     * including the percentage of people who live in cities versus rural areas
+     * @return An array of objects containing [continent, total_pop, city_pop, non_city_pop, city_pop_percentage, non_city_pop_percentage]
+     */
+    public ArrayList<Object[]> getContinentPopulationReport() {
+        ArrayList<Object[]> reports = new ArrayList<>();
+        try {
+            // Create SQL statement
+            Statement stmt = con.createStatement();
+
+            // Create string for SQL statement that gets total population and city population by continent
+            String select =
+                    "SELECT c.Continent, " +
+                            "SUM(c.Population) as TotalPopulation, " +
+                            "COALESCE(SUM(city.Population), 0) as CityPopulation " +
+                            "FROM country c " +
+                            "LEFT JOIN city ON city.CountryCode = c.Code " +
+                            "GROUP BY c.Continent";
+
+            // Execute SQL statement
+            ResultSet rs = stmt.executeQuery(select);
+
+            // Process results
+            while (rs.next()) {
+                String continent = rs.getString("Continent");
+                long totalPop = rs.getLong("TotalPopulation");
+                long cityPop = rs.getLong("CityPopulation");
+                long nonCityPop = totalPop - cityPop;
+
+                // Store as Object array
+                reports.add(new Object[]{
+                        continent,
+                        totalPop,
+                        cityPop,
+                        nonCityPop,
+                        String.format("%.2f%%", (cityPop * 100.0) / totalPop),
+                        String.format("%.2f%%", (nonCityPop * 100.0) / totalPop)
+                });
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get continent population statistics");
+            return null;
+        }
+        return reports;
+    }
+
+    /**
+     * Reports the total population, city population, and rural population for each region,
+     * including the percentage of people who live in cities versus rural areas
+     * @return An array of objects containing [region, total_pop, city_pop, non_city_pop, city_pop_percentage, non_city_pop_percentage]
+     */
+    public ArrayList<Object[]> getRegionPopulationReport() {
+        ArrayList<Object[]> reports = new ArrayList<>();
+        try {
+            // Create SQL statement
+            Statement stmt = con.createStatement();
+
+            // Create string for SQL statement that gets total population and city population by region
+            String select =
+                    "SELECT c.Region, " +
+                            "SUM(c.Population) as TotalPopulation, " +
+                            "COALESCE(SUM(city.Population), 0) as CityPopulation " +
+                            "FROM country c " +
+                            "LEFT JOIN city ON city.CountryCode = c.Code " +
+                            "GROUP BY c.Region";
+
+            // Execute SQL statement
+            ResultSet rs = stmt.executeQuery(select);
+
+            // Process results
+            while (rs.next()) {
+                String region = rs.getString("Region");
+                long totalPop = rs.getLong("TotalPopulation");
+                long cityPop = rs.getLong("CityPopulation");
+                long nonCityPop = totalPop - cityPop;
+
+                reports.add(new Object[]{
+                        region,
+                        totalPop,
+                        cityPop,
+                        nonCityPop,
+                        String.format("%.2f%%", (cityPop * 100.0) / totalPop),
+                        String.format("%.2f%%", (nonCityPop * 100.0) / totalPop)
+                });
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get region population statistics");
+            return null;
+        }
+        return reports;
+    }
+
+    /**
+     * Reports the total population, city population, and rural population for each country,
+     * including the percentage of people who live in cities versus rural areas
+     * @return An array of objects containing [country, total_pop, city_pop, non_city_pop, city_pop_percentage, non_city_pop_percentage]
+     */
+    public ArrayList<Object[]> getCountryPopulationReport() {
+        ArrayList<Object[]> reports = new ArrayList<>();
+        try {
+            // Create SQL statement
+            Statement stmt = con.createStatement();
+
+            // Create string for SQL statement that gets total population and city population by country
+            String select =
+                    "SELECT c.Name, " +
+                            "c.Population as TotalPopulation, " +
+                            "COALESCE(SUM(city.Population), 0) as CityPopulation " +
+                            "FROM country c " +
+                            "LEFT JOIN city ON city.CountryCode = c.Code " +
+                            "GROUP BY c.Code, c.Name, c.Population";
+
+            // Execute SQL statement
+            ResultSet rs = stmt.executeQuery(select);
+
+            // Process results
+            while (rs.next()) {
+                String country = rs.getString("Name");
+                long totalPop = rs.getLong("TotalPopulation");
+                long cityPop = rs.getLong("CityPopulation");
+                long nonCityPop = totalPop - cityPop;
+
+                reports.add(new Object[]{
+                        country,
+                        totalPop,
+                        cityPop,
+                        nonCityPop,
+                        String.format("%.2f%%", (cityPop * 100.0) / totalPop),
+                        String.format("%.2f%%", (nonCityPop * 100.0) / totalPop)
+                });
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country population statistics");
+            return null;
+        }
+        return reports;
+    }
+
+    /**
+     * Reports the number and percentage of the world's population that speaks Chinese, Hindi, Spanish, or Arabic,
+     * ordered from most speakers to fewest
+     * @return An array of objects containing [language, speakers, percentage_of_world_pop]
+     */
+    public ArrayList<Object[]> getLanguageSpeakersReport() {
+        ArrayList<Object[]> reports = new ArrayList<>();
+        try {
+            // Create SQL statement
+            Statement stmt = con.createStatement();
+
+            // Create string for SQL statement that calculates speakers for specified languages
+            String select =
+                    "WITH WorldPop AS (SELECT SUM(Population) as total FROM country) " +
+                            "SELECT cl.Language, " +
+                            "ROUND(SUM(c.Population * (cl.Percentage/100))) as Speakers, " +
+                            "ROUND(SUM(c.Population * (cl.Percentage/100)) * 100.0 / (SELECT total FROM WorldPop), 2) as WorldPercentage " +
+                            "FROM countrylanguage cl " +
+                            "JOIN country c ON cl.CountryCode = c.Code " +
+                            "WHERE cl.Language IN ('Chinese', 'Hindi', 'Spanish', 'Arabic') " +
+                            "GROUP BY cl.Language " +
+                            "ORDER BY Speakers DESC";
+
+            // Execute SQL statement
+            ResultSet rs = stmt.executeQuery(select);
+
+            // Process results
+            while (rs.next()) {
+                String language = rs.getString("Language");
+                long speakers = rs.getLong("Speakers");
+                double percentage = rs.getDouble("WorldPercentage");
+
+                reports.add(new Object[]{
+                        language,
+                        speakers,
+                        String.format("%.2f%%", percentage)
+                });
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get language speaker statistics");
+            return null;
+        }
+        return reports;
+    }
+
+    /**
+     * Get the top N populated cities in the world
+     * @param n The number of cities to return
+     * @return ArrayList of the top N cities by population
+     */
+    public ArrayList<City> getTopNCities(int n) {
+        try {
+            // Create SQL statement
+            Statement stmt = con.createStatement();
+
+            // Create string for SQL statement
+            String select =
+                    "SELECT * " +
+                            "FROM city " +
+                            "ORDER BY Population DESC " +
+                            "LIMIT " + n;
+
+            // Execute SQL statement
+            ResultSet rs = stmt.executeQuery(select);
+
+            // Extract city information
+            ArrayList<City> cities = new ArrayList<>();
+            while (rs.next()) {
+                City city = new City(
+                        rs.getInt("ID"),
+                        rs.getString("Name"),
+                        rs.getString("CountryCode"),
+                        rs.getString("District"),
+                        rs.getInt("Population")
+                );
+                cities.add(city);
+            }
+            return cities;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get top N cities");
+            return null;
+        }
+    }
+
+    /**
+     * Get the top N populated cities in a continent
+     * @param n The number of cities to return
+     * @param continent The continent to filter by
+     * @return ArrayList of the top N cities in the specified continent by population
+     */
+    public ArrayList<City> getTopNCitiesByContinent(int n, Country.Continent continent) {
+        try {
+            // Create SQL statement
+            Statement stmt = con.createStatement();
+
+            // Create string for SQL statement
+            String select =
+                    "SELECT city.* " +
+                            "FROM city " +
+                            "JOIN country ON city.CountryCode = country.Code " +
+                            "WHERE country.Continent = '" + continent.toString().replace("_", " ") + "' " +
+                            "ORDER BY city.Population DESC " +
+                            "LIMIT " + n;
+
+            // Execute SQL statement
+            ResultSet rs = stmt.executeQuery(select);
+
+            // Extract city information
+            ArrayList<City> cities = new ArrayList<>();
+            while (rs.next()) {
+                City city = new City(
+                        rs.getInt("ID"),
+                        rs.getString("Name"),
+                        rs.getString("CountryCode"),
+                        rs.getString("District"),
+                        rs.getInt("Population")
+                );
+                cities.add(city);
+            }
+            return cities;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get top N cities in continent");
+            return null;
+        }
+    }
+
+    /**
+     * Get the top N populated cities in a region
+     * @param n The number of cities to return
+     * @param region The region to filter by
+     * @return ArrayList of the top N cities in the specified region by population
+     */
+    public ArrayList<City> getTopNCitiesByRegion(int n, String region) {
+        try {
+            // Create SQL statement
+            Statement stmt = con.createStatement();
+
+            // Create string for SQL statement
+            String select =
+                    "SELECT city.* " +
+                            "FROM city " +
+                            "JOIN country ON city.CountryCode = country.Code " +
+                            "WHERE country.Region = '" + region + "' " +
+                            "ORDER BY city.Population DESC " +
+                            "LIMIT " + n;
+
+            // Execute SQL statement
+            ResultSet rs = stmt.executeQuery(select);
+
+            // Extract city information
+            ArrayList<City> cities = new ArrayList<>();
+            while (rs.next()) {
+                City city = new City(
+                        rs.getInt("ID"),
+                        rs.getString("Name"),
+                        rs.getString("CountryCode"),
+                        rs.getString("District"),
+                        rs.getInt("Population")
+                );
+                cities.add(city);
+            }
+            return cities;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get top N cities in region");
+            return null;
+        }
+    }
 }
