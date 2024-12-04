@@ -782,8 +782,6 @@ public class App {
     }
   
     //Report.No.5 - The top N populated countries in a continent where N is provided by the user.
-    //N has been set to 3; can be changed.
-    //Continent has been set to Europe; can be changed.
     public ArrayList<Country> topPopulatedCountriesInContinent (int limitInput, String continentInput) {
         try {
             String userContinent = continentInput;
@@ -840,8 +838,6 @@ public class App {
     }
 
     //Report.No.15 - The top N populated cities in a country where N is provided by the user.
-    //N has been set to 3; can be changed.
-    //Country has been set to Canada; can be changed.
     public ArrayList<City> topPopulatedCitiesInCountry(int limitInput, String countryInput) {
         try {
             String userCountry = countryInput;
@@ -887,12 +883,9 @@ public class App {
     
 
     //Report.No.16 - The top N populated cities in a district where N is provided by the user.
-    //N has been set to 3; can be changed.
-    //District has been set to Scotland; can be changed.
-    public ArrayList<City> topPopulatedCities_District () {
+    public ArrayList<City> topPopulatedCitiesInDistrict(int limitInput, String districtInput) {
         try {
-            int limitInput = 3;
-            String districtInput = "Scotland";
+            String userDistrict = districtInput;
 
             //Create an SQL statement
             Statement TopCities_District = con.createStatement();
@@ -901,7 +894,7 @@ public class App {
             String select =
                     "SELECT city.Name, city.Population "
                             + "FROM city "
-                            + "Where city.district = " + districtInput
+                            + "Where city.District = " + userDistrict
                             + "ORDER BY city.Population DESC "
                             + "LIMIT " + limitInput;
 
