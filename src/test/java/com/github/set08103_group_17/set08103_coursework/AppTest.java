@@ -617,4 +617,49 @@ public class AppTest {
         verify(mockStatement).executeQuery(contains("Where country.region = Southern Europe"));
         verify(mockStatement).executeQuery(contains("AND city.ID = country.capital"));
     }
+
+    /**
+     * Test topPopulatedCountriesInWorld method
+     * Verifies:
+     * - Successful retrieval of countries
+     * - Correct mapping of all City attributes
+     * - Correct order and number of records
+     */
+    @Test
+    @DisplayName("Test Top Countries (World) method")
+    void testTopPopulatedCountriesInRegion() throws SQLException{
+        when(mockStatement.executeQuery(anyString())).thenReturn(mockResultSet);
+
+        // Simulate detailed country result set
+        when(mockResultSet.next()).thenReturn(true, true, true, false);
+        when(mockResultSet.getString("Code")).thenReturn("T1", "T2", "T3");
+        when(mockResultSet.getString("Name")).thenReturn("TestCountryOne", "TestCountryTwo", "TestCountryThree");
+        when(mockResultSet.getString("Continent")).thenReturn("Asia", "Europe", "Africa");
+        when(mockResultSet.getString("Region")).thenReturn("TestRegion", "TestRegion","TestRegion");
+        when(mockResultSet.getDouble("SurfaceArea")).thenReturn(500000.0, 500000.0, 500000.0);
+        when(mockResultSet.getInt("IndepYear")).thenReturn(1947, 1948, 1949);
+        when(mockResultSet.getInt("Population")).thenReturn(5000000, 250000, 125000);
+        when(mockResultSet.getDouble("LifeExpectancy")).thenReturn(70.5, 2000.5, 5.0);
+        when(mockResultSet.getDouble("GNP")).thenReturn(200000.0, 200000.0, 200000.0 );
+        when(mockResultSet.getDouble("GNPOld")).thenReturn(150000.0, 150000.0, 150000.0);
+        when(mockResultSet.getString("LocalName")).thenReturn("TestLocalName", "TestLocalName", "TestLocalName");
+        when(mockResultSet.getString("GovernmentForm")).thenReturn("Republic", "Democratic", "Dictatorship");
+        when(mockResultSet.getString("HeadOfState")).thenReturn("TestHead", "Alan", "TestHead");
+        when(mockResultSet.getInt("Capital")).thenReturn(1, 2, 4);
+        when(mockResultSet.getString("Code2")).thenReturn("C1", "C2", "C3");
+
+        //retrieve cities and perform assertations
+        ArrayList<Country> countries = app.topPopulatedCountriesInWorld(3);
+
+        //validate result
+        assertNotNull(countries);
+        assertEquals(3, countries.size());
+        //check result is ordered by population
+        assertTrue(countries.get(0).getPopulation() > countries.get(1).getPopulation());
+        assertTrue(countries.get(1).getPopulation() > countries.get(2).getPopulation());
+        //check that statement properly reads in limit
+        verify(mockStatement).executeQuery(contains("LIMIT 3"));
+    }
+
+
 }

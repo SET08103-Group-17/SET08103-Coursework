@@ -727,19 +727,17 @@ public class App {
     }
 
     //Report.No.4 - The top N populated countries in the world where N is provided by the user.
-    //N has been set to 3; can be changed.
-    public ArrayList<Country> topPopulatedCountries_World () {
+    public ArrayList<Country> topPopulatedCountriesInWorld (int limitInput) {
         try {
-            int limitInput = 3;
 
             //Create an SQL statement
             Statement TopCountries_World = con.createStatement();
 
             //Create string for SQL statement
             String select =
-                    "SELECT country.Name, country.Population "
+                    "SELECT country.name, country.population "
                             + "FROM country "
-                            + "ORDER BY country.Population DESC "
+                            + "ORDER BY country.population DESC "
                             + "LIMIT " + limitInput;
 
             //Execute SQL statement
