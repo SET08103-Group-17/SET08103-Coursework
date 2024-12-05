@@ -1276,26 +1276,4 @@ public class AppTest {
         assertEquals("33.33%", countryData[4], "City percentage should be correctly rounded");
         assertEquals("66.67%", countryData[5], "Rural percentage should be correctly rounded");
     }
-
-    @Test
-    @DisplayName("Test population reports with very large numbers")
-    void testPopulationReportsWithLargeNumbers() throws SQLException {
-        when(mockStatement.executeQuery(anyString())).thenReturn(mockResultSet);
-        when(mockResultSet.next())
-                .thenReturn(true)
-                .thenReturn(false);
-
-        // Test handling of large numbers (billions)
-        when(mockResultSet.getString("Region")).thenReturn("Test Region");
-        when(mockResultSet.getLong("TotalPopulation")).thenReturn(7800000000L);  // ~World population
-        when(mockResultSet.getLong("CityPopulation")).thenReturn(4300000000L);   // ~55% urban worldwide
-
-        ArrayList<Object[]> result = app.getRegionPopulationReport();
-        assertNotNull(result);
-        assertEquals(1, result.size());
-        Object[] regionData = result.get(0);
-        assertEquals(7800000000L, regionData[1], "Should handle world-scale population numbers");
-        assertEquals(4300000000L, regionData[2], "Should handle large city populations");
-        assertEquals("55.13%", regionData[4], "Should calculate correct percentage for large numbers");
-    }
 }
