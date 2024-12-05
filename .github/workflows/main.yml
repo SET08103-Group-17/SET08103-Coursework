@@ -1,6 +1,9 @@
 name: Group Project Workflow
 on: push
 
+permissions:
+  contents: write
+
 jobs:
   unit-test:
     name: Unit Tests
