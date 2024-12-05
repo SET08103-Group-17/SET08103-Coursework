@@ -1,6 +1,6 @@
 # SET08103-Coursework
 * **Master** Status ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/SET08103-Group-17/SET08103-Coursework/main.yml?branch=master&labelColor=blue) 
-  * **Master** Testing Coverage [![codecov](https://codecov.io/gh/SET08103-Group-17/SET08103-Coursework/graph/badge.svg?token=QC4KVJJP6E)](https://codecov.io/gh/SET08103-Group-17/SET08103-Coursework)
+  * **Master** Testing Coverage [![codecov](https://codecov.io/gh/SET08103-Group-17/SET08103-Coursework/branch/master/graph/badge.svg?token=QC4KVJJP6E)](https://codecov.io/gh/SET08103-Group-17/SET08103-Coursework)
 * **Develop** Status ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/SET08103-Group-17/SET08103-Coursework/main.yml?branch=develop&labelColor=blue)
 * **Release** [![Releases](https://img.shields.io/github/release/SET08103-Group-17/SET08103-Coursework/all.svg?labelColor=orange&label)](https://github.com/SET08103-Group-17/SET08103-Coursework/releases)
 * **License** ![GitHub License](https://img.shields.io/github/license/SET08103-Group-17/SET08103-Coursework)
