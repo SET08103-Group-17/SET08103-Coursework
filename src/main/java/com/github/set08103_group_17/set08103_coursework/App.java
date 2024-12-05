@@ -53,6 +53,129 @@ public class App {
             System.out.println("\tEurope - " + a.getPopulation(Country.Continent.EUROPE));
             System.out.println("\tBritish Islands - " + a.getPopulationByRegion("British Islands"));
             System.out.println("\tScotland - " + a.getPopulationByDistrict("Scotland"));
+
+            System.out.println("Population Reports:");
+
+            // 1. All countries in world by population
+            System.out.println("\n1. Countries in world by population:");
+            a.printCountries(a.getCountries());
+
+            // 2. All countries in continent by population
+            System.out.println("\n2. Countries in continent by population:");
+            a.printCountries(a.getCountries(Country.Continent.EUROPE));
+
+            // 3. All countries in region by population
+            System.out.println("\n3. Countries in region by population:");
+            a.printCountries(a.getCountries("British Islands"));
+
+            // 4. Top N populated countries in world
+            System.out.println("\n4. Top 5 populated countries in world:");
+            a.printCountries(a.topPopulatedCountriesInWorld(5));
+
+            // 5. Top N populated countries in continent
+            System.out.println("\n5. Top 5 populated countries in continent:");
+            a.printCountries(a.topPopulatedCountriesInContinent(5, "Europe"));
+
+            // 7. All cities in world by population
+            System.out.println("\n7. Cities in world by population:");
+            a.printCities(a.getCities());
+
+            // 8. All cities in continent by population
+            System.out.println("\n8. Cities in continent by population:");
+            a.printCities(a.getCitiesByContinent(Country.Continent.EUROPE));
+
+            // 9. All cities in region by population
+            System.out.println("\n9. Cities in region by population:");
+            a.printCities(a.getCitiesByRegion("British Islands"));
+
+            // 12. Top N populated cities in world
+            System.out.println("\n12. Top 5 populated cities in world:");
+            a.printCities(a.getTopNCities(5));
+
+            // 13. Top N populated cities in continent
+            System.out.println("\n13. Top 5 populated cities in continent:");
+            a.printCities(a.getTopNCitiesByContinent(5, Country.Continent.EUROPE));
+
+            // 14. Top N populated cities in region
+            System.out.println("\n14. Top 5 populated cities in region:");
+            a.printCities(a.getTopNCitiesByRegion(5, "British Islands"));
+
+            // 15. Top N populated cities in country
+            System.out.println("\n15. Top 5 populated cities in country:");
+            a.printCities(a.topPopulatedCitiesInCountry(5, "United Kingdom"));
+
+            // 16. Top N populated cities in district
+            System.out.println("\n16. Top 5 populated cities in district:");
+            a.printCities(a.topPopulatedCitiesInDistrict(5, "Scotland"));
+
+            // 18. Capital cities in continent by population
+            System.out.println("\n18. Capital cities in continent by population:");
+            a.printCities(a.getCapitalCitiesByContinent(Country.Continent.EUROPE));
+
+            // 19. Capital cities in region by population
+            System.out.println("\n19. Capital cities in region by population:");
+            a.printCities(a.getCapitalCitiesByRegion("British Islands"));
+
+            // 20. Top N populated capital cities in world
+            System.out.println("\n20. Top 5 populated capital cities in world:");
+            a.printCities(a.topPopulatedCapitalsInWorld(5));
+
+            // 21. Top N populated capital cities in continent
+            System.out.println("\n21. Top 5 populated capital cities in continent:");
+            a.printCities(a.topPopulatedCapitalsInContinent(5, "Europe"));
+
+            // 22. Top N populated capital cities in region
+            System.out.println("\n22. Top 5 populated capital cities in region:");
+            a.printCities(a.topPopulatedCapitalsInRegion(5, "British Islands"));
+
+            // 23. Population statistics by continent
+            System.out.println("\n23. Population statistics by continent:");
+            ArrayList<Object[]> continentStats = a.getContinentPopulationReport();
+            for (Object[] stat : continentStats) {
+                System.out.printf("Continent: %s, Total: %d, In Cities: %d (%s), Rural: %d (%s)\n",
+                        stat[0], stat[1], stat[2], stat[4], stat[3], stat[5]);
+            }
+
+            // 24. Population statistics by region
+            System.out.println("\n24. Population statistics by region:");
+            ArrayList<Object[]> regionStats = a.getRegionPopulationReport();
+            for (Object[] stat : regionStats) {
+                System.out.printf("Region: %s, Total: %d, In Cities: %d (%s), Rural: %d (%s)\n",
+                        stat[0], stat[1], stat[2], stat[4], stat[3], stat[5]);
+            }
+
+            // 25. Population statistics by country
+            System.out.println("\n25. Population statistics by country:");
+            ArrayList<Object[]> countryStats = a.getCountryPopulationReport();
+            for (Object[] stat : countryStats) {
+                System.out.printf("Country: %s, Total: %d, In Cities: %d (%s), Rural: %d (%s)\n",
+                        stat[0], stat[1], stat[2], stat[4], stat[3], stat[5]);
+            }
+
+            // 26-31. Population access reports
+            System.out.println("\n26. World population: " + a.getPopulation());
+            System.out.println("27. Continent population (Europe): " + a.getPopulation(Country.Continent.EUROPE));
+            System.out.println("28. Region population (British Islands): " + a.getPopulationByRegion("British Islands"));
+            Country uk = a.getCountries().stream()
+                    .filter(c -> c.getCode().equals("GBR"))
+                    .findFirst()
+                    .orElse(null);
+            System.out.println("29. Country population (UK): " + (uk != null ? a.getPopulation(uk) : "Not found"));
+            System.out.println("30. District population (Scotland): " + a.getPopulationByDistrict("Scotland"));
+            City london = a.getCities().stream()
+                    .filter(c -> c.getName().equals("London"))
+                    .findFirst()
+                    .orElse(null);
+            System.out.println("31. City population (London): " + (london != null ? a.getPopulation(london) : "Not found"));
+
+            // 32. Language speakers report
+            System.out.println("\n32. Language speakers report:");
+            ArrayList<Object[]> languageStats = a.getLanguageSpeakersReport();
+            for (Object[] stat : languageStats) {
+                System.out.printf("Language: %s, Speakers: %d (%s of world population)\n",
+                        stat[0], stat[1], stat[2]);
+            }
+
         } finally {
             // Disconnect from database if we created the connection
             if (testConnection == null) {
@@ -583,20 +706,16 @@ public class App {
     }
 
     //Report.No.20 - The top N populated capital cities in the world where N is provided by the user.
-    public ArrayList<City> topPopulatedCapitalsInWorld (int limitInput)
-    {
-        try
-        {
-
+    public ArrayList<City> topPopulatedCapitalsInWorld(int limitInput) {
+        try {
             //Create an SQL statement
             Statement TopCapCities_World = con.createStatement();
 
             //Create string for SQL statement
             String select =
-                    "SELECT city.Name AS capitalCity, city.Population "
+                    "SELECT city.* "
                             + "FROM city "
-                            + "JOIN country ON city.ID = country.capital "
-                            + "WHERE city.ID = country.capital"
+                            + "JOIN country ON city.ID = country.Capital "
                             + "ORDER BY city.Population DESC "
                             + "LIMIT " + limitInput;
 
@@ -605,10 +724,9 @@ public class App {
 
             //Extract information
             ArrayList<City> capCities = new ArrayList<>();
-            while (rs.next())
-            {
+            while (rs.next()) {
                 int id = rs.getInt("ID");
-                String name = rs.getString("capitalCity");
+                String name = rs.getString("Name");
                 String countryCode = rs.getString("CountryCode");
                 String district = rs.getString("District");
                 int population = rs.getInt("Population");
@@ -621,31 +739,25 @@ public class App {
 
             return capCities;
         }
-        //Send exception if fail
-        catch (Exception e)
-        {
+        catch (Exception e) {
             System.out.println(e.getMessage());
-            System.out.println("Failed to retrieve Capital City details");
+            System.out.println("Failed to retrieve capital city details");
             return null;
         }
     }
 
     //Report.No.21 - The top N populated capital cities in a continent where N and continent is provided by the user.
-    public ArrayList<City> topPopulatedCapitalsInContinent(int limitInput, String continentInput)
-    {
-        try
-        {
-            String continent = continentInput;
-
+    public ArrayList<City> topPopulatedCapitalsInContinent(int limitInput, String continentInput) {
+        try {
             //Create an SQL statement
             Statement TopCapCities_Continent = con.createStatement();
 
             //Create string for SQL statement
             String select =
-                    "SELECT city.Name AS capitalCity, city.Population "
+                    "SELECT city.* "
                             + "FROM city "
-                            + "JOIN country ON city.ID = country.capital "
-                            + "Where country.continent = " + continent + " AND city.ID = country.capital"
+                            + "JOIN country ON city.ID = country.Capital "
+                            + "WHERE country.Continent = '" + continentInput + "' "
                             + "ORDER BY city.Population DESC "
                             + "LIMIT " + limitInput;
 
@@ -654,10 +766,9 @@ public class App {
 
             //Extract information
             ArrayList<City> capCities = new ArrayList<>();
-            while (rs.next())
-            {
+            while (rs.next()) {
                 int id = rs.getInt("ID");
-                String name = rs.getString("capitalCity");
+                String name = rs.getString("Name");
                 String countryCode = rs.getString("CountryCode");
                 String district = rs.getString("District");
                 int population = rs.getInt("Population");
@@ -670,29 +781,25 @@ public class App {
 
             return capCities;
         }
-        //Send exception if fail
-        catch (Exception e)
-        {
+        catch (Exception e) {
             System.out.println(e.getMessage());
-            System.out.println("Failed to retrieve Capital City details");
+            System.out.println("Failed to retrieve capital city details");
             return null;
         }
     }
 
     //Report.No.22 - The top N populated capital cities in a region where N and region is provided by the user.
-    public ArrayList<City> topPopulatedCapitalsInRegion (int limitInput, String regionInput) {
+    public ArrayList<City> topPopulatedCapitalsInRegion(int limitInput, String regionInput) {
         try {
-            String region = regionInput;
-
             //Create an SQL statement
             Statement TopCapCities_Region = con.createStatement();
 
             //Create string for SQL statement
             String select =
-                    "SELECT city.Name AS capitalCity, city.Population "
+                    "SELECT city.* "
                             + "FROM city "
-                            + "JOIN country ON city.ID = country.capital "
-                            + "Where country.region = " + region + " AND city.ID = country.capital"
+                            + "JOIN country ON city.ID = country.Capital "
+                            + "WHERE country.Region = '" + regionInput + "' "
                             + "ORDER BY city.Population DESC "
                             + "LIMIT " + limitInput;
 
@@ -703,7 +810,7 @@ public class App {
             ArrayList<City> capCities = new ArrayList<>();
             while (rs.next()) {
                 int id = rs.getInt("ID");
-                String name = rs.getString("capitalCity");
+                String name = rs.getString("Name");
                 String countryCode = rs.getString("CountryCode");
                 String district = rs.getString("District");
                 int population = rs.getInt("Population");
@@ -716,34 +823,30 @@ public class App {
 
             return capCities;
         }
-        //Send exception if fail
         catch (Exception e) {
-
-
             System.out.println(e.getMessage());
-            System.out.println("Failed to retrieve Capital City details");
+            System.out.println("Failed to retrieve capital city details");
             return null;
         }
     }
 
     //Report.No.4 - The top N populated countries in the world where N is provided by the user.
-    public ArrayList<Country> topPopulatedCountriesInWorld (int limitInput) {
+    public ArrayList<Country> topPopulatedCountriesInWorld(int limitInput) {
         try {
-
-            //Create an SQL statement
+            // Create an SQL statement
             Statement TopCountries_World = con.createStatement();
 
-            //Create string for SQL statement
+            // Create string for SQL statement - select all columns
             String select =
-                    "SELECT country.name, country.population "
+                    "SELECT * "
                             + "FROM country "
-                            + "ORDER BY country.population DESC "
+                            + "ORDER BY Population DESC "
                             + "LIMIT " + limitInput;
 
-            //Execute SQL statement
+            // Execute SQL statement
             ResultSet rs = TopCountries_World.executeQuery(select);
 
-            //Extract information
+            // Extract information
             ArrayList<Country> countries = new ArrayList<>();
             while (rs.next()) {
                 String code = rs.getString("Code");
@@ -763,6 +866,7 @@ public class App {
                 String headOfState = rs.getString("HeadOfState");
                 int capital = rs.getInt("Capital");
                 String code2 = rs.getString("Code2");
+
                 Country country = new Country(code, name, continent, region, surfaceArea, independenceYear, population,
                         lifeExpectancy, GNP, GNPOld, localName, governmentForm, headOfState, capital, code2);
                 countries.add(country);
@@ -772,29 +876,25 @@ public class App {
 
             return countries;
         }
-        //Send exception if fail
         catch (Exception e) {
-
             System.out.println(e.getMessage());
-            System.out.println("Failed to retrieve Capital City details");
+            System.out.println("Failed to retrieve country details");
             return null;
         }
     }
 
     //Report.No.5 - The top N populated countries in a continent where N is provided by the user.
-    public ArrayList<Country> topPopulatedCountriesInContinent (int limitInput, String continentInput) {
+    public ArrayList<Country> topPopulatedCountriesInContinent(int limitInput, String continentInput) {
         try {
-            String userContinent = continentInput;
-
             //Create an SQL statement
             Statement TopCountries_Continent = con.createStatement();
 
             //Create string for SQL statement
             String select =
-                    "SELECT country.name, country.population "
+                    "SELECT * "
                             + "FROM country "
-                            + "Where country.continent = " + userContinent
-                            + "ORDER BY country.Population DESC "
+                            + "WHERE continent = '" + continentInput + "' "
+                            + "ORDER BY Population DESC "
                             + "LIMIT " + limitInput;
 
             //Execute SQL statement
@@ -820,6 +920,7 @@ public class App {
                 String headOfState = rs.getString("HeadOfState");
                 int capital = rs.getInt("Capital");
                 String code2 = rs.getString("Code2");
+
                 Country country = new Country(code, name, continent, region, surfaceArea, independenceYear, population,
                         lifeExpectancy, GNP, GNPOld, localName, governmentForm, headOfState, capital, code2);
                 countries.add(country);
@@ -829,10 +930,9 @@ public class App {
 
             return countries;
         }
-        //Send exception if fail
         catch (Exception e) {
             System.out.println(e.getMessage());
-            System.out.println("Failed to retrieve Capital City details");
+            System.out.println("Failed to retrieve country details");
             return null;
         }
     }
@@ -840,17 +940,15 @@ public class App {
     //Report.No.15 - The top N populated cities in a country where N is provided by the user.
     public ArrayList<City> topPopulatedCitiesInCountry(int limitInput, String countryInput) {
         try {
-            String userCountry = countryInput;
-
             //Create an SQL statement
             Statement TopCities_Country = con.createStatement();
 
             //Create string for SQL statement
             String select =
-                    "SELECT city.Name, city.Population "
+                    "SELECT * "
                             + "FROM city "
-                            + "Where country.name = " + userCountry
-                            + "ORDER BY city.Population DESC "
+                            + "WHERE CountryCode = (SELECT Code FROM country WHERE Name = '" + countryInput + "') "
+                            + "ORDER BY Population DESC "
                             + "LIMIT " + limitInput;
 
             //Execute SQL statement
@@ -860,7 +958,7 @@ public class App {
             ArrayList<City> cities = new ArrayList<>();
             while (rs.next()) {
                 int id = rs.getInt("ID");
-                String name = rs.getString("capitalCity");
+                String name = rs.getString("Name");
                 String countryCode = rs.getString("CountryCode");
                 String district = rs.getString("District");
                 int population = rs.getInt("Population");
@@ -873,29 +971,27 @@ public class App {
 
             return cities;
         }
-        //Send exception if fail
         catch (Exception e) {
             System.out.println(e.getMessage());
-            System.out.println("Failed to retrieve City details");
+            System.out.println("Failed to retrieve city details");
             return null;
         }
     }
 
 
+
     //Report.No.16 - The top N populated cities in a district where N is provided by the user.
     public ArrayList<City> topPopulatedCitiesInDistrict(int limitInput, String districtInput) {
         try {
-            String userDistrict = districtInput;
-
             //Create an SQL statement
             Statement TopCities_District = con.createStatement();
 
             //Create string for SQL statement
             String select =
-                    "SELECT city.Name, city.Population "
+                    "SELECT * "
                             + "FROM city "
-                            + "Where city.District = " + userDistrict
-                            + "ORDER BY city.Population DESC "
+                            + "WHERE District = '" + districtInput + "' "
+                            + "ORDER BY Population DESC "
                             + "LIMIT " + limitInput;
 
             //Execute SQL statement
@@ -905,7 +1001,7 @@ public class App {
             ArrayList<City> cities = new ArrayList<>();
             while (rs.next()) {
                 int id = rs.getInt("ID");
-                String name = rs.getString("capitalCity");
+                String name = rs.getString("Name");
                 String countryCode = rs.getString("CountryCode");
                 String district = rs.getString("District");
                 int population = rs.getInt("Population");
@@ -918,11 +1014,9 @@ public class App {
 
             return cities;
         }
-        //Send exception if fail
         catch (Exception e) {
             System.out.println(e.getMessage());
-            System.out.println("Failed to retrieve City details");
-            System.out.println("Failed to retrieve Capital City details");
+            System.out.println("Failed to retrieve city details");
             return null;
         }
     }
@@ -935,42 +1029,44 @@ public class App {
     public ArrayList<Object[]> getContinentPopulationReport() {
         ArrayList<Object[]> reports = new ArrayList<>();
         try {
-            // Create SQL statement
             Statement stmt = con.createStatement();
 
-            // Create string for SQL statement that gets total population and city population by continent
+            // Modified SQL to properly sum populations
             String select =
-                    "SELECT c.Continent, " +
+                    "SELECT " +
+                            "c.Continent, " +
                             "SUM(c.Population) as TotalPopulation, " +
-                            "COALESCE(SUM(city.Population), 0) as CityPopulation " +
+                            "(SELECT SUM(city.Population) " +
+                            "FROM city " +
+                            "JOIN country ON city.CountryCode = country.Code " +
+                            "WHERE country.Continent = c.Continent) as CityPopulation " +
                             "FROM country c " +
-                            "LEFT JOIN city ON city.CountryCode = c.Code " +
                             "GROUP BY c.Continent";
 
-            // Execute SQL statement
             ResultSet rs = stmt.executeQuery(select);
 
-            // Process results
             while (rs.next()) {
                 String continent = rs.getString("Continent");
                 long totalPop = rs.getLong("TotalPopulation");
                 long cityPop = rs.getLong("CityPopulation");
-                long nonCityPop = totalPop - cityPop;
+                long ruralPop = totalPop - cityPop;
 
-                // Store as Object array
+                // Calculate percentages, handle division by zero
+                double cityPercent = totalPop > 0 ? ((double)cityPop * 100.0) / totalPop : 0;
+                double ruralPercent = totalPop > 0 ? ((double)ruralPop * 100.0) / totalPop : 0;
+
                 reports.add(new Object[]{
                         continent,
                         totalPop,
                         cityPop,
-                        nonCityPop,
-                        String.format("%.2f%%", (cityPop * 100.0) / totalPop),
-                        String.format("%.2f%%", (nonCityPop * 100.0) / totalPop)
+                        ruralPop,
+                        String.format("%.2f%%", cityPercent),
+                        String.format("%.2f%%", ruralPercent)
                 });
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
             System.out.println("Failed to get continent population statistics");
-            return null;
         }
         return reports;
     }
@@ -978,46 +1074,48 @@ public class App {
     /**
      * Reports the total population, city population, and rural population for each region,
      * including the percentage of people who live in cities versus rural areas
-     * @return An array of objects containing [region, total_pop, city_pop, non_city_pop, city_pop_percentage, non_city_pop_percentage]
      */
     public ArrayList<Object[]> getRegionPopulationReport() {
         ArrayList<Object[]> reports = new ArrayList<>();
         try {
-            // Create SQL statement
             Statement stmt = con.createStatement();
 
-            // Create string for SQL statement that gets total population and city population by region
+            // Modified SQL to properly sum populations by region
             String select =
-                    "SELECT c.Region, " +
+                    "SELECT " +
+                            "c.Region, " +
                             "SUM(c.Population) as TotalPopulation, " +
-                            "COALESCE(SUM(city.Population), 0) as CityPopulation " +
+                            "(SELECT SUM(city.Population) " +
+                            "FROM city " +
+                            "JOIN country ON city.CountryCode = country.Code " +
+                            "WHERE country.Region = c.Region) as CityPopulation " +
                             "FROM country c " +
-                            "LEFT JOIN city ON city.CountryCode = c.Code " +
                             "GROUP BY c.Region";
 
-            // Execute SQL statement
             ResultSet rs = stmt.executeQuery(select);
 
-            // Process results
             while (rs.next()) {
                 String region = rs.getString("Region");
                 long totalPop = rs.getLong("TotalPopulation");
                 long cityPop = rs.getLong("CityPopulation");
-                long nonCityPop = totalPop - cityPop;
+                long ruralPop = totalPop - cityPop;
+
+                // Calculate percentages, handle division by zero
+                double cityPercent = totalPop > 0 ? ((double)cityPop * 100.0) / totalPop : 0;
+                double ruralPercent = totalPop > 0 ? ((double)ruralPop * 100.0) / totalPop : 0;
 
                 reports.add(new Object[]{
                         region,
                         totalPop,
                         cityPop,
-                        nonCityPop,
-                        String.format("%.2f%%", (cityPop * 100.0) / totalPop),
-                        String.format("%.2f%%", (nonCityPop * 100.0) / totalPop)
+                        ruralPop,
+                        String.format("%.2f%%", cityPercent),
+                        String.format("%.2f%%", ruralPercent)
                 });
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
             System.out.println("Failed to get region population statistics");
-            return null;
         }
         return reports;
     }
@@ -1025,46 +1123,47 @@ public class App {
     /**
      * Reports the total population, city population, and rural population for each country,
      * including the percentage of people who live in cities versus rural areas
-     * @return An array of objects containing [country, total_pop, city_pop, non_city_pop, city_pop_percentage, non_city_pop_percentage]
      */
     public ArrayList<Object[]> getCountryPopulationReport() {
         ArrayList<Object[]> reports = new ArrayList<>();
         try {
-            // Create SQL statement
             Statement stmt = con.createStatement();
 
-            // Create string for SQL statement that gets total population and city population by country
+            // Modified SQL to properly sum populations by country
             String select =
-                    "SELECT c.Name, " +
+                    "SELECT " +
+                            "c.Name, " +
                             "c.Population as TotalPopulation, " +
-                            "COALESCE(SUM(city.Population), 0) as CityPopulation " +
+                            "(SELECT SUM(city.Population) " +
+                            "FROM city " +
+                            "WHERE city.CountryCode = c.Code) as CityPopulation " +
                             "FROM country c " +
-                            "LEFT JOIN city ON city.CountryCode = c.Code " +
-                            "GROUP BY c.Code, c.Name, c.Population";
+                            "ORDER BY c.Population DESC";
 
-            // Execute SQL statement
             ResultSet rs = stmt.executeQuery(select);
 
-            // Process results
             while (rs.next()) {
                 String country = rs.getString("Name");
                 long totalPop = rs.getLong("TotalPopulation");
                 long cityPop = rs.getLong("CityPopulation");
-                long nonCityPop = totalPop - cityPop;
+                long ruralPop = totalPop - cityPop;
+
+                // Calculate percentages, handle division by zero
+                double cityPercent = totalPop > 0 ? ((double)cityPop * 100.0) / totalPop : 0;
+                double ruralPercent = totalPop > 0 ? ((double)ruralPop * 100.0) / totalPop : 0;
 
                 reports.add(new Object[]{
                         country,
                         totalPop,
                         cityPop,
-                        nonCityPop,
-                        String.format("%.2f%%", (cityPop * 100.0) / totalPop),
-                        String.format("%.2f%%", (nonCityPop * 100.0) / totalPop)
+                        ruralPop,
+                        String.format("%.2f%%", cityPercent),
+                        String.format("%.2f%%", ruralPercent)
                 });
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
             System.out.println("Failed to get country population statistics");
-            return null;
         }
         return reports;
     }
