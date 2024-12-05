@@ -1185,28 +1185,6 @@ public class AppTest {
     }
 
     @Test
-    @DisplayName("Test population reports percentage calculations")
-    void testPopulationReportPercentages() throws SQLException {
-        // Setup mock data
-        when(mockStatement.executeQuery(anyString())).thenReturn(mockResultSet);
-        when(mockResultSet.next())
-                .thenReturn(true)
-                .thenReturn(false);
-
-        // Test exact percentage calculations
-        when(mockResultSet.getString("Name")).thenReturn("Test Country");
-        when(mockResultSet.getLong("TotalPopulation")).thenReturn(1000000L);
-        when(mockResultSet.getLong("CityPopulation")).thenReturn(333333L);  // Should give 33.33%
-
-        ArrayList<Object[]> result = app.getCountryPopulationReport();
-        assertNotNull(result);
-        assertEquals(1, result.size());
-        Object[] countryData = result.get(0);
-        assertEquals("33.33%", countryData[4], "City percentage should be correctly rounded");
-        assertEquals("66.67%", countryData[5], "Rural percentage should be correctly rounded");
-    }
-
-    @Test
     @DisplayName("Test population reports SQL join correctness")
     void testPopulationReportJoins() throws SQLException {
         // Setup mock data
@@ -1275,5 +1253,27 @@ public class AppTest {
         assertEquals(1000000L, result.get(0)[1]);
         assertEquals(2000000L, result.get(1)[1]);
         assertEquals(3000000L, result.get(2)[1]);
+    }
+
+    @Test
+    @DisplayName("Test population reports percentage calculations")
+    void testPopulationReportPercentages() throws SQLException {
+        // Setup mock data
+        when(mockStatement.executeQuery(anyString())).thenReturn(mockResultSet);
+        when(mockResultSet.next())
+                .thenReturn(true)
+                .thenReturn(false);
+
+        // Test exact percentage calculations
+        when(mockResultSet.getString("Name")).thenReturn("Test Country");
+        when(mockResultSet.getLong("TotalPopulation")).thenReturn(1000000L);
+        when(mockResultSet.getLong("CityPopulation")).thenReturn(333333L);  // Should give 33.33%
+
+        ArrayList<Object[]> result = app.getCountryPopulationReport();
+        assertNotNull(result);
+        assertEquals(1, result.size());
+        Object[] countryData = result.get(0);
+        assertEquals("33.33%", countryData[4], "City percentage should be correctly rounded");
+        assertEquals("66.67%", countryData[5], "Rural percentage should be correctly rounded");
     }
 }
