@@ -581,14 +581,12 @@ public class App {
         }
         return cities;
     }
-  
+
     //Report.No.20 - The top N populated capital cities in the world where N is provided by the user.
-    //N has been set to 3; can be changed.
-    public ArrayList<City> topPopulatedCapitals_World ()
+    public ArrayList<City> topPopulatedCapitalsInWorld (int limitInput)
     {
         try
         {
-            int limitInput = 3;
 
             //Create an SQL statement
             Statement TopCapCities_World = con.createStatement();
@@ -597,8 +595,8 @@ public class App {
             String select =
                     "SELECT city.Name AS capitalCity, city.Population "
                             + "FROM city "
-                            + "JOIN country ON city.ID = country.Capital "
-                            + "WHERE city.Name = country.capital"
+                            + "JOIN country ON city.ID = country.capital "
+                            + "WHERE city.ID = country.capital"
                             + "ORDER BY city.Population DESC "
                             + "LIMIT " + limitInput;
 
@@ -633,14 +631,11 @@ public class App {
     }
 
     //Report.No.21 - The top N populated capital cities in a continent where N and continent is provided by the user.
-    //N has been set to 3; can be changed.
-    //Continent has been set to Europe; can be changed.
-    public ArrayList<City> topPopulatedCapitals_Continent ()
+    public ArrayList<City> topPopulatedCapitalsInContinent(int limitInput, String continentInput)
     {
         try
         {
-            int limitInput = 3;
-            String continentInput = "Europe";
+            String continent = continentInput;
 
             //Create an SQL statement
             Statement TopCapCities_Continent = con.createStatement();
@@ -649,8 +644,8 @@ public class App {
             String select =
                     "SELECT city.Name AS capitalCity, city.Population "
                             + "FROM city "
-                            + "JOIN country ON city.ID = country.Capital "
-                            + "Where country.continent = " + continentInput + " AND city.Name = country.capital"
+                            + "JOIN country ON city.ID = country.capital "
+                            + "Where country.continent = " + continent + " AND city.ID = country.capital"
                             + "ORDER BY city.Population DESC "
                             + "LIMIT " + limitInput;
 
@@ -685,12 +680,9 @@ public class App {
     }
 
     //Report.No.22 - The top N populated capital cities in a region where N and region is provided by the user.
-    //N has been set to 3; can be changed.
-    //Region has been set to Southern Europe; can be changed.
-    public ArrayList<City> topPopulatedCapitals_Region () {
+    public ArrayList<City> topPopulatedCapitalsInRegion (int limitInput, String regionInput) {
         try {
-            int limitInput = 3;
-            String regionInput = "Southern Europe";
+            String region = regionInput;
 
             //Create an SQL statement
             Statement TopCapCities_Region = con.createStatement();
@@ -699,8 +691,8 @@ public class App {
             String select =
                     "SELECT city.Name AS capitalCity, city.Population "
                             + "FROM city "
-                            + "JOIN country ON city.ID = country.Capital "
-                            + "Where country.region = " + regionInput + " AND city.Name = country.capital"
+                            + "JOIN country ON city.ID = country.capital "
+                            + "Where country.region = " + region + " AND city.ID = country.capital"
                             + "ORDER BY city.Population DESC "
                             + "LIMIT " + limitInput;
 
@@ -735,19 +727,17 @@ public class App {
     }
 
     //Report.No.4 - The top N populated countries in the world where N is provided by the user.
-    //N has been set to 3; can be changed.
-    public ArrayList<Country> topPopulatedCountries_World () {
+    public ArrayList<Country> topPopulatedCountriesInWorld (int limitInput) {
         try {
-            int limitInput = 3;
 
             //Create an SQL statement
             Statement TopCountries_World = con.createStatement();
 
             //Create string for SQL statement
             String select =
-                    "SELECT country.Name, country.Population "
+                    "SELECT country.name, country.population "
                             + "FROM country "
-                            + "ORDER BY country.Population DESC "
+                            + "ORDER BY country.population DESC "
                             + "LIMIT " + limitInput;
 
             //Execute SQL statement
@@ -790,23 +780,20 @@ public class App {
             return null;
         }
     }
-  
+
     //Report.No.5 - The top N populated countries in a continent where N is provided by the user.
-    //N has been set to 3; can be changed.
-    //Continent has been set to Europe; can be changed.
-    public ArrayList<Country> topPopulatedCountries_Continent () {
+    public ArrayList<Country> topPopulatedCountriesInContinent (int limitInput, String continentInput) {
         try {
-            int limitInput = 3;
-            String continentInput = "Europe";
+            String userContinent = continentInput;
 
             //Create an SQL statement
             Statement TopCountries_Continent = con.createStatement();
 
             //Create string for SQL statement
             String select =
-                    "SELECT country.Name, country.Population "
+                    "SELECT country.name, country.population "
                             + "FROM country "
-                            + "Where country.continent = continentInput "
+                            + "Where country.continent = " + userContinent
                             + "ORDER BY country.Population DESC "
                             + "LIMIT " + limitInput;
 
@@ -851,12 +838,9 @@ public class App {
     }
 
     //Report.No.15 - The top N populated cities in a country where N is provided by the user.
-    //N has been set to 3; can be changed.
-    //Country has been set to Canada; can be changed.
-    public ArrayList<City> topPopulatedCities_Country () {
+    public ArrayList<City> topPopulatedCitiesInCountry(int limitInput, String countryInput) {
         try {
-            int limitInput = 3;
-            String countryInput = "Southern Europe";
+            String userCountry = countryInput;
 
             //Create an SQL statement
             Statement TopCities_Country = con.createStatement();
@@ -865,7 +849,7 @@ public class App {
             String select =
                     "SELECT city.Name, city.Population "
                             + "FROM city "
-                            + "Where country.name = " + countryInput
+                            + "Where country.name = " + userCountry
                             + "ORDER BY city.Population DESC "
                             + "LIMIT " + limitInput;
 
@@ -896,15 +880,12 @@ public class App {
             return null;
         }
     }
-    
+
 
     //Report.No.16 - The top N populated cities in a district where N is provided by the user.
-    //N has been set to 3; can be changed.
-    //District has been set to Scotland; can be changed.
-    public ArrayList<City> topPopulatedCities_District () {
+    public ArrayList<City> topPopulatedCitiesInDistrict(int limitInput, String districtInput) {
         try {
-            int limitInput = 3;
-            String districtInput = "Scotland";
+            String userDistrict = districtInput;
 
             //Create an SQL statement
             Statement TopCities_District = con.createStatement();
@@ -913,7 +894,7 @@ public class App {
             String select =
                     "SELECT city.Name, city.Population "
                             + "FROM city "
-                            + "Where city.district = " + districtInput
+                            + "Where city.District = " + userDistrict
                             + "ORDER BY city.Population DESC "
                             + "LIMIT " + limitInput;
 
