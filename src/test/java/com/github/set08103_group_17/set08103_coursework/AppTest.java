@@ -1161,4 +1161,119 @@ public class AppTest {
         verify(mockStatement).executeQuery(contains("ORDER BY Population DESC"));
         verify(mockStatement).executeQuery(contains("LIMIT 3"));
     }
+
+    @Test
+    @DisplayName("Test population reports with null city population")
+    void testPopulationReportsWithNullCityPopulation() throws SQLException {
+        // Setup mock data
+        when(mockStatement.executeQuery(anyString())).thenReturn(mockResultSet);
+        when(mockResultSet.next())
+                .thenReturn(true)
+                .thenReturn(false);
+
+        // Test null city population handling for continent
+        when(mockResultSet.getString("Continent")).thenReturn("Test Continent");
+        when(mockResultSet.getLong("TotalPopulation")).thenReturn(1000000L);
+        when(mockResultSet.getLong("CityPopulation")).thenReturn(0L);  // Simulating NULL in database
+
+        ArrayList<Object[]> continentResult = app.getContinentPopulationReport();
+        assertNotNull(continentResult);
+        assertEquals(1, continentResult.size());
+        Object[] continentData = continentResult.get(0);
+        assertEquals("0.00%", continentData[4], "City percentage should be zero for null city population");
+        assertEquals("100.00%", continentData[5], "Rural percentage should be 100% for null city population");
+    }
+
+    @Test
+    @DisplayName("Test population reports percentage calculations")
+    void testPopulationReportPercentages() throws SQLException {
+        // Setup mock data
+        when(mockStatement.executeQuery(anyString())).thenReturn(mockResultSet);
+        when(mockResultSet.next())
+                .thenReturn(true)
+                .thenReturn(false);
+
+        // Test exact percentage calculations
+        when(mockResultSet.getString("Name")).thenReturn("Test Country");
+        when(mockResultSet.getLong("TotalPopulation")).thenReturn(1000000L);
+        when(mockResultSet.getLong("CityPopulation")).thenReturn(333333L);  // Should give 33.33%
+
+        ArrayList<Object[]> result = app.getCountryPopulationReport();
+        assertNotNull(result);
+        assertEquals(1, result.size());
+        Object[] countryData = result.get(0);
+        assertEquals("33.33%", countryData[4], "City percentage should be correctly rounded");
+        assertEquals("66.67%", countryData[5], "Rural percentage should be correctly rounded");
+    }
+
+    @Test
+    @DisplayName("Test population reports SQL join correctness")
+    void testPopulationReportJoins() throws SQLException {
+        // Setup mock data
+        when(mockStatement.executeQuery(anyString())).thenReturn(mockResultSet);
+
+        app.getCountryPopulationReport();
+
+        // Verify correct table joins and grouping
+        verify(mockStatement).executeQuery(contains("SELECT"));
+        verify(mockStatement).executeQuery(contains("FROM country"));
+        verify(mockStatement).executeQuery(contains("city.Population"));
+        verify(mockStatement).executeQuery(contains("SUM"));
+    }
+
+    @Test
+    @DisplayName("Test population reports with very large numbers")
+    void testPopulationReportsWithLargeNumbers() throws SQLException {
+        when(mockStatement.executeQuery(anyString())).thenReturn(mockResultSet);
+        when(mockResultSet.next())
+                .thenReturn(true)
+                .thenReturn(false);
+
+        // Test handling of large numbers (billions)
+        when(mockResultSet.getString("Region")).thenReturn("Test Region");
+        when(mockResultSet.getLong("TotalPopulation")).thenReturn(7800000000L);  // ~World population
+        when(mockResultSet.getLong("CityPopulation")).thenReturn(4300000000L);   // ~55% urban worldwide
+
+        ArrayList<Object[]> result = app.getRegionPopulationReport();
+        assertNotNull(result);
+        assertEquals(1, result.size());
+        Object[] regionData = result.get(0);
+        assertEquals(7800000000L, regionData[1], "Should handle world-scale population numbers");
+        assertEquals(4300000000L, regionData[2], "Should handle large city populations");
+        assertEquals("55.13%", regionData[4], "Should calculate correct percentage for large numbers");
+    }
+
+    @Test
+    @DisplayName("Test population reports sorting order")
+    void testPopulationReportSorting() throws SQLException {
+        when(mockStatement.executeQuery(anyString())).thenReturn(mockResultSet);
+        when(mockResultSet.next())
+                .thenReturn(true)
+                .thenReturn(true)
+                .thenReturn(true)
+                .thenReturn(false);
+
+        // Mock multiple regions with different populations
+        when(mockResultSet.getString("Region"))
+                .thenReturn("Region A")
+                .thenReturn("Region B")
+                .thenReturn("Region C");
+        when(mockResultSet.getLong("TotalPopulation"))
+                .thenReturn(1000000L)
+                .thenReturn(2000000L)
+                .thenReturn(3000000L);
+        when(mockResultSet.getLong("CityPopulation"))
+                .thenReturn(600000L)
+                .thenReturn(1200000L)
+                .thenReturn(1800000L);
+
+        ArrayList<Object[]> result = app.getRegionPopulationReport();
+        assertNotNull(result);
+        assertEquals(3, result.size());
+
+        // Verify the populations are in expected order
+        assertEquals(1000000L, result.get(0)[1]);
+        assertEquals(2000000L, result.get(1)[1]);
+        assertEquals(3000000L, result.get(2)[1]);
+    }
 }
