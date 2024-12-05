@@ -23,7 +23,7 @@ jobs:
 
       - name: Upload unit test coverage
         uses: codecov/codecov-action@v4
-        env:
+        with:
           token: ${{ secrets.CODECOV_TOKEN }}
 
   integration-test:
