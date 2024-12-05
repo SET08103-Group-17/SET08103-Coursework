@@ -9,18 +9,21 @@
     <version>0.1.0.3</version>
 
     <properties>
+        <!-- Build Properties -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <!-- Dependency versions -->
+        <!-- Core Dependencies -->
         <mysql.version>8.0.33</mysql.version>
+        <bytebuddy.version>1.15.4</bytebuddy.version>
+
+        <!-- Test Dependencies -->
         <junit.version>5.8.2</junit.version>
         <mockito.version>5.2.0</mockito.version>
-        <bytebuddy.version>1.15.4</bytebuddy.version>
         <testcontainers.version>1.19.3</testcontainers.version>
 
-        <!-- Plugin versions -->
+        <!-- Plugin Versions -->
         <assembly.plugin.version>3.3.0</assembly.plugin.version>
         <surefire.plugin.version>3.0.0-M5</surefire.plugin.version>
         <failsafe.plugin.version>3.2.5</failsafe.plugin.version>
@@ -28,7 +31,7 @@
     </properties>
 
     <dependencies>
-        <!-- MySQL Connector - Changed scope to compile -->
+        <!-- Runtime Dependencies -->
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
@@ -43,19 +46,7 @@
         <!-- Test Dependencies -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-params</artifactId>
+            <artifactId>junit-jupiter</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
@@ -65,8 +56,6 @@
             <version>${mockito.version}</version>
             <scope>test</scope>
         </dependency>
-
-        <!-- TestContainers Dependencies -->
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>testcontainers</artifactId>
@@ -89,12 +78,13 @@
 
     <build>
         <plugins>
-            <!-- Assembly Plugin -->
+            <!-- Assembly Configuration -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>${assembly.plugin.version}</version>
                 <configuration>
+                    <finalName>SET08103-Coursework</finalName>
                     <archive>
                         <manifest>
                             <mainClass>com.github.set08103_group_17.set08103_coursework.App</mainClass>
@@ -103,6 +93,7 @@
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
+                    <appendAssemblyId>false</appendAssemblyId>
                 </configuration>
                 <executions>
                     <execution>
@@ -115,7 +106,7 @@
                 </executions>
             </plugin>
 
-            <!-- Surefire Plugin Configuration -->
+            <!-- Test Configuration -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -123,23 +114,41 @@
                 <configuration>
                     <includes>
                         <include>**/*Test.java</include>
-                        <include>**/*Tests.java</include>
                     </includes>
                     <excludes>
-                        <exclude>**/*IT.java</exclude>
                         <exclude>**/*IntegrationTest.java</exclude>
                     </excludes>
                 </configuration>
             </plugin>
 
-            <!-- Failsafe Plugin Configuration -->
+            <!-- Coverage Reporting -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.11</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Integration Test Configuration -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>${failsafe.plugin.version}</version>
                 <configuration>
                     <includes>
-                        <include>**/*IT.java</include>
                         <include>**/*IntegrationTest.java</include>
                     </includes>
                 </configuration>
@@ -152,6 +161,7 @@
                     </execution>
                 </executions>
             </plugin>
+
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
