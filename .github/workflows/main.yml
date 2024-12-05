@@ -19,7 +19,7 @@ jobs:
           distribution: 'adopt'
 
       - name: Run unit tests
-        run: mvn test
+        run: mvn test jacoco:report
 
       - name: Upload unit test coverage
         uses: codecov/codecov-action@v4
@@ -40,7 +40,7 @@ jobs:
           distribution: 'adopt'
 
       - name: Run integration tests
-        run: mvn verify -DskipUnitTests
+        run: mvn verify -DskipUnitTests jacoco:report
 
       - name: Upload integration test coverage
         uses: codecov/codecov-action@v4
