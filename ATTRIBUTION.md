@@ -56,6 +56,12 @@ All Maven plugins are licensed under the Apache License 2.0:
 - Version: 3.5.0
 - Website: https://www.mojohaus.org/build-helper-maven-plugin/
 
+## JaCoCo Maven Plugin
+- Version: 0.8.11
+- Website: https://www.jacoco.org/jacoco/
+- Copyright: Copyright © 2006, 2017 Mountainminds GmbH & Co. KG and Contributors
+
+
 ## License Texts
 
 ### GNU General Public License v2.0 with FOSS Exception
