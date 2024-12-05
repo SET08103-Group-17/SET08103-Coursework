@@ -249,10 +249,7 @@ public class AppIntegrationTest {
     }
 
     /**
-     * Tests handling of large datasets:
-     * - Batch data insertion
-     * - Memory efficiency with large result sets
-     * - Performance with significant data volume
+     * Tests handling of large datasets
      */
     @Test
     @DisplayName("Test large dataset handling")
